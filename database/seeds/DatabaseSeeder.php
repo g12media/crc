@@ -41,6 +41,21 @@ class DatabaseSeeder extends Seeder
             'userId' => '1',
         ]);
 
+        DB::table('users')->insert([
+            'userType' => 'admin',
+            'contactType' => 'ministerio',
+            'name' => 'Daniel y Erika Berrios',
+            'lastName' => 'Alonso',
+            'city' => 'Bogota',
+            'phone' => '00000000',
+            'email' => 'danielyerika@gmail.com',
+            'username' => 'daniel_erika',
+            'password' => bcrypt('daniel@erika'),
+            'level' => '12',
+            'leaderPrincipal' => '1',
+            'userId' => '1',
+        ]);
+
         DB::table('Roles')->insert([
             'name' => 'Propietario',
         ]);
