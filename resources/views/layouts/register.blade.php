@@ -65,6 +65,24 @@
         font-size: 20px;
         font-family: Helvetica;
     }
+    .page-content{
+      width: 100%;
+    }
+    .table td, .table th {
+
+    background: white;
+}
+
+.page-register-v3 .panel {
+    width: 100%;
+}
+h4 {
+    margin-top: 12px !important;
+}
+li {
+    text-align: justify;
+    margin-bottom: 10px;
+}
     </style>
   </head>
   <body class="animsition page-register-v3 layout-full">

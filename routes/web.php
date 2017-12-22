@@ -40,7 +40,7 @@ Route::post('/formulario/{id}', 'AdministratorController@saveFormRegister');
 
 
 //Route::get('login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@Login']);
-Route::post('/login', ['as' => 'auth.login', 'uses' => 'Auth\LoginController@authenticate']);
+Route::post('/login', ['as' => 'login', 'uses' => 'Auth\LoginController@authenticate']);
 
 Route::get('/logout', ['as' => 'auth.logout', 'uses' => 'Auth\LoginController@logout']);
 

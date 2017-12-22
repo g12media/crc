@@ -119,6 +119,7 @@ class AdministratorController extends Controller
         $User->phone = $request->phone;
         $User->email = $request->email;
         $User->location = $request->location;
+        $User->locationVote = $request->locationVote;
         $User->neighborhood = $request->neighborhood;
         $User->leaderPrincipal = $user_principal->id;
         $User->level = 144;
@@ -143,6 +144,7 @@ class AdministratorController extends Controller
         $User->phone = $request->phone;
         $User->email = $request->email;
         $User->location = $request->location;
+        $User->locationVote = $request->locationVote;
         $User->neighborhood = $request->neighborhood;
         if($userLeader->level == 144){
           $User->level = 1728;
@@ -172,7 +174,9 @@ class AdministratorController extends Controller
       return $user;
     }
     public function getFormRegister($userId){
-      return view('admin.users.register')->with('userId',$userId);
+      $user = User::find(Crypt::decrypt($userId));
+      $users = User::where('userId',Crypt::decrypt($userId))->get();
+      return view('admin.users.register')->with('userId',$userId)->with('user',$user)->with('users',$users);
     }
 
     public function saveFormRegister(Request $request){
@@ -181,7 +185,7 @@ class AdministratorController extends Controller
       $user_principal = User::find($userLeader->leaderPrincipal);
       $User = new User;
       $User->userType = 'user';
-      $User->contactType = 'contacto';
+      $User->contactType = 'ministerio';
       $User->identification = $request->identification;
       $User->name = $request->name;
       $User->lastName = $request->lastName;
@@ -189,6 +193,7 @@ class AdministratorController extends Controller
       $User->phone = $request->phone;
       $User->email = $request->email;
       $User->location = $request->location;
+      $User->locationVote = $request->locationVote;
       $User->neighborhood = $request->neighborhood;
       if($userLeader->level == 144){
         $User->level = 1728;
