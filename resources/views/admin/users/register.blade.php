@@ -128,8 +128,8 @@
                   <td>{{$u->email}}</td>
 
                   <td>
-                    if($u->level == 1728)
-                    
+                    @if($u->level == 1728)
+
                     @else
                     <a href="/formulario/{{Crypt::encrypt($u->id)}}" target="_blank">
                       <button type="button" class="btn btn-primary">

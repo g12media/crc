@@ -23,12 +23,13 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('address')->nullable();
             $table->string('location')->nullable();
+            $table->string('locationVote')->nullable();
             $table->string('neighborhood')->nullable();
             $table->string('city')->nullable();
             $table->string('phone')->nullable();
             $table->string('imageProfile')->nullable();
-            $table->string('email')->unique();
-            $table->string('username')->unique();
+            $table->string('email')->nullable();
+            $table->string('username')->nullable();
             $table->string('password')->nullable();
             $table->integer('level')->nullable();
             $table->integer('leaderPrincipal')->nullable();
