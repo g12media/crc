@@ -114,6 +114,27 @@
             </div>
           </div>
         </div>
+
+        <div class="card card-block p-20 bg-blue-600">
+              <div class="counter counter-lg counter-inverse">
+                <div class="counter-label text-uppercase font-size-16">Equipo</div>
+                <div class="counter-number-group">
+                  <span class="counter-number">{{$usersGeneralCount}}</span>
+                  <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card card-block p-20 bg-blue-600">
+              <div class="counter counter-lg counter-inverse">
+                <div class="counter-label text-uppercase font-size-16">Contactos</div>
+                <div class="counter-number-group">
+                  <span class="counter-number">{{$usersContactsCount}}</span>
+                  <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+                </div>
+
+              </div>
+            </div>
         <!-- End Page Widget -->
       </div>
 
@@ -123,9 +144,8 @@
           <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
             <ul class="nav nav-tabs nav-tabs-line" role="tablist">
               <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#activities"
-                  aria-controls="activities" role="tab">Hombres</a></li>
-              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#profile" aria-controls="profile"
-                  role="tab">Mujeres</a></li>
+                  aria-controls="activities" role="tab">Equipo</a></li>
+
             </ul>
 
             <div class="tab-content">
@@ -206,84 +226,12 @@
     </div>
 
     <div class="row">
-      <div class="panel-body" style="padding:15px 0px 0px 0px;width:100%;">
-        <!-- Panel -->
-        <div class="panel">
-          <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
-            <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#graficas"
-                  aria-controls="activities" role="tab">Graficas</a></li>
-              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#datos" aria-controls="profile"
-                  role="tab">Datos Generales</a></li>
-            </ul>
-
-            <div class="tab-content">
-              <div class="tab-pane active animation-slide-left" id="graficas" role="tabpanel">
-                <div class="panel-body" style="padding:15px 0px 0px 0px;">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div style="width:100%;">
-                          {!! $chartjs->render() !!}
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
-              </div>
-
-              <div class="tab-pane animation-slide-left" id="datos" role="tabpanel">
-                <div class="panel-body" style="padding:15px 0px 0px 0px; width:100%;">
-                  <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
-                    <thead>
-                      <tr>
-                        <th>Cedula</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Genero</th>
-                        <th>Email</th>
-                        <th>Telefono</th>
-                        <th>Localidad</th>
-                        <th>Barrio</th>
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th>Cedula</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Genero</th>
-                        <th>Email</th>
-                        <th>Telefono</th>
-                        <th>Localidad</th>
-                        <th>Barrio</th>
-                      </tr>
-                    </tfoot>
-                    <tbody>
-                      @foreach($usersGeneral as $ug)
-                      <tr>
-                        <td><a href="/administrator/users/{{Crypt::encrypt($ug->id)}}">{{$ug->identification}}</a></td>
-                        <td>{{$ug->name}}</td>
-                        <td>{{$ug->lastName}}</td>
-                        <td>{{$ug->gender}}</td>
-                        <td>{{$ug->email}}</td>
-                        <td>{{$ug->phone}}</td>
-                        <td>{{$ug->location}}</td>
-                        <td>{{$ug->neighborhood}}</td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-
-            </div>
-          </div>
-        </div>
-        <!-- End Panel -->
-
-      </div>
+      <div class="col-4">
+    {!! $chartjs->render() !!}
+  </div>
+  <div class="col-6">
+    {!! $hBar->render() !!}
+  </div>
     </div>
   </div>
 

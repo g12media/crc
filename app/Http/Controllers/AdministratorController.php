@@ -55,46 +55,98 @@ class AdministratorController extends Controller
         $usersMen = User::where('userId',$user->id)->where('gender','masculino')->get();
         $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->get();
         $usersGeneral = User::where('leaderPrincipal',$user->id)->get();
-        $usersGeneralCount = User::where('leaderPrincipal',$user->id)->count();
+
+
+        $usersGeneralCount = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
+        $usersContactsCount = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
+
+        $l1 = User::where('location','Antonio Nariño')->count();
+        $l2 = User::where('location','Barrios Unidos')->count();
+        $l3 = User::where('location','Bosa')->count();
+        $l4 = User::where('location','Chapinero')->count();
+        $l5 = User::where('location','Ciudad Bolivar')->count();
+        $l6 = User::where('location','Fontibon')->count();
+        $l7 = User::where('location','Kennedy')->count();
+        $l8 = User::where('location','La Candelaria')->count();
+        $l9 = User::where('location','Los Martires')->count();
+        $l10 = User::where('location','Puente Aranda')->count();
+        $l11 = User::where('location','Rafael Uribe Uribe')->count();
+        $l12 = User::where('location','San Cristobal')->count();
+        $l13 = User::where('location','Santa Fe')->count();
+        $l14 = User::where('location','Sumapaz')->count();
+        $l15 = User::where('location','Teusaquillo')->count();
+        $l16 = User::where('location','Tunjuelito')->count();
+        $l17 = User::where('location','Usaquen')->count();
+        $l18 = User::where('location','Usme')->count();
+
+         $chartjs =
+          app()->chartjs
+          ->name('pieChartTest')
+          ->type('pie')
+          ->size(['width' => 270, 'height' => 200])
+          ->labels(['Antonio Nariño', 'Barrios Unidos', 'Bosa', 'Chapinero', 'Ciudad Bolivar', 'Fontibon', 'Kennedy', 'La Candelaria', 'Los Martires', 'Puente Aranda', 'Rafael Uribe', 'San Cristobal', 'Santa Fe', 'Suba', 'Sumapaz', 'Teusaquillo', 'Tunjuelito', 'Usaquen', 'Usme'])
+          ->datasets([
+              [
+                  "label" => "Contactos",
+                  'backgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                  'hoverBackgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                  'data' => [$l1,$l2,$l3,$l4,$l5,$l6,$l7,$l8,$l9,$l10,$l11,$l12,$l13,$l14,$l15,$l16,$l17,$l18]
+              ],
+          ])
+          ->optionsRaw([
+              'legend' => [
+                  'display' => false,
+              ],
+          ]);
+
+          $usersPrincipal = User::where('leaderPrincipal',$user->id)->where('id','!=',$user->id)->select('id','name')->get();
+
+          $contactosArray = array();
+          $grupoArray = array();
+          
+          foreach($usersPrincipal as $ups){
+            $g = User::where('leaderPrincipal',$ups->id)->where('id','!=',$ups->id)->where('contactType','ministerio')->select('id','name')->count();
+            $c = User::where('leaderPrincipal',$ups->id)->where('id','!=',$ups->id)->where('contactType','contacto')->select('id','name')->count();
+            array_push($grupoArray,$g);
+            array_push($contactosArray,$c);
+          }
+
+
+          $arrayUsersPrincipal = array();
+          foreach($usersPrincipal as $up){
+            array_push($arrayUsersPrincipal,$up->name);
+          }
+
+          $hBar =
+           app()->chartjs
+           ->name('barChartTest')
+           ->type('horizontalBar')
+           ->size(['width' => 270, 'height' => 200])
+           ->labels($arrayUsersPrincipal)
+           ->datasets([
+               [
+                   "label" => "Equipo",
+                   'backgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                   'hoverBackgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                   'data' => $grupoArray
+               ],
+               [
+                   "label" => "Contactos",
+                   'backgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                   'hoverBackgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                   'data' => $contactosArray
+               ],
+           ])
+           ->optionsRaw([
+               'legend' => [
+                   'display' => false,
+               ],
+           ]);
 
 
 
-        $l1 = User::where('leaderPrincipal',$user->id)->where('location','Antonio Nariño')->count();
-        $l2 = User::where('leaderPrincipal',$user->id)->where('location','Barrios Unidos')->count();
-        $l3 = User::where('leaderPrincipal',$user->id)->where('location','Bosa')->count();
-        $l4 = User::where('leaderPrincipal',$user->id)->where('location','Chapinero')->count();
-        $l5 = User::where('leaderPrincipal',$user->id)->where('location','Ciudad Bolivar')->count();
-        $l6 = User::where('leaderPrincipal',$user->id)->where('location','Fontibon')->count();
-        $l7 = User::where('leaderPrincipal',$user->id)->where('location','Kennedy')->count();
-        $l8 = User::where('leaderPrincipal',$user->id)->where('location','La Candelaria')->count();
-        $l9 = User::where('leaderPrincipal',$user->id)->where('location','Los Martires')->count();
-        $l10 = User::where('leaderPrincipal',$user->id)->where('location','Puente Aranda')->count();
-        $l11 = User::where('leaderPrincipal',$user->id)->where('location','Rafael Uribe Uribe')->count();
-        $l12 = User::where('leaderPrincipal',$user->id)->where('location','San Cristobal')->count();
-        $l13 = User::where('leaderPrincipal',$user->id)->where('location','Santa Fe')->count();
-        $l14 = User::where('leaderPrincipal',$user->id)->where('location','Sumapaz')->count();
-        $l15 = User::where('leaderPrincipal',$user->id)->where('location','Teusaquillo')->count();
-        $l16 = User::where('leaderPrincipal',$user->id)->where('location','Tunjuelito')->count();
-        $l17 = User::where('leaderPrincipal',$user->id)->where('location','Usaquen')->count();
-        $l18 = User::where('leaderPrincipal',$user->id)->where('location','Usme')->count();
 
-
-        $chartjs = app()->chartjs
-         ->name('barChartTest')
-         ->type('bar')
-         ->size(['width' => 400, 'height' => 100])
-         ->labels(['Antonio Nariño', 'Barrios Unidos', 'Bosa', 'Chapinero', 'Ciudad Bolivar', 'Fontibon', 'Kennedy', 'La Candelaria', 'Los Martires', 'Puente Aranda', 'Rafael Uribe', 'San Cristobal', 'Santa Fe', 'Suba', 'Sumapaz', 'Teusaquillo', 'Tunjuelito', 'Usaquen', 'Usme'])
-         ->datasets([
-             [
-                 "label" => "Contactos",
-                 'backgroundColor' => ['rgba(255, 99, 132, 0.2)'],
-                 'data' => [$l1,$l2,$l3,$l4,$l5,$l6,$l7,$l8,$l9,$l10,$l11,$l12,$l13,$l14,$l15,$l16,$l17,$l18]
-             ],
-
-         ])
-         ->options([]);
-
-         $gender_chart = app()->chartjs
+        $gender_chart = app()->chartjs
         ->name('pieChartTest')
         ->type('pie')
         ->size(['width' => 400, 'height' => 200])
@@ -114,9 +166,11 @@ class AdministratorController extends Controller
         ->with('usersWomen',$usersWomen)
         ->with('user',$user)
         ->with('usersGeneralCount',$usersGeneralCount)
-
+        ->with('usersContactsCount',$usersContactsCount)
+        ->with('hBar',$hBar)
         ->with('gender_chart',$gender_chart)
         ->with('chartjs',$chartjs);
+
 
 
     }
