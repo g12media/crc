@@ -14,9 +14,14 @@
 Route::get('/', function () {
     return redirect('administrator/users/');
 });
+
+Route::get('/check/user', 'AdministratorController@checkUser');
+
 Route::get('/login', function () {
     return view('login');
 });
+
+
 Route::group(['prefix'=>'superadmin','middleware'=>['auth','AccessSuperAdmin']],function(){
   Route::get('/', 'SuperAdminController@dashboard');
 });
@@ -27,6 +32,7 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
           Route::get('/', 'AdministratorController@getUsers');
           Route::get('/{id}', 'AdministratorController@getUsersByProfile');
           Route::post('/add', 'AdministratorController@saveUsers');
+          Route::post('/delete', 'AdministratorController@deleteUser');
           Route::post('/add/{id}', 'AdministratorController@saveUserProfile');
       });
 

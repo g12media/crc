@@ -23,7 +23,32 @@ class AdministratorController extends Controller
       return redirect('administrator/users/');
     }
 
+    public function checkUser(Request $request){
+        $identification = $request->identification;
+        $count = User::where('identification', '=', $identification)->count();
+        if($count == 0){
+          return json_encode(array("valid" => true));
+        }else{
+          return json_encode(array("valid" => false));
+        }
+    }
 
+    public function deleteUser(Request $request){
+      $identification = $request->identification;
+      $userId = $request->userId;
+      $leader = $request->leader;
+
+      $count = User::where('identification', '=', $identification)->where('id', '=', $userId)->count();
+      if($count == 0){
+        return redirect('administrator/users/'.$leader);
+      }else{
+        //Delete Users
+        DB::table('users')->where('userId', '=', $userId)->delete();
+        $user = User::find($userId);
+        $user->delete();
+        return redirect('administrator/users/'.$leader);
+      }
+    }
 
     public function getUsers(){
         $user = Auth::user();

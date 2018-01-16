@@ -27,8 +27,8 @@
     <link rel="stylesheet" href="{{URL::asset('admin/global/vendor/slidepanel/slidePanel.css')}}">
     <link rel="stylesheet" href="{{URL::asset('admin/global/vendor/flag-icon-css/flag-icon.css')}}">
     <link rel="stylesheet" href="{{URL::asset('admin/assets/examples/css/pages/register-v3.css')}}">
-
-
+    <link rel="stylesheet" href="{{URL::asset('admin/global/vendor/formvalidation/formValidation.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('admin/assets/examples/css/forms/validation.css')}}">
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{URL::asset('admin/global/fonts/glyphicons/glyphicons.css')}}">
@@ -110,6 +110,9 @@ li {
     <script src="{{URL::asset('admin/global/vendor/screenfull/screenfull.js')}}"></script>
     <script src="{{URL::asset('admin/global/vendor/slidepanel/jquery-slidePanel.js')}}"></script>
     <script src="{{URL::asset('admin/global/vendor/jquery-placeholder/jquery.placeholder.js')}}"></script>
+    <script src="{{URL::asset('admin/global/vendor/formvalidation/formValidation.js')}}"></script>
+    <script src="{{URL::asset('admin/global/vendor/formvalidation/framework/bootstrap4.min.js')}}"></script>
+
 
     <!-- Scripts -->
     <script src="{{URL::asset('admin/global/js/Component.js')}}"></script>
@@ -144,5 +147,8 @@ li {
         });
       })(document, window, jQuery);
     </script>
+
+
+    @yield('script_validation')
   </body>
 </html>

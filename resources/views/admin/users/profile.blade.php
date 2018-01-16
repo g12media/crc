@@ -155,6 +155,7 @@
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Email</th>
+                        <th>Opciones</th>
                       </tr>
                     </thead>
                     <tfoot>
@@ -163,6 +164,7 @@
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Email</th>
+                        <th>Opciones</th>
                       </tr>
                     </tfoot>
                     <tbody>
@@ -172,6 +174,11 @@
                         <td>{{$um->name}}</td>
                         <td>{{$um->lastName}}</td>
                         <td>{{$um->email}}</td>
+                        <td>
+                          <button type="button" class="" data-target="#deleteUserForm" data-toggle="modal" onclick="loadIdDelete({{$um->id}})">
+                          <i class="icon fa-trash" aria-hidden="true"></i>
+                          </button>
+                        </td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -245,10 +252,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Agregar al Equipo de 12</h4>
+
       </div>
       <div class="modal-body">
-
+          <center>  <h4 class="modal-title">Formulario Registro</h4></center>
+          <br>
           <div class="form-group">
             <input type="text" class="form-control" name="identificacion" placeholder="Identificacion" required/>
           </div>
@@ -335,6 +343,37 @@
 {!! Form::close() !!}
 <!-- End Add User Form -->
 
+
+
+<!-- Add User Form -->
+{!! Form::open(array('url' => 'administrator/users/delete/', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
+<div class="modal fade" id="deleteUserForm" aria-hidden="true" aria-labelledby="deleteUserForm" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-simple">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+      </div>
+      <div class="modal-body">
+          <center>  <h4 class="modal-title">Eliminar Usuario</h4></center>
+          <input type="hidden" name="userId" id="userId" value="" />
+          <input type="hidden" name="leader" value="{{Crypt::encrypt($user->id)}}" />
+          <br>
+          <p>Recuerde que eliminara un usuario y su red descendente (Contactos y Grupo) por lo cual solicitamos la confirmacion del documento para eliminar el usuario</p>
+          <div class="form-group">
+
+            <input type="text" class="form-control" name="identification" placeholder="Identificacion" required/>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" type="submit">Eliminar</button>
+        <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{!! Form::close() !!}
+<!-- End Add User Form -->
+
 @stop
 
 @section('plugins_script')
@@ -375,5 +414,9 @@
 <script src="{{URL::asset('admin/assets/examples/js/tables/datatable.js')}}"></script>
 
 <script src="{{URL::asset('admin/assets/js/dashboard.js')}}"></script>
-
+<script>
+  function loadIdDelete(Id){
+    $('#userId').val(Id);
+  }
+</script>
 @stop
