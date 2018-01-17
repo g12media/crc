@@ -162,18 +162,7 @@
             </table>
           </div>
         </div>
-        <div class="panel">
-          <div class="panel-body">
-            <h4>Instrucciones</h4>
-            <ul>
-              <li>Diligenciar el formulario con Informacion real, de ser necesario tomese el tiempo de coseguir todos los datos.</li>
-              <li>El cupo maximo para registrar son 12 personas (Su equipo de 12), si desea agregar mas personas comuniquese con su asistente.</li>
-              <li>En la tabla superior encontrar los datos que ha registrado de su ministerio, cada usuario tiene un formulario <strong>unico y personal </strong> <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i> el cual usted debera compartir especificamente a ese discipulo para que el diligencia la información de su ministerio tal cual como usted lo ha realizado.</li>
-              <li>Si ha ingresado algun dato incorrecto y desea editarlo porfavor comuniquese con la asistente de su ministerio</li>
-              <li>El link del formulario sera generado hasta la linea de los 1728 del pastor Cesar Castellanos</li>
-            </ul>
-          </div>
-        </div>
+  
       </div>
     </div>
       <footer class="page-copyright page-copyright-inverse">
