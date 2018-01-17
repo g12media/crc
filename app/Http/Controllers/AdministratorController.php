@@ -59,6 +59,68 @@ class AdministratorController extends Controller
         $usersTotal = User::all()->count();
         $usersTotalCount = $usersTotal - 1;
 
+        $users12 = User::where('userId',$user->id)->select('id','name')->get();
+
+        $contactos12Array = array();
+        $grupo12Array = array();
+
+        foreach($users12 as $ups12){
+          $g12 = User::where('userId',$ups12->id)->where('id','!=',$ups12->id)->where('contactType','ministerio')->select('id','name')->count();
+
+          if($g12 != 0){
+             $g12select1 = User::where('userId',$ups12->id)->where('id','!=',$ups12->id)->where('contactType','ministerio')->select('id','name')->get();
+             foreach($g12select1 as $gs12){
+               $g12level1 = User::where('userId',$gs12->id)->where('id','!=',$gs12->id)->where('contactType','ministerio')->select('id','name')->count();
+               $g12 = $g12level1 + $g12;
+             }
+          }
+
+          $c12 = User::where('userId',$ups12->id)->where('id','!=',$ups12->id)->where('contactType','contacto')->select('id','name')->count();
+
+          if($c12 != 0){
+             $c12select1 = User::where('userId',$ups12->id)->where('id','!=',$ups12->id)->where('contactType','ministerio')->select('id','name')->get();
+             foreach($c12select1 as $cs12){
+               $c12level1 = User::where('userId',$cs12->id)->where('id','!=',$cs12->id)->where('contactType','ministerio')->select('id','name')->count();
+               $c12 = $c12level1 + $c12;
+             }
+          }
+
+          array_push($grupo12Array,$g12);
+          array_push($contactos12Array,$c12);
+
+        }
+
+        $arrayUsersPrincipal = array();
+        foreach($users12 as $u12){
+          array_push($arrayUsersPrincipal,$u12->name);
+        }
+
+        $hBar12 =
+         app()->chartjs
+         ->name('ChartTest')
+         ->type('horizontalBar')
+         ->size(['width' => 270, 'height' => 200])
+         ->labels($arrayUsersPrincipal)
+         ->datasets([
+             [
+                 "label" => "Equipo",
+                 'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#61C80D', '#7AD11A', '#93DA27', '#ACE334', '#C5EC41', '#DEF54E', '#F8FF5C'],
+                 'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#61C80D', '#7AD11A', '#93DA27', '#ACE334', '#C5EC41', '#DEF54E', '#F8FF5C'],
+                 'data' => $grupo12Array
+             ],
+             [
+                 "label" => "Contactos",
+                 'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#61C80D', '#7AD11A', '#93DA27', '#ACE334', '#C5EC41', '#DEF54E', '#F8FF5C'],
+                 'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#61C80D', '#7AD11A', '#93DA27', '#ACE334', '#C5EC41', '#DEF54E', '#F8FF5C'],
+                 'data' => $contactos12Array
+             ],
+         ])
+         ->optionsRaw([
+             'legend' => [
+                 'display' => false,
+             ],
+         ]);
+
         $usersGeneralCount = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
         $usersContactsCount = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
 
@@ -181,6 +243,7 @@ class AdministratorController extends Controller
         ->with('usersContactsCount',$usersContactsCount)
         ->with('usersTotalCount',$usersTotalCount)
         ->with('hBar',$hBar)
+        ->with('hBar12',$hBar12)
         ->with('gender_chart',$gender_chart)
         ->with('chartjs',$chartjs);
 

@@ -114,7 +114,7 @@
             </div>
           </div>
         </div>
-
+        @if($user->level == 1)
           <div class="card card-block p-20 bg-blue-600">
             <div class="counter counter-lg counter-inverse">
               <div class="counter-label text-uppercase font-size-16">Total Usuarios</div>
@@ -124,7 +124,7 @@
               </div>
             </div>
           </div>
-
+          @endif
             <div class="card card-block p-20 bg-blue-600">
               <div class="counter counter-lg counter-inverse">
                 <div class="counter-label text-uppercase font-size-16">Equipo</div>
@@ -154,8 +154,8 @@
           <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
             <ul class="nav nav-tabs nav-tabs-line" role="tablist">
               @if($user->level == 1)
-              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#mens"
-                  aria-controls="activities" role="tab">Equipo</a></li>
+                <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#mens"
+                    aria-controls="activities" role="tab">Equipo</a></li>
               @else
               <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#mens"
                   aria-controls="activities" role="tab">Hombres</a></li>
@@ -248,9 +248,15 @@
       <div class="col-6">
         {!! $chartjs->render() !!}
       </div>
-      <div class="col-6">
-        {!! $hBar->render() !!}
-      </div>
+      @if($user->level == 1)
+        <div class="col-6">
+          {!! $hBar->render() !!}
+        </div>
+      @else
+        <div class="col-6">
+          {!! $hBar12->render() !!}
+        </div>
+      @endif
     </div>
   </div>
 
