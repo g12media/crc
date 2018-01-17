@@ -130,6 +130,26 @@
             </div>
           </div>
         </div>
+        <div class="card card-block p-20 bg-blue-600">
+          <div class="counter counter-lg counter-inverse">
+            <div class="counter-label text-uppercase font-size-16">Equipo</div>
+            <div class="counter-number-group">
+              <span class="counter-number">{{$usuarios}}</span>
+              <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-block p-20 bg-blue-600">
+          <div class="counter counter-lg counter-inverse">
+            <div class="counter-label text-uppercase font-size-16">Contactos</div>
+            <div class="counter-number-group">
+              <span class="counter-number">{{$usuarios_contacto}}</span>
+              <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+            </div>
+
+          </div>
+        </div>
         <!-- End Page Widget -->
       </div>
 

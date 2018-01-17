@@ -115,7 +115,17 @@
           </div>
         </div>
 
-        <div class="card card-block p-20 bg-blue-600">
+          <div class="card card-block p-20 bg-blue-600">
+            <div class="counter counter-lg counter-inverse">
+              <div class="counter-label text-uppercase font-size-16">Total Usuarios</div>
+              <div class="counter-number-group">
+                <span class="counter-number">{{$usersTotalCount}}</span>
+                <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+              </div>
+            </div>
+          </div>
+
+            <div class="card card-block p-20 bg-blue-600">
               <div class="counter counter-lg counter-inverse">
                 <div class="counter-label text-uppercase font-size-16">Equipo</div>
                 <div class="counter-number-group">
@@ -226,12 +236,12 @@
     </div>
 
     <div class="row">
-      <div class="col-4">
-    {!! $chartjs->render() !!}
-  </div>
-  <div class="col-6">
-    {!! $hBar->render() !!}
-  </div>
+      <div class="col-6">
+        {!! $chartjs->render() !!}
+      </div>
+      <div class="col-6">
+        {!! $hBar->render() !!}
+      </div>
     </div>
   </div>
 

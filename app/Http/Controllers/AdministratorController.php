@@ -56,6 +56,8 @@ class AdministratorController extends Controller
         $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->get();
         $usersGeneral = User::where('leaderPrincipal',$user->id)->get();
 
+        $usersTotal = User::all()->count();
+        $usersTotalCount = $usersTotal - 1;
 
         $usersGeneralCount = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
         $usersContactsCount = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
@@ -83,19 +85,21 @@ class AdministratorController extends Controller
           app()->chartjs
           ->name('pieChartTest')
           ->type('pie')
-          ->size(['width' => 270, 'height' => 200])
+          ->size(['width' => 390, 'height' => 230])
           ->labels(['Antonio Nariño', 'Barrios Unidos', 'Bosa', 'Chapinero', 'Ciudad Bolivar', 'Fontibon', 'Kennedy', 'La Candelaria', 'Los Martires', 'Puente Aranda', 'Rafael Uribe', 'San Cristobal', 'Santa Fe', 'Suba', 'Sumapaz', 'Teusaquillo', 'Tunjuelito', 'Usaquen', 'Usme'])
           ->datasets([
               [
                   "label" => "Contactos",
-                  'backgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
-                  'hoverBackgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                  'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
+                  'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
                   'data' => [$l1,$l2,$l3,$l4,$l5,$l6,$l7,$l8,$l9,$l10,$l11,$l12,$l13,$l14,$l15,$l16,$l17,$l18]
               ],
           ])
           ->optionsRaw([
               'legend' => [
-                  'display' => false,
+                  'display' => true,
+                  'position' => 'left',
+
               ],
           ]);
 
@@ -103,7 +107,7 @@ class AdministratorController extends Controller
 
           $contactosArray = array();
           $grupoArray = array();
-          
+
           foreach($usersPrincipal as $ups){
             $g = User::where('leaderPrincipal',$ups->id)->where('id','!=',$ups->id)->where('contactType','ministerio')->select('id','name')->count();
             $c = User::where('leaderPrincipal',$ups->id)->where('id','!=',$ups->id)->where('contactType','contacto')->select('id','name')->count();
@@ -126,14 +130,14 @@ class AdministratorController extends Controller
            ->datasets([
                [
                    "label" => "Equipo",
-                   'backgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
-                   'hoverBackgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                   'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
+                   'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
                    'data' => $grupoArray
                ],
                [
                    "label" => "Contactos",
-                   'backgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
-                   'hoverBackgroundColor' => ['#1A237E', '#303F9F', '#3F51B5', '#0D47A1', '#0288D1', '#00838F', '#4DB6AC', '#F9A825', '#FBC02D', '#F9A825', '#FFEB3B', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#F9A825', '#BBDEFB'],
+                   'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
+                   'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
                    'data' => $contactosArray
                ],
            ])
@@ -167,6 +171,7 @@ class AdministratorController extends Controller
         ->with('user',$user)
         ->with('usersGeneralCount',$usersGeneralCount)
         ->with('usersContactsCount',$usersContactsCount)
+        ->with('usersTotalCount',$usersTotalCount)
         ->with('hBar',$hBar)
         ->with('gender_chart',$gender_chart)
         ->with('chartjs',$chartjs);
@@ -179,7 +184,66 @@ class AdministratorController extends Controller
       $user = User::find(Crypt::decrypt($userId));
       $users = User::where('userId',$user->id)->where('contactType','ministerio')->get();
       $usersContact = User::where('userId',$user->id)->where('contactType','contacto')->get();
-      return view('admin.users.profile')->with('users',$users)->with('usersContact',$usersContact)->with('user',$user);
+
+      // consulta ministerio debajo
+
+      $level1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->count();
+      if($level1 != 0){
+        $usuarios = $level1;
+        $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->get();
+        foreach($usuarioslevel1 as $ul1) {
+          $level2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->count();
+          if ($level2 != 0) {
+            $usuarios = $usuarios + $level2;
+            $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->get();
+            foreach($usuarioslevel2 as $ul2){
+              $level3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->count();
+              if ($level3 != 0) {
+                $usuarios = $usuarios + $level3;
+                $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->get();
+                foreach($usuarioslevel3 as $ul3){
+                  $level4 = User::where('userId','=',$ul3->id)->where('contactType','ministerio')->count();
+                  $usuarios = $usuarios + $level4;
+                }
+              }
+            }
+          }
+
+        }
+      }else {
+        $usuarios = 0;
+      }
+
+      // consulta contactos debajo
+
+      $level1 = User::where('userId','=',$user->id)->where('contactType','contacto')->count();
+      if($level1 != 0){
+        $usuarios_contacto = $level1;
+        $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','contacto')->get();
+        foreach($usuarioslevel1 as $ul1) {
+          $level2 = User::where('userId','=',$ul1->id)->where('contactType','contacto')->count();
+          if ($level2 != 0) {
+            $usuarios_contacto = $usuarios + $level2;
+            $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','contacto')->get();
+            foreach($usuarioslevel2 as $ul2){
+              $level3 = User::where('userId','=',$ul2->id)->where('contactType','contacto')->count();
+              if ($level3 != 0) {
+                $usuarios_contacto = $usuarios + $level3;
+                $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','contacto')->get();
+                foreach($usuarioslevel3 as $ul3){
+                  $level4 = User::where('userId','=',$ul3->id)->where('contactType','contacto')->count();
+                  $usuarios_contacto = $usuarios + $level4;
+                }
+              }
+            }
+          }
+        }
+      }else {
+        $usuarios_contacto = 0;
+      }
+
+
+      return view('admin.users.profile')->with('usuarios',$usuarios)->with('usuarios_contacto',$usuarios_contacto)->with('users',$users)->with('usersContact',$usersContact)->with('user',$user);
     }
 
     public function addUsers(){
