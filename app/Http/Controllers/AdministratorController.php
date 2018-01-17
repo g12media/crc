@@ -147,9 +147,6 @@ class AdministratorController extends Controller
                ],
            ]);
 
-
-
-
         $gender_chart = app()->chartjs
         ->name('pieChartTest')
         ->type('pie')
@@ -242,8 +239,75 @@ class AdministratorController extends Controller
         $usuarios_contacto = 0;
       }
 
+      $users12 = User::where('userId',$user->id)->select('id','name')->get();
 
-      return view('admin.users.profile')->with('usuarios',$usuarios)->with('usuarios_contacto',$usuarios_contacto)->with('users',$users)->with('usersContact',$usersContact)->with('user',$user);
+      $contactos12Array = array();
+      $grupo12Array = array();
+
+      foreach($users12 as $ups12){
+        $g12 = User::where('userId',$ups12->id)->where('id','!=',$ups12->id)->where('contactType','ministerio')->select('id','name')->count();
+
+        if($g12 != 0){
+           $g12select1 = User::where('userId',$ups12->id)->where('id','!=',$ups12->id)->where('contactType','ministerio')->select('id','name')->get();
+           foreach($g12select1 as $gs12){
+             $g12level1 = User::where('userId',$gs12->id)->where('id','!=',$gs12->id)->where('contactType','ministerio')->select('id','name')->count();
+             $g12 = $g12level1 + $g12;
+           }
+        }
+
+        $c12 = User::where('userId',$ups12->id)->where('id','!=',$ups12->id)->where('contactType','contacto')->select('id','name')->count();
+
+        if($c12 != 0){
+           $c12select1 = User::where('userId',$ups12->id)->where('id','!=',$ups12->id)->where('contactType','ministerio')->select('id','name')->get();
+           foreach($c12select1 as $cs12){
+             $c12level1 = User::where('userId',$cs12->id)->where('id','!=',$cs12->id)->where('contactType','ministerio')->select('id','name')->count();
+             $c12 = $c12level1 + $c12;
+           }
+        }
+
+        array_push($grupo12Array,$g12);
+        array_push($contactos12Array,$c12);
+
+      }
+
+      $arrayUsersPrincipal = array();
+      foreach($users12 as $u12){
+        array_push($arrayUsersPrincipal,$u12->name);
+      }
+
+      $hBar12 =
+       app()->chartjs
+       ->name('ChartTest')
+       ->type('horizontalBar')
+       ->size(['width' => 270, 'height' => 200])
+       ->labels($arrayUsersPrincipal)
+       ->datasets([
+           [
+               "label" => "Equipo",
+               'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
+               'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
+               'data' => $grupo12Array
+           ],
+           [
+               "label" => "Contactos",
+               'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
+               'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
+               'data' => $contactos12Array
+           ],
+       ])
+       ->optionsRaw([
+           'legend' => [
+               'display' => false,
+           ],
+       ]);
+
+      return view('admin.users.profile')
+      ->with('usuarios',$usuarios)
+      ->with('usuarios_contacto',$usuarios_contacto)
+      ->with('users',$users)
+      ->with('usersContact',$usersContact)
+      ->with('hBar12',$hBar12)
+      ->with('user',$user);
     }
 
     public function addUsers(){
@@ -273,6 +337,7 @@ class AdministratorController extends Controller
 
         return redirect('administrator/users/');
     }
+
     public function saveUserProfile(Request $request){
         $user_principal = Auth::user();
         $userLeader = $this->getLevelByLeader($request->leader);
@@ -316,6 +381,7 @@ class AdministratorController extends Controller
       $user = User::find(Crypt::decrypt($leaderId));
       return $user;
     }
+
     public function getFormRegister($userId){
       $user = User::find(Crypt::decrypt($userId));
       $users = User::where('userId',Crypt::decrypt($userId))->get();

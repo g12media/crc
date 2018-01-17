@@ -247,6 +247,17 @@
         <!-- End Panel -->
       </div>
     </div>
+    <div class="row">
+      <div class="col-3">
+
+      </div>
+      <div class="col-6">
+        {!! $hBar12->render() !!}
+      </div>
+      <div class="col-3">
+
+      </div>
+    </div>
   </div>
   <!-- Panel Basic -->
 
@@ -423,6 +434,7 @@
 
 @section('pages_script')
 <script src="{{URL::asset('admin/assets/js/Site.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
 <script src="{{URL::asset('admin/global/js/Plugin/asscrollable.js')}}"></script>
 <script src="{{URL::asset('admin/global/js/Plugin/slidepanel.js')}}"></script>
 <script src="{{URL::asset('admin/global/js/Plugin/switchery.js')}}"></script>
