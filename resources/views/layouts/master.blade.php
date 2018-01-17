@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="bootstrap admin template">
     <meta name="author" content="">
-    <title>Alianza</title>
+    <title>Crc</title>
 
 
     <link rel="apple-touch-icon" href="{{URL::asset('admin/assets/images/apple-touch-icon.png')}}">
@@ -28,6 +28,12 @@
     <link rel="stylesheet" href="{{URL::asset('admin/global/vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.css')}}">
 
     @yield('style')
+
+    <style media="screen">
+    .site-menubar-footer>a {
+      width: 100% !important;
+    }
+    </style>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{URL::asset('admin/global/fonts/glyphicons/glyphicons.css')}}">
@@ -70,14 +76,7 @@
       </div>
 
       <div class="site-menubar-footer">
-        <a href="javascript: void(0);" class="fold-show" data-placement="top" data-toggle="tooltip"
-          data-original-title="Settings">
-          <span class="icon wb-settings" aria-hidden="true"></span>
-        </a>
-        <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
-          <span class="icon wb-eye-close" aria-hidden="true"></span>
-        </a>
-        <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+        <a href="/logout" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
           <span class="icon wb-power" aria-hidden="true"></span>
         </a>
       </div>
