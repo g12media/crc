@@ -122,7 +122,7 @@
               </div>
               <div class="col-12" style="margin-top:10px;">
                 <a href="/formulario/{{date('Y').'-'.$user->id.'-'.date('Hms')}}" target="_blank"><button type="button" class="btn btn-primary">
-                  <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 20px;"></i> Formulario Discipulos
+                  <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 20px;"></i> Formulario Valientes
                 </button></a>
               </div>
 
