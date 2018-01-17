@@ -80,6 +80,15 @@ class AdministratorController extends Controller
         $l16 = User::where('location','Tunjuelito')->count();
         $l17 = User::where('location','Usaquen')->count();
         $l18 = User::where('location','Usme')->count();
+        $l19 = User::where('location','Engativa')->count();
+
+        $l20 = User::where('location','Soacha')->count();
+        $l21 = User::where('location','Mosquera')->count();
+        $l22 = User::where('location','Madrid')->count();
+        $l23 = User::where('location','Chia')->count();
+        $l24 = User::where('location','Cajica')->count();
+
+
 
          $chartjs =
           app()->chartjs
@@ -92,7 +101,7 @@ class AdministratorController extends Controller
                   "label" => "Contactos",
                   'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
                   'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
-                  'data' => [$l1,$l2,$l3,$l4,$l5,$l6,$l7,$l8,$l9,$l10,$l11,$l12,$l13,$l14,$l15,$l16,$l17,$l18]
+                  'data' => [$l1,$l2,$l3,$l4,$l5,$l6,$l7,$l8,$l9,$l10,$l11,$l12,$l13,$l14,$l15,$l16,$l17,$l18,$l19,$l20,$l21,$l22]
               ],
           ])
           ->optionsRaw([

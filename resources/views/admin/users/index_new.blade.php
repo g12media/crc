@@ -253,7 +253,6 @@
     <i class="front-icon wb-plus animation-scale-up" aria-hidden="true"></i>
     <i class="back-icon wb-close animation-scale-up" aria-hidden="true"></i>
   </button>
-
 </div>
 <!-- End Site Action -->
 
@@ -300,6 +299,7 @@
               <option value="Bosa">Bosa</option>
               <option value="Chapinero">Chapinero</option>
               <option value="Ciudad Bolivar">Ciudad Bolivar</option>
+              <option value="Engativa">Engativa</option>
               <option value="Fontibon">Fontibon</option>
               <option value="Kennedy">Kennedy</option>
               <option value="La Candelaria">La Candelaria</option>
@@ -314,6 +314,11 @@
               <option value="Tunjuelito">Tunjuelito</option>
               <option value="Usaquen">Usaquen</option>
               <option value="Usme">Usme</option>
+              <option value="Soacha">Municipio - Soacha</option>
+              <option value="Mosquera">Municipio - Mosquera</option>
+              <option value="Madrid">Municipio - Madrid</option>
+              <option value="Chia">Municipio - Chia</option>
+              <option value="Cajica">Municipio - Cajica</option>
             </select>
           </div>
           <div class="form-group">
@@ -324,6 +329,7 @@
               <option value="Bosa">Bosa</option>
               <option value="Chapinero">Chapinero</option>
               <option value="Ciudad Bolivar">Ciudad Bolivar</option>
+              <option value="Engativa">Engativa</option>
               <option value="Fontibon">Fontibon</option>
               <option value="Kennedy">Kennedy</option>
               <option value="La Candelaria">La Candelaria</option>
@@ -338,12 +344,16 @@
               <option value="Tunjuelito">Tunjuelito</option>
               <option value="Usaquen">Usaquen</option>
               <option value="Usme">Usme</option>
+              <option value="Soacha">Municipio - Soacha</option>
+              <option value="Mosquera">Municipio - Mosquera</option>
+              <option value="Madrid">Municipio - Madrid</option>
+              <option value="Chia">Municipio - Chia</option>
+              <option value="Cajica">Municipio - Cajica</option>
             </select>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="neighborhood" placeholder="Barrio" required />
           </div>
-
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" type="submit">Guardar</button>
@@ -356,103 +366,7 @@
 <!-- End Add User Form -->
 
 
-<!-- Add User Form -->
-{!! Form::open(array('url' => 'administrator/users/add', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
-<div class="modal fade" id="addUserForm" aria-hidden="true" aria-labelledby="addUserForm"
-  role="dialog" tabindex="-1">
-  <div class="modal-dialog modal-simple">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
-        <h4 class="modal-title" style="width:100%;"><center>Agregar al Equipo de 12</center></h4>
-      </div>
-      <div class="modal-body">
 
-          <div class="form-group">
-            <input type="text" class="form-control" name="identificacion" placeholder="Identificacion" required/>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="name" placeholder="Nombres" required/>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="lastName" placeholder="Apellidos" required/>
-          </div>
-          <div class="form-group">
-            <select name="gender" required>
-              <option value="">Seleccione un Genero</option>
-              <option value="masculino">Masculino</option>
-              <option value="femenino">Femenino</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="email" placeholder="Email" />
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="phone" placeholder="Telefono / Celular" required/>
-          </div>
-
-          <div class="form-group">
-            <select name="location" required>
-              <option value="Antonio Nariño">Seleccione una Localidad</option>
-              <option value="Antonio Nariño">Antonio Nariño</option>
-              <option value="Barrios Unidos">Barrios Unidos</option>
-              <option value="Bosa">Bosa</option>
-              <option value="Chapinero">Chapinero</option>
-              <option value="Ciudad Bolivar">Ciudad Bolivar</option>
-              <option value="Fontibon">Fontibon</option>
-              <option value="Kennedy">Kennedy</option>
-              <option value="La Candelaria">La Candelaria</option>
-              <option value="Los Martires">Los Martires</option>
-              <option value="Puente Aranda">Puente Aranda</option>
-              <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
-              <option value="San Cristobal">San Cristobal</option>
-              <option value="Santa Fe">Santa Fe</option>
-              <option value="Suba">Suba</option>
-              <option value="Sumapaz">Sumapaz</option>
-              <option value="Teusaquillo">Teusaquillo</option>
-              <option value="Tunjuelito">Tunjuelito</option>
-              <option value="Usaquen">Usaquen</option>
-              <option value="Usme">Usme</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <select name="locationVote" required>
-              <option value="">Localidad donde Vota</option>
-              <option value="Antonio Nariño">Antonio Nariño</option>
-              <option value="Barrios Unidos">Barrios Unidos</option>
-              <option value="Bosa">Bosa</option>
-              <option value="Chapinero">Chapinero</option>
-              <option value="Ciudad Bolivar">Ciudad Bolivar</option>
-              <option value="Fontibon">Fontibon</option>
-              <option value="Kennedy">Kennedy</option>
-              <option value="La Candelaria">La Candelaria</option>
-              <option value="Los Martires">Los Martires</option>
-              <option value="Puente Aranda">Puente Aranda</option>
-              <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
-              <option value="San Cristobal">San Cristobal</option>
-              <option value="Santa Fe">Santa Fe</option>
-              <option value="Suba">Suba</option>
-              <option value="Sumapaz">Sumapaz</option>
-              <option value="Teusaquillo">Teusaquillo</option>
-              <option value="Tunjuelito">Tunjuelito</option>
-              <option value="Usaquen">Usaquen</option>
-              <option value="Usme">Usme</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="neighborhood" placeholder="Barrio" required />
-          </div>
-
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" type="submit">Guardar</button>
-        <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
-      </div>
-    </div>
-  </div>
-</div>
-{!! Form::close() !!}
-<!-- End Add User Form -->
 
 @stop
 

@@ -314,11 +314,13 @@
           <div class="form-group">
             <select name="location" required>
               <option value="">Localidad donde Vive</option>
+              <option value="Antonio Nariño">Seleccione una Localidad</option>
               <option value="Antonio Nariño">Antonio Nariño</option>
               <option value="Barrios Unidos">Barrios Unidos</option>
               <option value="Bosa">Bosa</option>
               <option value="Chapinero">Chapinero</option>
               <option value="Ciudad Bolivar">Ciudad Bolivar</option>
+              <option value="Engativa">Engativa</option>
               <option value="Fontibon">Fontibon</option>
               <option value="Kennedy">Kennedy</option>
               <option value="La Candelaria">La Candelaria</option>
@@ -333,16 +335,23 @@
               <option value="Tunjuelito">Tunjuelito</option>
               <option value="Usaquen">Usaquen</option>
               <option value="Usme">Usme</option>
+              <option value="Soacha">Municipio - Soacha</option>
+              <option value="Mosquera">Municipio - Mosquera</option>
+              <option value="Madrid">Municipio - Madrid</option>
+              <option value="Chia">Municipio - Chia</option>
+              <option value="Cajica">Municipio - Cajica</option>
             </select>
           </div>
           <div class="form-group">
             <select name="locationVote" required>
               <option value="">Localidad donde Vota</option>
+              <option value="Antonio Nariño">Seleccione una Localidad</option>
               <option value="Antonio Nariño">Antonio Nariño</option>
               <option value="Barrios Unidos">Barrios Unidos</option>
               <option value="Bosa">Bosa</option>
               <option value="Chapinero">Chapinero</option>
               <option value="Ciudad Bolivar">Ciudad Bolivar</option>
+              <option value="Engativa">Engativa</option>
               <option value="Fontibon">Fontibon</option>
               <option value="Kennedy">Kennedy</option>
               <option value="La Candelaria">La Candelaria</option>
@@ -357,6 +366,11 @@
               <option value="Tunjuelito">Tunjuelito</option>
               <option value="Usaquen">Usaquen</option>
               <option value="Usme">Usme</option>
+              <option value="Soacha">Municipio - Soacha</option>
+              <option value="Mosquera">Municipio - Mosquera</option>
+              <option value="Madrid">Municipio - Madrid</option>
+              <option value="Chia">Municipio - Chia</option>
+              <option value="Cajica">Municipio - Cajica</option>
             </select>
           </div>
           <div class="form-group">
