@@ -8,7 +8,7 @@
 
   <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">>
     <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
-      <h2 class="register-title">Contactos {{$user->name}} {{$user->lastName}}</h2>
+      <h2 class="register-title">Grupo {{$user->name}} {{$user->lastName}}</h2>
       <div class="row">
       <div class="col-5" style="margin-top:10px;">
       <div class="panel">
@@ -134,20 +134,20 @@
               <tbody>
                 @foreach($users as $u)
                 <tr>
-                  <td><a href="/formulario/{{Crypt::encrypt($u->id)}}">{{$u->identification}}</a></td>
+                  <td><a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}">{{$u->identification}}</a></td>
                   <td>{{$u->name}}</td>
                   <td>{{$u->lastName}}</td>
                   <td>{{$u->email}}</td>
 
                   <td>
                     @if($u->level == 1728)
-                    <a href="/formulario/{{Crypt::encrypt($u->id)}}" target="_blank">
+                    <a href="/formulario/contacts/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
                       <button type="button" class="btn btn-primary">
                         <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i> Contactos
                       </button>
                     </a>
                     @else
-                    <a href="/formulario/{{Crypt::encrypt($u->id)}}" target="_blank">
+                    <a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
                       <button type="button" class="btn btn-primary">
                         <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i>
                       </button>
@@ -162,18 +162,7 @@
             </table>
           </div>
         </div>
-        <div class="panel">
-          <div class="panel-body">
-            <h4>Instrucciones</h4>
-            <ul>
-              <li>Diligenciar el formulario con Informacion real, de ser necesario tomese el tiempo de coseguir todos los datos.</li>
-              <li>El cupo maximo para registrar son 12 personas (Su equipo de 12), si desea agregar mas personas comuniquese con su asistente.</li>
-              <li>En la tabla superior encontrar los datos que ha registrado de su ministerio, cada usuario tiene un formulario <strong>unico y personal </strong> <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i> el cual usted debera compartir especificamente a ese discipulo para que el diligencia la información de su ministerio tal cual como usted lo ha realizado.</li>
-              <li>Si ha ingresado algun dato incorrecto y desea editarlo porfavor comuniquese con la asistente de su ministerio</li>
-              <li>El link del formulario sera generado hasta la linea de los 1728 del pastor Cesar Castellanos</li>
-            </ul>
-          </div>
-        </div>
+
       </div>
     </div>
       <footer class="page-copyright page-copyright-inverse">

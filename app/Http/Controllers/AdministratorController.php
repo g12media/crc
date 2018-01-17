@@ -399,6 +399,50 @@ class AdministratorController extends Controller
       return view('admin.users.register')->with('userId',$userId)->with('user',$user)->with('users',$users);
     }
 
+    public function getFormRegisterContacts($userId){
+      $userIdExplode = $array = explode("-", $userId);
+      $user = User::find($userIdExplode[1]);
+      $users = User::where('userId',$userIdExplode[1])->get();
+      return view('admin.users.register_contacts')->with('userId',$userId)->with('user',$user)->with('users',$users);
+    }
+
+    public function saveFormRegisterContacts(Request $request){
+
+      $userIdExplode = $array = explode("-", $request->leader);
+
+      $userLeader = $this->getLevelByLeader($request->leader);
+      $user_principal = User::find($userLeader->leaderPrincipal);
+      $User = new User;
+      $User->userType = 'user';
+      $User->contactType = 'contacto';
+      $User->identification = $request->identification;
+      $User->name = $request->name;
+      $User->lastName = $request->lastName;
+      $User->gender = $request->gender;
+      $User->phone = $request->phone;
+      $User->email = $request->email;
+      $User->location = $request->location;
+      $User->locationVote = $request->locationVote;
+      $User->neighborhood = $request->neighborhood;
+      if($userLeader->level == 144){
+        $User->level = 1728;
+      }else if($userLeader->level == 1728){
+        $User->level = 20736;
+      }else if($userLeader->level == 20736){
+        $User->level = 248832;
+      }else if($userLeader->level == 248832){
+        $User->level = 2985984;
+      }else{
+        $User->level = 0;
+      }
+      $User->leaderPrincipal = $user_principal->id;
+      $User->userId = $userIdExplode[1];
+      $User->username = $request->identification;
+      $User->password = bcrypt($request->identification);
+      $User->save();
+      return redirect('/formulario/'.$request->leader);
+    }
+
     public function saveFormRegister(Request $request){
 
       $userIdExplode = $array = explode("-", $request->leader);
