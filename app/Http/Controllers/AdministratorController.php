@@ -187,11 +187,12 @@ class AdministratorController extends Controller
     }
 
     public function getUsersByProfile($userId){
-      $user = User::find(Crypt::decrypt($userId));
+
+      $userIdExplode = $array = explode("-", $userId);
+      $user = User::find($userIdExplode[1]);
       $users = User::where('userId',$user->id)->where('contactType','ministerio')->get();
       $usersContact = User::where('userId',$user->id)->where('contactType','contacto')->get();
 
-      // consulta ministerio debajo
 
       $level1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->count();
       if($level1 != 0){
@@ -220,7 +221,6 @@ class AdministratorController extends Controller
         $usuarios = 0;
       }
 
-      // consulta contactos debajo
 
       $level1 = User::where('userId','=',$user->id)->where('contactType','contacto')->count();
       if($level1 != 0){
@@ -387,17 +387,21 @@ class AdministratorController extends Controller
     }
 
     public function getLevelByLeader($leaderId){
-      $user = User::find(Crypt::decrypt($leaderId));
+      $userIdExplode = $array = explode("-", $leaderId);
+      $user = User::find($userIdExplode[1]);
       return $user;
     }
 
     public function getFormRegister($userId){
-      $user = User::find(Crypt::decrypt($userId));
-      $users = User::where('userId',Crypt::decrypt($userId))->get();
+      $userIdExplode = $array = explode("-", $userId);
+      $user = User::find($userIdExplode[1]);
+      $users = User::where('userId',$userIdExplode[1])->get();
       return view('admin.users.register')->with('userId',$userId)->with('user',$user)->with('users',$users);
     }
 
     public function saveFormRegister(Request $request){
+
+      $userIdExplode = $array = explode("-", $request->leader);
 
       $userLeader = $this->getLevelByLeader($request->leader);
       $user_principal = User::find($userLeader->leaderPrincipal);
@@ -425,7 +429,7 @@ class AdministratorController extends Controller
         $User->level = 0;
       }
       $User->leaderPrincipal = $user_principal->id;
-      $User->userId = Crypt::decrypt($request->leader);
+      $User->userId = $userIdExplode[1];
       $User->username = $request->identification;
       $User->password = bcrypt($request->identification);
       $User->save();

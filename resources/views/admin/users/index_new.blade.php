@@ -183,7 +183,7 @@
                     <tbody>
                       @foreach($usersMen as $um)
                       <tr>
-                        <td><a href="/administrator/users/{{Crypt::encrypt($um->id)}}">{{$um->identification}}</a></td>
+                        <td><a href="/administrator/users/{{date('Y').'-'.$um->id.'-'.date('Hms')}}">{{$um->identification}}</a></td>
                         <td>{{$um->name}}</td>
                         <td>{{$um->lastName}}</td>
                         <td>{{$um->email}}</td>

@@ -134,20 +134,20 @@
               <tbody>
                 @foreach($users as $u)
                 <tr>
-                  <td><a href="/formulario/{{Crypt::encrypt($u->id)}}">{{$u->identification}}</a></td>
+                  <td><a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}">{{$u->identification}}</a></td>
                   <td>{{$u->name}}</td>
                   <td>{{$u->lastName}}</td>
                   <td>{{$u->email}}</td>
 
                   <td>
                     @if($u->level == 1728)
-                    <a href="/formulario/{{Crypt::encrypt($u->id)}}" target="_blank">
+                    <a href="/formulario/contacts/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
                       <button type="button" class="btn btn-primary">
                         <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i> Contactos
                       </button>
                     </a>
                     @else
-                    <a href="/formulario/{{Crypt::encrypt($u->id)}}" target="_blank">
+                    <a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
                       <button type="button" class="btn btn-primary">
                         <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i>
                       </button>
@@ -162,7 +162,7 @@
             </table>
           </div>
         </div>
-  
+
       </div>
     </div>
       <footer class="page-copyright page-copyright-inverse">
