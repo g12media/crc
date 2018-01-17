@@ -44,6 +44,12 @@ Route::group(['prefix'=>'user','middleware'=>['auth','AccessUser']],function(){
 Route::get('/formulario/{id}', 'AdministratorController@getFormRegister');
 Route::post('/formulario/{id}', 'AdministratorController@saveFormRegister');
 
+//Add Contacts
+Route::get('/formulario/contacts/{id}', 'AdministratorController@getFormRegisterContacts');
+Route::post('/formulario/contacts/{id}', 'AdministratorController@saveFormRegisterContacts');
+
+
+
 
 //Route::get('login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@Login']);
 Route::post('/login', ['as' => 'login', 'uses' => 'Auth\LoginController@authenticate']);
