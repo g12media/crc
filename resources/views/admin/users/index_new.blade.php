@@ -153,10 +153,15 @@
         <div class="panel">
           <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
             <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+              @if($user->level == 1)
+              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#mens"
+                  aria-controls="activities" role="tab">Equipo</a></li>
+              @else
               <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#mens"
                   aria-controls="activities" role="tab">Hombres</a></li>
-                  <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#womens"
+              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#womens"
                       aria-controls="activities" role="tab">Mujeres</a></li>
+              @endif
 
             </ul>
 
@@ -194,6 +199,7 @@
                 </div>
               </div>
 
+              @if($user->level != 1)
               <div class="tab-pane animation-slide-left" id="womens" role="tabpanel">
                 <div class="panel-body" style="padding:15px 0px 0px 0px;">
                   <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
@@ -226,6 +232,7 @@
                   </table>
                 </div>
               </div>
+              @endif
 
               <div class="tab-pane animation-slide-left" id="messages" role="tabpanel">
 

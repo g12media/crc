@@ -67,26 +67,27 @@ class AdministratorController extends Controller
         $l3 = User::where('location','Bosa')->count();
         $l4 = User::where('location','Chapinero')->count();
         $l5 = User::where('location','Ciudad Bolivar')->count();
-        $l6 = User::where('location','Fontibon')->count();
-        $l7 = User::where('location','Kennedy')->count();
-        $l8 = User::where('location','La Candelaria')->count();
-        $l9 = User::where('location','Los Martires')->count();
-        $l10 = User::where('location','Puente Aranda')->count();
-        $l11 = User::where('location','Rafael Uribe Uribe')->count();
-        $l12 = User::where('location','San Cristobal')->count();
-        $l13 = User::where('location','Santa Fe')->count();
-        $l14 = User::where('location','Sumapaz')->count();
-        $l15 = User::where('location','Teusaquillo')->count();
-        $l16 = User::where('location','Tunjuelito')->count();
-        $l17 = User::where('location','Usaquen')->count();
-        $l18 = User::where('location','Usme')->count();
-        $l19 = User::where('location','Engativa')->count();
+        $l6 = User::where('location','Engativa')->count();
+        $l7 = User::where('location','Fontibon')->count();
+        $l8 = User::where('location','Kennedy')->count();
+        $l9 = User::where('location','La Candelaria')->count();
+        $l10 = User::where('location','Los Martires')->count();
+        $l11 = User::where('location','Puente Aranda')->count();
+        $l12 = User::where('location','Rafael Uribe Uribe')->count();
+        $l13 = User::where('location','San Cristobal')->count();
+        $l14 = User::where('location','Santa Fe')->count();
+        $l15 = User::where('location','Sumapaz')->count();
+        $l16 = User::where('location','Teusaquillo')->count();
+        $l17 = User::where('location','Tunjuelito')->count();
+        $l18 = User::where('location','Usaquen')->count();
+        $l19 = User::where('location','Usme')->count();
+        $l20 = User::where('location','Engativa')->count();
 
-        $l20 = User::where('location','Soacha')->count();
-        $l21 = User::where('location','Mosquera')->count();
-        $l22 = User::where('location','Madrid')->count();
-        $l23 = User::where('location','Chia')->count();
-        $l24 = User::where('location','Cajica')->count();
+        $l21 = User::where('location','Soacha')->count();
+        $l22 = User::where('location','Mosquera')->count();
+        $l23 = User::where('location','Madrid')->count();
+        $l24 = User::where('location','Chia')->count();
+        $l25 = User::where('location','Cajica')->count();
 
 
 
@@ -95,13 +96,13 @@ class AdministratorController extends Controller
           ->name('pieChartTest')
           ->type('pie')
           ->size(['width' => 390, 'height' => 230])
-          ->labels(['Antonio Nariño', 'Barrios Unidos', 'Bosa', 'Chapinero', 'Ciudad Bolivar', 'Fontibon', 'Kennedy', 'La Candelaria', 'Los Martires', 'Puente Aranda', 'Rafael Uribe', 'San Cristobal', 'Santa Fe', 'Suba', 'Sumapaz', 'Teusaquillo', 'Tunjuelito', 'Usaquen', 'Usme'])
+          ->labels(['Antonio Nariño', 'Barrios Unidos', 'Bosa', 'Chapinero', 'Ciudad Bolivar', 'Engativa', 'Fontibon', 'Kennedy', 'La Candelaria', 'Los Martires', 'Puente Aranda', 'Rafael Uribe', 'San Cristobal', 'Santa Fe', 'Suba', 'Sumapaz', 'Teusaquillo', 'Tunjuelito', 'Usaquen', 'Usme', 'Municipio - Soacha', 'Municipio - Mosquera', 'Municipio - Madrid', 'Municipio - Chia', 'Municipio - Cajica'])
           ->datasets([
               [
                   "label" => "Contactos",
-                  'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
-                  'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00'],
-                  'data' => [$l1,$l2,$l3,$l4,$l5,$l6,$l7,$l8,$l9,$l10,$l11,$l12,$l13,$l14,$l15,$l16,$l17,$l18,$l19,$l20,$l21,$l22]
+                  'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#62C601', '#7CCE02', '#96D408', '#B0DA0F', '#CAE016', '#E4E61D', '#FFED24'],
+                  'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#62C601', '#7CCE02', '#96D408', '#B0DA0F', '#CAE016', '#E4E61D', '#FFED24'],
+                  'data' => [$l1,$l2,$l3,$l4,$l5,$l6,$l7,$l8,$l9,$l10,$l11,$l12,$l13,$l14,$l15,$l16,$l17,$l18,$l19,$l20,$l21,$l22,$l23,$l24,$l25]
               ],
           ])
           ->optionsRaw([
@@ -111,6 +112,7 @@ class AdministratorController extends Controller
 
               ],
           ]);
+
 
           $usersPrincipal = User::where('leaderPrincipal',$user->id)->where('id','!=',$user->id)->select('id','name')->get();
 
