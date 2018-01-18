@@ -90,7 +90,7 @@ class AdministratorController extends Controller
     public function deleteUser12(Request $request){
       $identification = $request->identification;
       $userId = $request->userId;
-      $leader = $request->leader;
+      $leader = date('Y').'-'.$request->leader.'-'.date('Hms');
 
       $count = User::where('identification', '=', $identification)->where('id', '=', $userId)->count();
       if($count == 0){

@@ -416,8 +416,8 @@
       </div>
       <div class="modal-body">
           <center>  <h4 class="modal-title">Eliminar Usuario</h4></center>
-          <input type="hidden" name="userId" id="userId" value="" />
-          <input type="hidden" name="leader" value="{{Crypt::encrypt($user->id)}}" />
+          <input type="hidden" name="userId" id="userIdDelete" value="" />
+          <input type="hidden" name="leader" value="{{$user->id}}" />
           <br>
           <p>Recuerde que eliminara un usuario y su red descendente (Contactos y Grupo) por lo cual solicitamos la confirmacion del documento para eliminar el usuario</p>
           <div class="form-group">
@@ -591,7 +591,7 @@
 <script type="text/javascript">
 
 function loadIdDelete(Id){
-  $('#userId').val(Id);
+  $('#userIdDelete').val(Id);
 }
 function loadIdEdit(Id){
   $.get( "users/get/"+Id).done(function(data) {
