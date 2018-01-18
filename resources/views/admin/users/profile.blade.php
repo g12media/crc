@@ -98,7 +98,7 @@
           <div class="card-block">
             <center>
               <i class="icon fa-user-circle" aria-hidden="true" style="font-size: 64px;"></i>
-  </center>
+            </center>
             <h4 class="profile-user">{{$user->name}}</h4>
             @if($user->level == 1728 || $user->level == 20736 || $user->level == 248832)
             <a href="/administrator/users/{{Crypt::encrypt($user->userId)}}">
@@ -196,7 +196,10 @@
                         <td>{{$um->email}}</td>
                         <td>
                           <button type="button" class="" data-target="#deleteUserForm" data-toggle="modal" onclick="loadIdDelete({{$um->id}})">
-                          <i class="icon fa-trash" aria-hidden="true"></i>
+                            <i class="icon fa-trash" aria-hidden="true"></i>
+                          </button>
+                          <button type="button" class="" data-target="#editUserForm" data-toggle="modal" onclick="loadIdEdit({{$um->id}})">
+                            <i class="icon fa-edit" aria-hidden="true"></i>
                           </button>
                         </td>
                       </tr>
@@ -228,7 +231,7 @@
                     <tbody>
                       @foreach($usersContact as $uc)
                       <tr>
-                        <td><a href="/administrator/users/{{Crypt::encrypt($uc->id)}}">{{$uc->identification}}</a></td>
+                        <td><a href="/administrator/users/{{date('Y').'-'.$uc->id.'-'.date('Hms')}}">{{$uc->identification}}</a></td>
                         <td>{{$uc->name}}</td>
                         <td>{{$uc->lastName}}</td>
                         <td>{{$uc->email}}</td>
@@ -273,6 +276,120 @@
 
 </div>
 <!-- End Site Action -->
+<!-- Edit User Form-->
+{!! Form::open(array('url' => 'administrator/users/edit', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
+<div class="modal fade" id="editUserForm" aria-hidden="true" aria-labelledby="editUserForm"
+  role="dialog" tabindex="-1">
+  <input type="hidden" name="userId" id="userId" value="" />
+  <input type="hidden" name="leader" id="leader" value="{{$user->id}}"/>
+  <div class="modal-dialog modal-simple">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+
+      </div>
+      <div class="modal-body">
+          <center>  <h4 class="modal-title">Formulario Registro</h4></center>
+          <br>
+          <div class="form-group">
+            <input type="text" class="form-control" name="identificacion" id="identificacionEdit" placeholder="Identificacion" required/>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="name" id="nameEdit" placeholder="Nombres" required/>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="lastName" id="lastNameEdit" placeholder="Apellidos" required/>
+          </div>
+          <div class="form-group">
+            <select name="gender" id="genderEdit" required>
+              <option value="">Seleccione un Genero</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="email" id="emailEdit" placeholder="Email" />
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="phone" id="phoneEdit" placeholder="Telefono / Celular" required/>
+          </div>
+
+          <div class="form-group">
+            <select name="location" id="locationEdit" required>
+              <option value="">Localidad donde Vive</option>
+              <option value="Antonio Nariño">Seleccione una Localidad</option>
+              <option value="Antonio Nariño">Antonio Nariño</option>
+              <option value="Barrios Unidos">Barrios Unidos</option>
+              <option value="Bosa">Bosa</option>
+              <option value="Chapinero">Chapinero</option>
+              <option value="Ciudad Bolivar">Ciudad Bolivar</option>
+              <option value="Engativa">Engativa</option>
+              <option value="Fontibon">Fontibon</option>
+              <option value="Kennedy">Kennedy</option>
+              <option value="La Candelaria">La Candelaria</option>
+              <option value="Los Martires">Los Martires</option>
+              <option value="Puente Aranda">Puente Aranda</option>
+              <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
+              <option value="San Cristobal">San Cristobal</option>
+              <option value="Santa Fe">Santa Fe</option>
+              <option value="Suba">Suba</option>
+              <option value="Sumapaz">Sumapaz</option>
+              <option value="Teusaquillo">Teusaquillo</option>
+              <option value="Tunjuelito">Tunjuelito</option>
+              <option value="Usaquen">Usaquen</option>
+              <option value="Usme">Usme</option>
+              <option value="Soacha">Municipio - Soacha</option>
+              <option value="Mosquera">Municipio - Mosquera</option>
+              <option value="Madrid">Municipio - Madrid</option>
+              <option value="Chia">Municipio - Chia</option>
+              <option value="Cajica">Municipio - Cajica</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="locationVote" id="locationVoteEdit" required>
+              <option value="">Localidad donde Vota</option>
+              <option value="Antonio Nariño">Seleccione una Localidad</option>
+              <option value="Antonio Nariño">Antonio Nariño</option>
+              <option value="Barrios Unidos">Barrios Unidos</option>
+              <option value="Bosa">Bosa</option>
+              <option value="Chapinero">Chapinero</option>
+              <option value="Ciudad Bolivar">Ciudad Bolivar</option>
+              <option value="Engativa">Engativa</option>
+              <option value="Fontibon">Fontibon</option>
+              <option value="Kennedy">Kennedy</option>
+              <option value="La Candelaria">La Candelaria</option>
+              <option value="Los Martires">Los Martires</option>
+              <option value="Puente Aranda">Puente Aranda</option>
+              <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
+              <option value="San Cristobal">San Cristobal</option>
+              <option value="Santa Fe">Santa Fe</option>
+              <option value="Suba">Suba</option>
+              <option value="Sumapaz">Sumapaz</option>
+              <option value="Teusaquillo">Teusaquillo</option>
+              <option value="Tunjuelito">Tunjuelito</option>
+              <option value="Usaquen">Usaquen</option>
+              <option value="Usme">Usme</option>
+              <option value="Soacha">Municipio - Soacha</option>
+              <option value="Mosquera">Municipio - Mosquera</option>
+              <option value="Madrid">Municipio - Madrid</option>
+              <option value="Chia">Municipio - Chia</option>
+              <option value="Cajica">Municipio - Cajica</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="neighborhood" id="neighborhoodEdit" placeholder="Barrio" required/>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{!! Form::close() !!}
+<!-- Edit User Form -->
 
 <!-- Add User Form -->
 {!! Form::open(array('url' => 'administrator/users/add/{{Crypt::encrypt($user->id)}}', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
@@ -464,5 +581,22 @@
   function loadIdDelete(Id){
     $('#userId').val(Id);
   }
+function loadIdEdit(Id){
+  $.get( "get/"+Id).done(function(data) {
+      $('#userId').val(Id);
+      $("#identificacionEdit").val(data.identification);
+      $("#nameEdit").val(data.name);
+      $("#lastNameEdit").val(data.lastName);
+      $("#dateEdit").val(data.date);
+      $("#genderEdit").val(data.gender);
+      $("#emailEdit").val(data.email);
+      $("#phoneEdit").val(data.phone);
+      $("#locationEdit").val(data.location);
+      $("#locationVoteEdit").val(data.locationVote);
+      $("#neighborhoodEdit").val(data.neighborhood);
+
+  });
+}
+
 </script>
 @stop

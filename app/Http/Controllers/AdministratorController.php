@@ -33,6 +33,77 @@ class AdministratorController extends Controller
         }
     }
 
+    public function votantesValidate(Request $request){
+      $user = User::where('identification', '=', $request->identification)->count();
+      if ($user != 0) {
+        $u = User::where('identification', '=', $request->identification)->firstOrFail();
+        return redirect('/formulario/contacts/'.date('Y').'-'.$u->id.'-'.date('Hms'));
+      }else {
+        return redirect('/votantes');
+      }
+    }
+
+    public function getUser($id){
+      $user = User::find($id);
+      return $user;
+    }
+
+    public function updateUsers(Request $request){
+        $leader = $request->leader;
+
+        $User = User::find($request->userId);
+        $User->identification = $request->identificacion;
+        $User->name = $request->name;
+        $User->lastName = $request->lastName;
+        $User->gender = $request->gender;
+        $User->phone = $request->phone;
+        $User->email = $request->email;
+        $User->location = $request->location;
+        $User->locationVote = $request->locationVote;
+        $User->neighborhood = $request->neighborhood;
+        $User->username = $request->identificacion;
+        $User->password = bcrypt($request->identificacion);
+        $User->save();
+
+        return redirect('administrator/users/'.date('Y').'-'.$leader.'-'.date('Hms'));
+    }
+
+    public function updateUsers12(Request $request){
+        $leader = $request->leader;
+        $User = User::find($request->userId);
+        $User->identification = $request->identificacion;
+        $User->name = $request->name;
+        $User->lastName = $request->lastName;
+        $User->gender = $request->gender;
+        $User->phone = $request->phone;
+        $User->email = $request->email;
+        $User->location = $request->location;
+        $User->locationVote = $request->locationVote;
+        $User->neighborhood = $request->neighborhood;
+        $User->username = $request->identificacion;
+        $User->password = bcrypt($request->identificacion);
+        $User->save();
+
+        return redirect('administrator/users/');
+    }
+
+    public function deleteUser12(Request $request){
+      $identification = $request->identification;
+      $userId = $request->userId;
+      $leader = $request->leader;
+
+      $count = User::where('identification', '=', $identification)->where('id', '=', $userId)->count();
+      if($count == 0){
+        return redirect('administrator/users/');
+      }else{
+        //Delete Users
+        DB::table('users')->where('userId', '=', $userId)->delete();
+        $user = User::find($userId);
+        $user->delete();
+        return redirect('administrator/users/');
+      }
+    }
+
     public function deleteUser(Request $request){
       $identification = $request->identification;
       $userId = $request->userId;
@@ -251,6 +322,10 @@ class AdministratorController extends Controller
 
     }
 
+    public function votantes(){
+      return view('admin.users.votantes');
+    }
+
     public function getUsersByProfile($userId){
 
       $userIdExplode = $array = explode("-", $userId);
@@ -467,7 +542,7 @@ class AdministratorController extends Controller
     public function getFormRegisterContacts($userId){
       $userIdExplode = $array = explode("-", $userId);
       $user = User::find($userIdExplode[1]);
-      $users = User::where('userId',$userIdExplode[1])->get();
+      $users = User::where('userId',$userIdExplode[1])->where('contactType','contacto')->get();
       return view('admin.users.register_contacts')->with('userId',$userId)->with('user',$user)->with('users',$users);
     }
 

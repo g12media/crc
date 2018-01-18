@@ -21,6 +21,8 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/votantes', 'AdministratorController@votantes');
+Route::post('/votantes', 'AdministratorController@votantesValidate');
 
 Route::group(['prefix'=>'superadmin','middleware'=>['auth','AccessSuperAdmin']],function(){
   Route::get('/', 'SuperAdminController@dashboard');
@@ -32,8 +34,12 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
           Route::get('/', 'AdministratorController@getUsers');
           Route::get('/{id}', 'AdministratorController@getUsersByProfile');
           Route::post('/add', 'AdministratorController@saveUsers');
+          Route::post('/edit', 'AdministratorController@updateUsers');
+          Route::post('/edit12', 'AdministratorController@updateUsers12');
           Route::post('/delete', 'AdministratorController@deleteUser');
+          Route::post('/delete12', 'AdministratorController@deleteUser12');
           Route::post('/add/{id}', 'AdministratorController@saveUserProfile');
+          Route::get('/get/{id}', 'AdministratorController@getUser');
       });
 
 });
