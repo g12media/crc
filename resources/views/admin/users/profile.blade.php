@@ -392,10 +392,10 @@
 <!-- Edit User Form -->
 
 <!-- Add User Form -->
-{!! Form::open(array('url' => 'administrator/users/add/{{Crypt::encrypt($user->id)}}', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
+{!! Form::open(array('url' => 'administrator/users/add/{{$user->id}}', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
 <div class="modal fade" id="addUserForm" aria-hidden="true" aria-labelledby="addUserForm"
   role="dialog" tabindex="-1">
-  <input type="hidden" name="leader" value="{{Crypt::encrypt($user->id)}}" />
+  <input type="hidden" name="leader" value="{{date('Y').'-'.$user->id.'-'.date('Hms')}}" />
   <div class="modal-dialog modal-simple">
     <div class="modal-content">
       <div class="modal-header">
@@ -517,8 +517,8 @@
       </div>
       <div class="modal-body">
           <center>  <h4 class="modal-title">Eliminar Usuario</h4></center>
-          <input type="hidden" name="userId" id="userId" value="" />
-          <input type="hidden" name="leader" value="{{Crypt::encrypt($user->id)}}" />
+          <input type="hidden" name="userId" id="userIdDelete" value="" />
+          <input type="hidden" name="leader" value="{{$user->id}}" />
           <br>
           <p>Recuerde que eliminara un usuario y su red descendente (Contactos y Grupo) por lo cual solicitamos la confirmacion del documento para eliminar el usuario</p>
           <div class="form-group">
@@ -579,7 +579,8 @@
 <script src="{{URL::asset('admin/assets/js/dashboard.js')}}"></script>
 <script>
   function loadIdDelete(Id){
-    $('#userId').val(Id);
+    console.log("Delete ID:" + Id)
+    $('#userIdDelete').val(Id);
   }
 function loadIdEdit(Id){
   $.get( "get/"+Id).done(function(data) {

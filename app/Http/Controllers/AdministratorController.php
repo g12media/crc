@@ -107,7 +107,7 @@ class AdministratorController extends Controller
     public function deleteUser(Request $request){
       $identification = $request->identification;
       $userId = $request->userId;
-      $leader = $request->leader;
+      $leader = date('Y').'-'.$request->leader.'-'.date('Hms');
 
       $count = User::where('identification', '=', $identification)->where('id', '=', $userId)->count();
       if($count == 0){
@@ -488,8 +488,13 @@ class AdministratorController extends Controller
     }
 
     public function saveUserProfile(Request $request){
-        $user_principal = Auth::user();
+        /*$user_principal = Auth::user();
+        $userLeader = $this->getLevelByLeader($request->leader);*/
+
+        $userIdExplode = $array = explode("-", $request->leader);
         $userLeader = $this->getLevelByLeader($request->leader);
+        $user_principal = Auth::user();
+
 
         $User = new User;
         $User->userType = 'user';
@@ -516,7 +521,7 @@ class AdministratorController extends Controller
         }
 
         $User->leaderPrincipal = $user_principal->id;
-        $User->userId = Crypt::decrypt($request->leader);
+        $User->userId = $userIdExplode[1];
         $User->username = $request->identificacion;
         $User->password = bcrypt($request->identificacion);
         $User->save();
