@@ -6,9 +6,7 @@
   <![endif]-->
   <!-- Page -->
 <style media="screen">
-  .page-content {
-    width: 30% !important;
-  }
+  
   .font-size-18 {
     font-size: 30px !important;
     padding-top: 10px!important;

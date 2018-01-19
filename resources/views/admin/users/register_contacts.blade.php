@@ -8,8 +8,9 @@
 
   <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">>
     <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
-      <h2 class="register-title">Grupo {{$user->name}} {{$user->lastName}}</h2>
-      <div class="row">
+
+      <div class="row" style="background: #12286f3b;">
+
       <div class="col-5" style="margin-top:10px;">
       <div class="panel">
 
@@ -119,7 +120,7 @@
 
         <div class="panel">
           <div class="panel-body">
-            <h4>Grupo</h4>
+            <h4>Contactos - {{$user->name}} {{$user->lastName}}</h4>
             <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
               <thead>
                 <tr>
@@ -127,7 +128,7 @@
                   <th>Nombres</th>
                   <th>Apellidos</th>
                   <th>Email</th>
-                  <th>Link</th>
+
                 </tr>
               </thead>
 
@@ -139,22 +140,6 @@
                   <td>{{$u->lastName}}</td>
                   <td>{{$u->email}}</td>
 
-                  <td>
-                    @if($u->level == 1728)
-                    <a href="/formulario/contacts/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
-                      <button type="button" class="btn btn-primary">
-                        <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i> Contactos
-                      </button>
-                    </a>
-                    @else
-                    <a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
-                      <button type="button" class="btn btn-primary">
-                        <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i>
-                      </button>
-                    </a>
-                    @endif
-
-                  </td>
 
                 </tr>
                 @endforeach
