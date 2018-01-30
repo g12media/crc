@@ -46,7 +46,7 @@
   color: #a3afb7;
 }
 .page-content {
-  width: 40% !important;
+  width: 95% !important;
 }
 @media (max-width: 768px) {
   .page-register-v3 .page-content {
