@@ -19,6 +19,8 @@ class AccessSuperAdmin
       $userType = Auth::user()->userType;
       if($userType == "super-admin"){
           return $next($request);
+      }else if($userType == "call-center"){
+          return redirect("/callCenter");
       }else if($userType == "admin"){
           return redirect("/administrator");
       }else if($userType == "user"){

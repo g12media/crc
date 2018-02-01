@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AccessUser
+class AccessCallCenter
 {
     /**
      * Handle an incoming request.
@@ -17,14 +17,14 @@ class AccessUser
     public function handle($request, Closure $next)
     {
       $userType = Auth::user()->userType;
-      if($userType == "user"){
+      if($userType == "call-center"){
           return $next($request);
-      }else if($userType == "call-center"){
-          return redirect("/callCenter");
-      }else if($userType == "super-adminn"){
+      }else if($userType == "super-admin"){
           return redirect("/superadmin");
       }else if($userType == "admin"){
           return redirect("/administrator");
+      }else if($userType == "user"){
+          return redirect("/user");
       }else{
           return redirect("/logout");
       }

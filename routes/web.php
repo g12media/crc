@@ -30,6 +30,9 @@ Route::group(['prefix'=>'superadmin','middleware'=>['auth','AccessSuperAdmin']],
 Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],function(){
   Route::get('/', 'AdministratorController@dashboard');
 
+  Route::get('/callcenter', 'AdministratorController@callCenter');
+  Route::post('/callcenter', 'AdministratorController@saveUserCallcenter');
+
   Route::group(['prefix'=>'users'],function(){
           Route::get('/', 'AdministratorController@getUsers');
           Route::get('/{id}', 'AdministratorController@getUsersByProfile');
@@ -45,6 +48,12 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
 });
 Route::group(['prefix'=>'user','middleware'=>['auth','AccessUser']],function(){
   Route::get('/', 'UserController@dashboard');
+});
+
+Route::group(['prefix'=>'callCenter','middleware'=>['auth','AccessCallCenter']],function(){
+  Route::get('/', 'CallCenterController@dashboard');
+  Route::get('/call/{id}', 'CallCenterController@callUser');
+  Route::post('/call/{id}', 'CallCenterController@saveCall');
 });
 
 Route::get('/formulario/{id}', 'AdministratorController@getFormRegister');

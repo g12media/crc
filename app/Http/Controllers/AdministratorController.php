@@ -624,6 +624,30 @@ class AdministratorController extends Controller
       $User->save();
       return redirect('/formulario/'.$request->leader);
     }
+    public function callCenter(){
+      $users = User::where('userType','call-center')->get();
+      return view('admin.users.callcenter')->with('users',$users);
+    }
+    public function saveUserCallcenter(Request $request){
+      $User = new User;
+      $User->userType = 'call-center';
+      $User->contactType = 'call-center';
+      $User->identification = $request->identification;
+      $User->name = $request->name;
+      $User->lastName = $request->lastName;
+      $User->gender = $request->gender;
+      $User->phone = $request->phone;
+      $User->email = $request->email;
+      $User->location = $request->location;
+      $User->neighborhood = $request->neighborhood;
+      $User->leaderPrincipal = 0;
+      $User->userId = 0;
+      $User->username = $request->identification;
+      $User->password = bcrypt($request->identification);
+      $User->save();
 
+      return redirect('/administrator/callcenter');
+    }
+    
 
 }

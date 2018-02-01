@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'AccessAdmin' => \App\Http\Middleware\AccessAdmin::class,
         'AccessUser' => \App\Http\Middleware\AccessUser::class,
         'AccessSuperAdmin' => \App\Http\Middleware\AccessSuperAdmin::class,
+        'AccessCallCenter' => \App\Http\Middleware\AccessCallCenter::class,
     ];
 }

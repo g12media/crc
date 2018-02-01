@@ -21,6 +21,8 @@ class RedirectIfAuthenticated
           $userType = Auth::user()->userType;
           if($userType == "admin"){
               return $next($request);
+          }else if($userType == "call-center"){
+              return redirect("/callCenter");
           }else if($userType == "super-admin"){
               return redirect("/superadmin");
           }else if($userType == "user"){
