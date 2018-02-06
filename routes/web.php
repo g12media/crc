@@ -32,6 +32,8 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
 
   Route::get('/callcenter', 'AdministratorController@callCenter');
   Route::post('/callcenter', 'AdministratorController@saveUserCallcenter');
+  Route::get('/callcenter/assignUsers', 'AdministratorController@saveAssignUser');
+  Route::post('/callcenter/assignUsers', 'AdministratorController@saveAssignUser');
 
   Route::group(['prefix'=>'users'],function(){
           Route::get('/', 'AdministratorController@getUsers');
@@ -52,11 +54,12 @@ Route::group(['prefix'=>'user','middleware'=>['auth','AccessUser']],function(){
 
 Route::group(['prefix'=>'callCenter','middleware'=>['auth','AccessCallCenter']],function(){
   Route::get('/', 'CallCenterController@dashboard');
-  Route::get('/call/{id}', 'CallCenterController@callUser');
-  Route::post('/call/{id}', 'CallCenterController@saveCall');
-  Route::get('/assignUsers', 'CallCenterController@saveAssignUser');
-  Route::post('/assignUsers', 'CallCenterController@saveAssignUser');
-
+  Route::get('/call', 'CallCenterController@saveCall');
+  Route::post('/call', 'CallCenterController@saveCall');
+  Route::get('/get/{id}', 'CallCenterController@getUsers');
+  Route::get('/details/{id}', 'CallCenterController@detailsCall');
+  Route::get('/edit/{id}', 'CallCenterController@editCall');
+  Route::post('/edit/{id}', 'CallCenterController@updateCall');
 });
 
 Route::get('/formulario/{id}', 'AdministratorController@getFormRegister');

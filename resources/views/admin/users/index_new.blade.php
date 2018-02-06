@@ -98,7 +98,7 @@
           <div class="card-block">
             <center>
               <i class="icon fa-user-circle" aria-hidden="true" style="font-size: 64px;"></i>
-  </center>
+            </center>
             <h4 class="profile-user">{{$user->name}}</h4>
 
           </div>
@@ -162,7 +162,6 @@
               <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#womens"
                       aria-controls="activities" role="tab">Mujeres</a></li>
               @endif
-
             </ul>
             @if($user->level === 1)
             <div class="tab-content">

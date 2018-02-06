@@ -60,18 +60,53 @@
       <div class="page-content">
         <div class="panel">
           <header class="panel-heading">
-            <div class="panel-actions"><button type="button" onclick="window.location.href='/administrator/properties/add'" class="btn btn-floating btn-success btn-sm"><i class="icon io-plus" aria-hidden="true"></i></button></div>
-            <h3 class="panel-title">Usuarios</h3>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card card-block p-20 bg-blue-600">
+                <div class="counter counter-lg counter-inverse">
+                  <div class="counter-label text-uppercase font-size-16">Usuarios Asignados</div>
+                  <div class="counter-number-group">
+                    <span class="counter-number">{{$usersAssignTotal}}</span>
+                    <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card card-block p-20 bg-blue-600">
+                <div class="counter counter-lg counter-inverse">
+                  <div class="counter-label text-uppercase font-size-16">Llamadas Contestadas</div>
+                  <div class="counter-number-group">
+                    <span class="counter-number">{{$answeredcallsTotal}}</span>
+                    <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card card-block p-20 bg-blue-600">
+                <div class="counter counter-lg counter-inverse">
+                  <div class="counter-label text-uppercase font-size-16">Llamadas No Contestadas</div>
+                  <div class="counter-number-group">
+                    <span class="counter-number">{{$unansweredcallsTotal}}</span>
+                    <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           </header>
           <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
             <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#calls"
-                    aria-controls="activities" role="tab">Equipo</a></li>
-              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#calling"
-                      aria-controls="activities" role="tab">Mujeres</a></li>
+              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#one"
+                    aria-controls="activities" role="tab">Usuarios Asignados</a></li>
+              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#two"
+                      aria-controls="activities" role="tab">Llamadas contestadas</a></li>
+              <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#three"
+                      aria-controls="activities" role="tab">Llamadas no contestadas</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active animation-slide-left" id="calls" role="tabpanel">
+              <div class="tab-pane active animation-slide-left" id="one" role="tabpanel">
                 <div class="panel-body" style="padding:15px 0px 0px 0px;">
                   <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
                     <thead>
@@ -93,13 +128,13 @@
                       </tr>
                     </tfoot>
                     <tbody>
-                      @foreach($call as $c)
+                      @foreach($usersAssign as $ua)
                       <tr>
-                        <td>{{$c->name}}</td>
-                        <td>{{$c->lastName}}</td>
-                        <td>{{$c->phone}}</td>
-                        <td>{{$c->email}}</td>
-                        <td><button onclick="window.location.href='/callCenter/call/{{Crypt::encrypt($c->id)}}'" type="button" class="btn btn-raised btn-primary">Llamar</button></td>
+                        <td>{{$ua->name}}</td>
+                        <td>{{$ua->lastName}}</td>
+                        <td>{{$ua->phone}}</td>
+                        <td>{{$ua->email}}</td>
+                        <td><button onclick="loadIdCall({{$ua->id}})" data-target="#UserIdCall" data-toggle="modal" type="button" class="btn btn-raised btn-primary">Llamar</button></td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -107,7 +142,7 @@
                 </div>
               </div>
 
-              <div class="tab-pane animation-slide-left" id="calling" role="tabpanel">
+              <div class="tab-pane animation-slide-left" id="two" role="tabpanel">
                 <div class="panel-body" style="padding:15px 0px 0px 0px;">
                   <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
                     <thead>
@@ -129,20 +164,54 @@
                       </tr>
                     </tfoot>
                     <tbody>
-                      @foreach($users as $u)
+                      @foreach($answeredcalls as $ac)
                       <tr>
-                        <td>{{$u->name}}</td>
-                        <td>{{$u->lastName}}</td>
-                        <td>{{$u->phone}}</td>
-                        <td>{{$u->email}}</td>
-                        <td><button onclick="window.location.href='/callCenter/call/{{Crypt::encrypt($u->id)}}'" type="button" class="btn btn-raised btn-primary">Detalles</button></td>
+                        <td>{{$ac->name}}</td>
+                        <td>{{$ac->lastName}}</td>
+                        <td>{{$ac->phone}}</td>
+                        <td>{{$ac->email}}</td>
+                        <td><button onclick="window.location.href='/callCenter/details/{{Crypt::encrypt($ac->id)}}'" type="button" class="btn btn-raised btn-primary">Detalles</button></td>
                       </tr>
                       @endforeach
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div class="tab-pane animation-slide-left" id="messages" role="tabpanel">
+              <div class="tab-pane animation-slide-left" id="three" role="tabpanel">
+                <div class="panel-body" style="padding:15px 0px 0px 0px;">
+                  <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+                    <thead>
+                      <tr>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Telefono</th>
+                        <th>Correo Electronico</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <tr>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Telefono</th>
+                        <th>Correo Electronico</th>
+                        <th>Opciones</th>
+                      </tr>
+                    </tfoot>
+                    <tbody>
+                      @foreach($unansweredcalls as $uc)
+                      <tr>
+                        <td>{{$uc->name}}</td>
+                        <td>{{$uc->lastName}}</td>
+                        <td>{{$uc->phone}}</td>
+                        <td>{{$uc->email}}</td>
+                        <td><button onclick="window.location.href='/callCenter/edit/{{Crypt::encrypt($uc->id)}}'" type="button" class="btn btn-raised btn-primary">Editar</button></td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+              </div>
               </div>
             </div>
           </div>
@@ -150,6 +219,40 @@
         </div>
       </div>
     </div>
+    {!! Form::open(array('url' => 'callCenter/call', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
+    <div class="modal fade" id="UserIdCall" aria-hidden="true" aria-labelledby="UserIdCall" role="dialog" tabindex="-1">
+      <div class="modal-dialog modal-simple">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body">
+            <center><h3 class="panel-title">Usuarios</h3>
+            <h3 class="panel-title" style="font-weight: 100;">Nombre: <input type="text" name="nameUserCall" id="nameUserCall" value="" disabled style="border: 0px !important;"/> <br>Numero: <input type="text" name="phoneUserCall" id="phoneUserCall" value="" disabled style="border: 0px !important;"/></h3></center>
+    <input type="hidden" name="userIdCall" id="userIdCall" value="" />
+    <div class="form-group form-material floating" data-plugin="formMaterial" >
+      <select name="status" class="form-control" required>
+        <option value="">Seleccione un Estado</option>
+        <option value="1">Contestado</option>
+        <option value="0">No Contestado</option>
+      </select>
+    </div>
+    <div class="form-group form-material floating" data-plugin="formMaterial" >
+      <select name="answer" class="form-control" required>
+        <option value="">Seleccione una Respuesta</option>
+        <option value="participa">participa</option>
+        <option value="No participa">No participa</option>
+      </select>
+    </div>
+    <div class="form-group form-material floating" data-plugin="formMaterial">
+      <textarea class="form-control" name="description" id="textareaDefault" placeholder="Descripcion de la llamada" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block btn-lg mt-40">Guardar</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    {!! Form::close() !!}
     <!-- End Page -->
 @stop
 
@@ -181,5 +284,17 @@
         <script src="{{URL::asset('admin/global/vendor/datatables.net-buttons-bs4/buttons.bootstrap4.js')}}"></script>
         <script src="{{URL::asset('admin/global/vendor/asrange/jquery-asRange.min.js')}}"></script>
         <script src="{{URL::asset('admin/global/vendor/bootbox/bootbox.js')}}"></script>
+        <script type="text/javascript">
 
+        function loadIdCall(Id){
+          $('#userIdCall').val(Id);
+
+          $.get( "callCenter/get/"+Id).done(function(data) {
+              $("#nameUserCall").val(data.name);
+              $("#phoneUserCall").val(data.phone);
+
+          });
+        }
+
+        </script>
 @stop

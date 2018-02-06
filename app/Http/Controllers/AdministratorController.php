@@ -12,6 +12,7 @@ use App\Documents;
 use App\OwnersProperties;
 use App\PropertyDocuments;
 use App\Bussines;
+use App\Calls;
 use App\Payments;
 use App\callcenterUsers;
 use Illuminate\Http\Request;
@@ -625,8 +626,28 @@ class AdministratorController extends Controller
     }
     public function callCenter(){
       $users = User::where('userType','call-center')->get();
+
       $ministry = User::where('level','12')->get();
-      return view('admin.users.callcenter')->with('users',$users)->with('ministry',$ministry);
+
+
+      $answeredcalls = DB::table('users as u')
+        ->join('Calls as c', 'u.id', '=', 'c.userId')
+        ->select('u.*','c.status','c.description','c.answer')
+        ->where('c.status','=',1)
+        ->get();
+
+      $unansweredcalls = DB::table('users as u')
+        ->join('Calls as c', 'u.id', '=', 'c.userId')
+        ->select('u.*','c.status','c.description','c.answer')
+        ->where('c.status','=',0)
+        ->get();
+
+      return view('admin.users.callcenter')
+      ->with('users',$users)
+      ->with('callcenterUsers',new callcenterUsers())
+      ->with('ministry',$ministry)
+      ->with('answeredcalls',$answeredcalls)
+      ->with('unansweredcalls',$unansweredcalls);
     }
     public function saveUserCallcenter(Request $request){
       $User = new User;
@@ -653,19 +674,32 @@ class AdministratorController extends Controller
 
         if ($request->userType == 1){
           //Random
-          $users = DB::table('users')->where('userType','=','user')->where('call_user ','=',0)->take($request->random)->get();
+          $users = DB::table('users')->where('userType','=','user')->where('assign_user','=',0)->take($request->random)->get();
           foreach ($users as $u){
             $callcenterUsers = new callcenterUsers;
             $callcenterUsers->userId = $u->id;
             $callcenterUsers->callCenterId = $request->userIdAssign;
             $callcenterUsers->save();
+
+            $user = User::find($u->id);
+            $user->assign_user = 1;
+            $user->save();
           }
         }else {
           //Ministerio
+          $users = DB::table('users')->where('userType','=','user')->where('assign_user','=',0)->where('leaderPrincipal','=',$request->ministry)->take($request->random)->get();
+          foreach ($users as $u){
+            $callcenterUsers = new callcenterUsers;
+            $callcenterUsers->userId = $u->id;
+            $callcenterUsers->callCenterId = $request->userIdAssign;
+            $callcenterUsers->save();
 
+            $user = User::find($u->id);
+            $user->assign_user = 1;
+            $user->save();
+          }
         }
-
-        return redirect('');
+        return redirect('/administrator/callcenter');
     }
 
 }

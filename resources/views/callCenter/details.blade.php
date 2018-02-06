@@ -60,31 +60,26 @@
       <div class="page-content">
         <div class="panel">
           <header class="panel-heading">
-            <center><h3 class="panel-title">Usuarios</h3>
-            <h3 class="panel-title" style="font-weight: 100;">Nombre: <b>{{$user->name}} {{$user->lastName}}</b> Numero: <b>{{$user->phone}}</b> </h3></center>
+            <center><h3 class="panel-title">Detalles de la llamada</h3>
           </header>
+          @foreach($users as $u)
           <div class="panel-body">
-            {!! Form::open(array('method' => 'POST','id' => 'formRegister' , 'enctype' => 'multipart/form-data')) !!}
-              <div class="form-group form-material floating" data-plugin="formMaterial" >
-                <select name="status" class="form-control" required>
-                  <option value="">Seleccione un Estado</option>
-                  <option value="1">Contestado</option>
-                  <option value="0">No Contestado</option>
-                </select>
-              </div>
-              <div class="form-group form-material floating" data-plugin="formMaterial" >
-                <select name="answer" class="form-control" required>
-                  <option value="">Seleccione una Respuesta</option>
-                  <option value="participa">participa</option>
-                  <option value="No participa">No participa</option>
-                </select>
-              </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              @if($u->status == 1)
+                <input type="text" class="form-control" name="status"/ value="Contestada" disabled>
+              @else
+                <input type="text" class="form-control" name="status"/ value="No Contestada" disabled>
+              @endif
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="text" class="form-control" name="answer"/ value="{{$u->answer}}" disabled>
+            </div>
               <div class="form-group form-material floating" data-plugin="formMaterial">
-                <textarea class="form-control" name="description" id="textareaDefault" placeholder="Descripcion de la llamada" rows="3"></textarea>
+                <textarea class="form-control" name="description" id="textareaDefault" placeholder="Descripcion de la llamada" rows="3" disabled>{{$u->description}}</textarea>
               </div>
-              <button type="submit" class="btn btn-primary btn-block btn-lg mt-40">Guardar</button>
-            {!! Form::close() !!}
+              <button onclick="window.location.href='/callCenter'" class="btn btn-primary btn-block btn-lg mt-40">Volver</button>
           </div>
+          @endforeach
         </div>
       </div>
     </div>

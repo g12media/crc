@@ -59,44 +59,132 @@
 
 @section('page_content')
 <div class="page bg-white">
-  <div class="page-content container-fluid">
-    <div class="row">
-      <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
-        <thead>
-          <tr>
-            <th>Cedula</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Email</th>
-            <th>Opciones</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr>
-            <th>Cedula</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Email</th>
-            <th>Opciones</th>
-          </tr>
-        </tfoot>
-        <tbody>
-          @foreach($users as $um)
-          <tr>
-            <td>{{$um->identification}}</a></td>
-            <td>{{$um->name}}</td>
-            <td>{{$um->lastName}}</td>
-            <td>{{$um->email}}</td>
-            <td>
-              <button type="button" class="btn btn-raised btn-primary" onclick="loadIdUser({{$um->id}})" data-target="#assignUsersForm" data-toggle="modal">Asignar Usuarios</button>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
+  <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
+    <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+        <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#one"
+            aria-controls="activities" role="tab">Usuarios Call center</a></li>
+      <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#two"
+          aria-controls="activities" role="tab">Llamadas contestadas</a></li>
+      <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#three"
+              aria-controls="activities" role="tab">Llamadas no contestadas</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active animation-slide-left" id="one" role="tabpanel">
+        <div class="panel-body" style="padding:15px 0px 0px 0px;">
+          <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+            <thead>
+              <tr>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th>Contactos Asignados</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th>Contactos Asignados</th>
+                <th>Opciones</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              @foreach($users as $um)
+              <tr>
+                <td>{{$um->identification}}</a></td>
+                <td>{{$um->name}}</td>
+                <td>{{$um->lastName}}</td>
+                <td>{{$um->email}}</td>
 
+                <td>
+                  <?php
+                  $id = $callcenterUsers->getCountUsers($um->id);
+                  echo $id;
+                  ?>
+                </td>
+                <td>
+                  @if($id === 0)
+                  <button type="button" class="btn btn-raised btn-primary" onclick="loadIdUser({{$um->id}})" data-target="#assignUsersForm" data-toggle="modal">Asignar Usuarios</button>
+                  @endif
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane animation-slide-left" id="two" role="tabpanel">
+        <div class="panel-body" style="padding:15px 0px 0px 0px;">
+          <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+            <thead>
+              <tr>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              @foreach($answeredcalls as $ac)
+              <tr>
+                <td>{{$ac->identification}}</a></td>
+                <td>{{$ac->name}}</td>
+                <td>{{$ac->lastName}}</td>
+                <td>{{$ac->email}}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab-pane animation-slide-left" id="three" role="tabpanel">
+        <div class="panel-body" style="padding:15px 0px 0px 0px;">
+          <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+            <thead>
+              <tr>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              @foreach($unansweredcalls as $uc)
+              <tr>
+                <td>{{$uc->identification}}</a></td>
+                <td>{{$uc->name}}</td>
+                <td>{{$uc->lastName}}</td>
+                <td>{{$uc->email}}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      </div>
     </div>
+  </div>
   </div>
 
 <!-- Site Action -->
@@ -205,7 +293,7 @@
           </div>
 
           <div class="form-group">
-            <select name="ministry" id="ministry" required="" style="display:none;">
+            <select name="ministry" id="ministry" style="display:none;">
               <option value="">Seleccione Ministerio</option>
               @foreach($ministry as $m)
               <option value="{{$m->id}}">{{$m->name}}</option>
@@ -213,7 +301,7 @@
             </select>
           </div>
           <div class="form-group">
-            <select name="random" id="random" required="" style="display:none;">
+            <select name="random" id="random" style="display:none;">
               <option value="">Seleccione cantidad de usuarios</option>
               <option value="10">10</option>
               <option value="15">15</option>

@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->integer('level')->nullable();
             $table->integer('leaderPrincipal')->nullable();
             $table->integer('userId')->nullable();
+            $table->boolean('assign_user')->nullable();
             $table->boolean('call_user')->nullable();
             $table->rememberToken();
             $table->timestamps();
