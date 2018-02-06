@@ -24,23 +24,10 @@
 <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" role="navigation">
 
       <div class="navbar-header">
-        <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided"
-          data-toggle="menubar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="hamburger-bar"></span>
-        </button>
-        <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-collapse"
-          data-toggle="collapse">
-          <i class="icon wb-more-horizontal" aria-hidden="true"></i>
-        </button>
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-          <img class="navbar-brand-logo" src="/logo-crc.png" title="Remark">
+          <img class="navbar-brand-logo" src="../assets/images/logo.png" title="Remark">
+          <span class="navbar-brand-text hidden-xs-down"> Remark</span>
         </div>
-        <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
-          data-toggle="collapse">
-          <span class="sr-only">Toggle Search</span>
-          <i class="icon wb-search" aria-hidden="true"></i>
-        </button>
       </div>
 
       <div class="navbar-container container-fluid">
@@ -56,32 +43,15 @@
                 </i>
               </a>
             </li>
-            <li class="nav-item hidden-sm-down" id="toggleFullscreen">
-              <a class="nav-link icon icon-fullscreen" data-toggle="fullscreen" href="#" role="button">
-                <span class="sr-only">Pantalla Completa</span>
-              </a>
-            </li>
-
           </ul>
           <!-- End Navbar Toolbar -->
 
-
+          <!-- Navbar Toolbar Right -->
+          <!-- End Navbar Toolbar Right -->
         </div>
         <!-- End Navbar Collapse -->
 
         <!-- Site Navbar Seach -->
-        <div class="collapse navbar-search-overlap" id="site-navbar-search">
-          <form role="search">
-            <div class="form-group">
-              <div class="input-search">
-                <i class="input-search-icon wb-search" aria-hidden="true"></i>
-                <input type="text" class="form-control" name="site-search" placeholder="Search...">
-                <button type="button" class="input-search-close icon wb-close" data-target="#site-navbar-search"
-                  data-toggle="collapse" aria-label="Close"></button>
-              </div>
-            </div>
-          </form>
-        </div>
         <!-- End Site Navbar Seach -->
       </div>
     </nav>
@@ -118,6 +88,7 @@
             <td>{{$um->lastName}}</td>
             <td>{{$um->email}}</td>
             <td>
+              <button type="button" class="btn btn-raised btn-primary" onclick="loadIdUser({{$um->id}})" data-target="#assignUsersForm" data-toggle="modal">Asignar Usuarios</button>
             </td>
           </tr>
           @endforeach
@@ -213,7 +184,54 @@
 </div>
 {!! Form::close() !!}
 <!-- End Add User Form -->
+<!-- assignUsers -->
+{!! Form::open(array('url' => 'administrator/callcenter/assignUsers', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
+<div class="modal fade" id="assignUsersForm" aria-hidden="true" aria-labelledby="assignUsersForm"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-simple">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+        <h4 class="modal-title" style="width:100%;"><center>Asignar Usuarios callCenter</center></h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="userIdAssign" id="userIdAssign" value=""/>
+          <div class="form-group">
+            <select name="userType" id="userType"required="" onchange="selectType()">
+              <option value="">Seleccione tipo de usuarios</option>
+              <option value="1">Random</option>
+              <option value="2">Ministerio</option>
+            </select>
+          </div>
 
+          <div class="form-group">
+            <select name="ministry" id="ministry" required="" style="display:none;">
+              <option value="">Seleccione Ministerio</option>
+              @foreach($ministry as $m)
+              <option value="{{$m->id}}">{{$m->name}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="random" id="random" required="" style="display:none;">
+              <option value="">Seleccione cantidad de usuarios</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+            </select>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{!! Form::close() !!}
+<!-- close assignUsers -->
 
 
 
@@ -281,6 +299,21 @@ function loadIdEdit(Id){
 
   });
 }
-
+function loadIdUser(Id){
+  $('#userIdAssign').val(Id);
+}
+function selectType(){
+  var userType = document.getElementById("userType").value;
+  if(userType == 1){
+    $("#ministry").fadeOut();
+    $("#random").fadeIn();
+  }else if(userType == 2){
+    $("#ministry").fadeIn();
+    $("#random").fadeIn();
+}else{
+    $("#ministry").fadeOut();
+    $("#random").fadeOut();
+  }
+}
 </script>
 @stop

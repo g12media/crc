@@ -54,6 +54,9 @@ Route::group(['prefix'=>'callCenter','middleware'=>['auth','AccessCallCenter']],
   Route::get('/', 'CallCenterController@dashboard');
   Route::get('/call/{id}', 'CallCenterController@callUser');
   Route::post('/call/{id}', 'CallCenterController@saveCall');
+  Route::get('/assignUsers', 'CallCenterController@saveAssignUser');
+  Route::post('/assignUsers', 'CallCenterController@saveAssignUser');
+
 });
 
 Route::get('/formulario/{id}', 'AdministratorController@getFormRegister');

@@ -13,6 +13,7 @@ use App\OwnersProperties;
 use App\PropertyDocuments;
 use App\Bussines;
 use App\Payments;
+use App\callcenterUsers;
 use Illuminate\Http\Request;
 
 
@@ -125,7 +126,7 @@ class AdministratorController extends Controller
         $user = Auth::user();
         $usersMen = User::where('userId',$user->id)->where('gender','masculino')->get();
         $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->get();
-        $usersGeneral = User::where('leaderPrincipal',$user->id)->get();
+        $usersGeneral = User::where('leaderPrincipal',$user->id)->where('level',12)->get();
 
         $usersTotal = User::all()->count();
         $usersTotalCount = $usersTotal - 1;
@@ -317,8 +318,6 @@ class AdministratorController extends Controller
         ->with('hBar12',$hBar12)
         ->with('gender_chart',$gender_chart)
         ->with('chartjs',$chartjs);
-
-
 
     }
 
@@ -626,7 +625,8 @@ class AdministratorController extends Controller
     }
     public function callCenter(){
       $users = User::where('userType','call-center')->get();
-      return view('admin.users.callcenter')->with('users',$users);
+      $ministry = User::where('level','12')->get();
+      return view('admin.users.callcenter')->with('users',$users)->with('ministry',$ministry);
     }
     public function saveUserCallcenter(Request $request){
       $User = new User;
@@ -648,6 +648,24 @@ class AdministratorController extends Controller
 
       return redirect('/administrator/callcenter');
     }
-    
+
+    public function saveAssignUser(Request $request){
+
+        if ($request->userType == 1){
+          //Random
+          $users = DB::table('users')->where('userType','=','user')->where('call_user ','=',0)->take($request->random)->get();
+          foreach ($users as $u){
+            $callcenterUsers = new callcenterUsers;
+            $callcenterUsers->userId = $u->id;
+            $callcenterUsers->callCenterId = $request->userIdAssign;
+            $callcenterUsers->save();
+          }
+        }else {
+          //Ministerio
+
+        }
+
+        return redirect('');
+    }
 
 }

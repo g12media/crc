@@ -68,15 +68,15 @@
               <div class="form-group form-material floating" data-plugin="formMaterial" >
                 <select name="status" class="form-control" required>
                   <option value="">Seleccione un Estado</option>
-                  <option value="llamado">Llamado</option>
-                  <option value="No llamado">No llamado</option>
+                  <option value="1">Llamado</option>
+                  <option value="0">No llamado</option>
                 </select>
               </div>
               <div class="form-group form-material floating" data-plugin="formMaterial" >
                 <select name="answer" class="form-control" required>
                   <option value="">Seleccione una Respuesta</option>
-                  <option value="masculino">Llamado</option>
-                  <option value="femenino">No llamado</option>
+                  <option value="participa">participa</option>
+                  <option value="No participa">No participa</option>
                 </select>
               </div>
               <div class="form-group form-material floating" data-plugin="formMaterial">
