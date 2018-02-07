@@ -466,6 +466,29 @@ class AdministratorController extends Controller
       return view('admin.users.add');
     }
 
+    public function saveHeadquarter(Request $request){
+        $user_principal = Auth::user();
+        $User = new User;
+        $User->userType = 'admin';
+        $User->contactType = 'sede';
+        $User->identification = $request->identificacion;
+        $User->name = $request->name;
+        $User->lastName = $request->lastName;
+        $User->gender = $request->gender;
+        $User->phone = $request->phone;
+        $User->email = $request->email;
+        $User->city = $request->city;
+        $User->neighborhood = $request->neighborhood;
+        $User->leaderPrincipal = 0;
+        $User->level = 0;
+        $User->userId = 0;
+        $User->username = $request->identificacion;
+        $User->password = bcrypt($request->identificacion);
+        $User->save();
+
+        return redirect('administrator/users/');
+    }
+
     public function saveUsers(Request $request){
         $user_principal = Auth::user();
         $User = new User;
