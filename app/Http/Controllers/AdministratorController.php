@@ -697,7 +697,7 @@ class AdministratorController extends Controller
         $userAssign = User::find($request->userIdAssign);
 
           //Ministerio
-          $users = DB::table('users')->where('userType','=','user')->where('assign_user','=',0)->where('leaderPrincipal','=',$userAssign->leaderPrincipal)->take($request->random)->get();
+          $users = DB::table('users')->where('userType','=','user')->where('contactType','=','contacto')->where('assign_user','=',0)->where('leaderPrincipal','=',$userAssign->leaderPrincipal)->take($request->random)->get();
           foreach ($users as $u){
             $callcenterUsers = new callcenterUsers;
             $callcenterUsers->userId = $u->id;
