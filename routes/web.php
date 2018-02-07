@@ -39,6 +39,7 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
           Route::get('/', 'AdministratorController@getUsers');
           Route::get('/{id}', 'AdministratorController@getUsersByProfile');
           Route::post('/add', 'AdministratorController@saveUsers');
+          Route::post('/headquarter/add', 'AdministratorController@saveHeadquarter');
           Route::post('/edit', 'AdministratorController@updateUsers');
           Route::post('/edit12', 'AdministratorController@updateUsers12');
           Route::post('/delete', 'AdministratorController@deleteUser');

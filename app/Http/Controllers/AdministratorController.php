@@ -466,6 +466,29 @@ class AdministratorController extends Controller
       return view('admin.users.add');
     }
 
+    public function saveHeadquarter(Request $request){
+        $user_principal = Auth::user();
+        $User = new User;
+        $User->userType = 'admin';
+        $User->contactType = 'sede';
+        $User->identification = $request->identificacion;
+        $User->name = $request->name;
+        $User->lastName = $request->lastName;
+        $User->gender = $request->gender;
+        $User->phone = $request->phone;
+        $User->email = $request->email;
+        $User->city = $request->city;
+        $User->neighborhood = $request->neighborhood;
+        $User->leaderPrincipal = 1;
+        $User->level = 12;
+        $User->userId = 1;
+        $User->username = $request->identificacion;
+        $User->password = bcrypt($request->identificacion);
+        $User->save();
+
+        return redirect('administrator/users/');
+    }
+
     public function saveUsers(Request $request){
         $user_principal = Auth::user();
         $User = new User;
@@ -656,16 +679,10 @@ class AdministratorController extends Controller
       $User = new User;
       $User->userType = 'call-center';
       $User->contactType = 'call-center';
-      $User->identification = $request->identification;
       $User->name = $request->name;
       $User->lastName = $request->lastName;
-      $User->gender = $request->gender;
-      $User->phone = $request->phone;
-      $User->email = $request->email;
-      $User->location = $request->location;
-      $User->neighborhood = $request->neighborhood;
-      $User->leaderPrincipal = 0;
-      $User->userId = 0;
+      $User->userId = $request->ministry_date;
+      $User->leaderPrincipal = $request->ministry_date;
       $User->username = $request->identification;
       $User->password = bcrypt($request->identification);
       $User->save();
@@ -675,22 +692,12 @@ class AdministratorController extends Controller
 
     public function saveAssignUser(Request $request){
 
-        if ($request->userType == 1){
-          //Random
-          $users = DB::table('users')->where('userType','=','user')->where('assign_user','=',0)->take($request->random)->get();
-          foreach ($users as $u){
-            $callcenterUsers = new callcenterUsers;
-            $callcenterUsers->userId = $u->id;
-            $callcenterUsers->callCenterId = $request->userIdAssign;
-            $callcenterUsers->save();
 
-            $user = User::find($u->id);
-            $user->assign_user = 1;
-            $user->save();
-          }
-        }else {
+
+        $userAssign = User::find($request->userIdAssign);
+
           //Ministerio
-          $users = DB::table('users')->where('userType','=','user')->where('assign_user','=',0)->where('leaderPrincipal','=',$request->ministry)->take($request->random)->get();
+          $users = DB::table('users')->where('userType','=','user')->where('assign_user','=',0)->where('leaderPrincipal','=',$userAssign->leaderPrincipal)->take($request->random)->get();
           foreach ($users as $u){
             $callcenterUsers = new callcenterUsers;
             $callcenterUsers->userId = $u->id;
@@ -701,7 +708,7 @@ class AdministratorController extends Controller
             $user->assign_user = 1;
             $user->save();
           }
-        }
+
         return redirect('/administrator/callcenter');
     }
 
