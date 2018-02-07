@@ -74,20 +74,20 @@
           <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
             <thead>
               <tr>
-                <th>Cedula</th>
+                <th>Usuario/Clave</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
-                <th>Email</th>
+
                 <th>Contactos Asignados</th>
                 <th>Opciones</th>
               </tr>
             </thead>
             <tfoot>
               <tr>
-                <th>Cedula</th>
+                <th>Usuario/Clave</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
-                <th>Email</th>
+
                 <th>Contactos Asignados</th>
                 <th>Opciones</th>
               </tr>
@@ -95,10 +95,10 @@
             <tbody>
               @foreach($users as $um)
               <tr>
-                <td>{{$um->identification}}</a></td>
+                <td>{{$um->username}}</a></td>
                 <td>{{$um->name}}</td>
                 <td>{{$um->lastName}}</td>
-                <td>{{$um->email}}</td>
+
 
                 <td>
                   <?php
@@ -107,9 +107,9 @@
                   ?>
                 </td>
                 <td>
-                  @if($id === 0)
+
                   <button type="button" class="btn btn-raised btn-primary" onclick="loadIdUser({{$um->id}})" data-target="#assignUsersForm" data-toggle="modal">Asignar Usuarios</button>
-                  @endif
+              
                 </td>
               </tr>
               @endforeach
@@ -207,7 +207,7 @@
       <div class="modal-body">
 
           <div class="form-group">
-            <input type="text" class="form-control" name="identification" placeholder="Identificacion" required/>
+            <input type="text" class="form-control" name="identification" placeholder="Usuario / Clave" required/>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="name" placeholder="Nombres" required/>
@@ -215,53 +215,17 @@
           <div class="form-group">
             <input type="text" class="form-control" name="lastName" placeholder="Apellidos" required/>
           </div>
-          <div class="form-group">
-            <select name="gender" required>
-              <option value="">Seleccione un Genero</option>
-              <option value="masculino">Masculino</option>
-              <option value="femenino">Femenino</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="email" placeholder="Email" required/>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="phone" placeholder="Telefono / Celular" required/>
-          </div>
 
           <div class="form-group">
-            <select name="location" required>
-              <option value="Antonio Nariño">Seleccione una Localidad</option>
-              <option value="Antonio Nariño">Antonio Nariño</option>
-              <option value="Barrios Unidos">Barrios Unidos</option>
-              <option value="Bosa">Bosa</option>
-              <option value="Chapinero">Chapinero</option>
-              <option value="Ciudad Bolivar">Ciudad Bolivar</option>
-              <option value="Engativa">Engativa</option>
-              <option value="Fontibon">Fontibon</option>
-              <option value="Kennedy">Kennedy</option>
-              <option value="La Candelaria">La Candelaria</option>
-              <option value="Los Martires">Los Martires</option>
-              <option value="Puente Aranda">Puente Aranda</option>
-              <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
-              <option value="San Cristobal">San Cristobal</option>
-              <option value="Santa Fe">Santa Fe</option>
-              <option value="Suba">Suba</option>
-              <option value="Sumapaz">Sumapaz</option>
-              <option value="Teusaquillo">Teusaquillo</option>
-              <option value="Tunjuelito">Tunjuelito</option>
-              <option value="Usaquen">Usaquen</option>
-              <option value="Usme">Usme</option>
-              <option value="Soacha">Municipio - Soacha</option>
-              <option value="Mosquera">Municipio - Mosquera</option>
-              <option value="Madrid">Municipio - Madrid</option>
-              <option value="Chia">Municipio - Chia</option>
-              <option value="Cajica">Municipio - Cajica</option>
+            <select name="ministry_date" id="ministry_date" >
+              <option value="">Seleccione su ministerio</option>
+              @foreach($ministry as $mt)
+              <option value="{{$mt->id}}">{{$mt->name}} {{$mt->lastName}} </option>
+              @endforeach
             </select>
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="neighborhood" placeholder="Barrio" required />
-          </div>
+
+
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" type="submit">Guardar</button>
@@ -284,29 +248,14 @@
       </div>
       <div class="modal-body">
         <input type="hidden" name="userIdAssign" id="userIdAssign" value=""/>
-          <div class="form-group">
-            <select name="userType" id="userType"required="" onchange="selectType()">
-              <option value="">Seleccione tipo de usuarios</option>
-              <option value="1">Random</option>
-              <option value="2">Ministerio</option>
-            </select>
-          </div>
 
           <div class="form-group">
-            <select name="ministry" id="ministry" style="display:none;">
-              <option value="">Seleccione Ministerio</option>
-              @foreach($ministry as $m)
-              <option value="{{$m->id}}">{{$m->name}}</option>
-              @endforeach
-            </select>
-          </div>
-          <div class="form-group">
-            <select name="random" id="random" style="display:none;">
+            <select name="random" id="random">
               <option value="">Seleccione cantidad de usuarios</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="150">150</option>
+              <option value="200">200</option>
             </select>
           </div>
 
@@ -390,18 +339,6 @@ function loadIdEdit(Id){
 function loadIdUser(Id){
   $('#userIdAssign').val(Id);
 }
-function selectType(){
-  var userType = document.getElementById("userType").value;
-  if(userType == 1){
-    $("#ministry").fadeOut();
-    $("#random").fadeIn();
-  }else if(userType == 2){
-    $("#ministry").fadeIn();
-    $("#random").fadeIn();
-}else{
-    $("#ministry").fadeOut();
-    $("#random").fadeOut();
-  }
-}
+
 </script>
 @stop

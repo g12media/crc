@@ -62,6 +62,8 @@ class CallCenterController extends Controller{
         ->where('u.userType','=','user')
         ->get();
 
+      $principalUsers = DB::table('users as u')->where('u.level','=','12')->where('u.leaderPrincipal','=','1')->get();
+
       return view('callCenter.dashboard')
       ->with('users',$users)
       ->with('usersAssign',$usersAssign)
@@ -69,6 +71,7 @@ class CallCenterController extends Controller{
       ->with('unansweredcalls',$unansweredcalls)
       ->with('usersAssignTotal',$usersAssignTotal)
       ->with('answeredcallsTotal',$answeredcallsTotal)
+      ->with('principalUsers',$principalUsers)
       ->with('unansweredcallsTotal',$unansweredcallsTotal);
     }/*
     public function callUser($id){

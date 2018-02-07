@@ -14,4 +14,11 @@ class callcenterUsers extends Model
         $usersCount = callcenterUsers::where('callCenterId',$id)->count();
         return $usersCount;
     }
+
+    public function getMinistry($id){
+      $user = \App\User::find($id);
+      $ministryName = \App\User::find($user->userId);
+
+      return $ministryName;
+    }
 }
