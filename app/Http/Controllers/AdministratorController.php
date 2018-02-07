@@ -482,8 +482,8 @@ class AdministratorController extends Controller
         $User->leaderPrincipal = 1;
         $User->level = 12;
         $User->userId = 1;
-        $User->username = $request->identificacion;
-        $User->password = bcrypt($request->identificacion);
+        $User->username = $request->username;
+        $User->password = bcrypt($request->password);
         $User->save();
 
         return redirect('administrator/users/');

@@ -658,7 +658,7 @@
             </select>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="email" placeholder="Email" />
+            <input type="text" class="form-control" name="email" placeholder="Email" required/>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="phone" placeholder="Telefono / Celular" required/>
@@ -668,6 +668,12 @@
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="city" placeholder="Ciudad/Municipio de la sede" required />
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Usuario" required />
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Contraseña" required />
           </div>
       </div>
       <div class="modal-footer">
