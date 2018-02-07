@@ -479,9 +479,9 @@ class AdministratorController extends Controller
         $User->email = $request->email;
         $User->city = $request->city;
         $User->neighborhood = $request->neighborhood;
-        $User->leaderPrincipal = 0;
-        $User->level = 0;
-        $User->userId = 0;
+        $User->leaderPrincipal = 1;
+        $User->level = 12;
+        $User->userId = 1;
         $User->username = $request->identificacion;
         $User->password = bcrypt($request->identificacion);
         $User->save();

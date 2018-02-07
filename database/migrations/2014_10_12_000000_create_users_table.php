@@ -39,26 +39,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        Schema::create('callcenterUsers', function (Blueprint $table) {
-            $table->increments('id');
-            /* Foreign key Users */
-            $table->integer('userId')->nullable();
-            $table->integer('callCenterId')->nullable();
-            $table->timestamps();
-        });
-        Schema::create('Calls', function (Blueprint $table) {
-            $table->increments('id');
-            /* Foreign key Users */
-            $table->boolean('status')->nullable();
-            $table->string('description')->nullable();
-            $table->string('answer')->nullable();
-            $table->integer('userId')->unsigned();
-            $table->foreign('userId')
-                ->references('id')->on('users')
-                ->onDelete('cascade');
-            /* Foreign key Pets */
-            $table->timestamps();
-        });
+      
         Schema::create('Roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
