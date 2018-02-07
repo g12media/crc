@@ -98,7 +98,7 @@
           <div class="card-block">
             <center>
               <i class="icon fa-user-circle" aria-hidden="true" style="font-size: 64px;"></i>
-  </center>
+            </center>
             <h4 class="profile-user">{{$user->name}}</h4>
 
           </div>
@@ -156,15 +156,105 @@
               @if($user->level == 1)
                 <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#mens"
                     aria-controls="activities" role="tab">Equipo</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#headquarter"
+                    aria-controls="activities" role="tab">Sedes</a></li>
               @else
               <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#mens"
                   aria-controls="activities" role="tab">Hombres</a></li>
               <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#womens"
                       aria-controls="activities" role="tab">Mujeres</a></li>
               @endif
-
             </ul>
-
+            @if($user->level === 1)
+            <div class="tab-content">
+            <div class="tab-pane active animation-slide-left" id="mens" role="tabpanel">
+              <div class="panel-body" style="padding:15px 0px 0px 0px;">
+                <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+                  <thead>
+                    <tr>
+                      <th>Cedula</th>
+                      <th>Nombres</th>
+                      <th>Apellidos</th>
+                      <th>Email</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Cedula</th>
+                      <th>Nombres</th>
+                      <th>Apellidos</th>
+                      <th>Email</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    @foreach($usersGeneral as $ug)
+                    <tr>
+                      <td><a href="/administrator/users/{{date('Y').'-'.$ug->id.'-'.date('Hms')}}">{{$ug->identification}}</a></td>
+                      <td>{{$ug->name}}</td>
+                      <td>{{$ug->lastName}}</td>
+                      <td>{{$ug->email}}</td>
+                      <td>
+                        <button type="button" class="" data-target="#deleteUserForm" data-toggle="modal" onclick="loadIdDelete({{$ug->id}})">
+                        <i class="icon fa-trash" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="" data-target="#editUserForm" data-toggle="modal" onclick="loadIdEdit({{$ug->id}})">
+                          <i class="icon fa-edit" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane animation-slide-left" id="headquarter" role="tabpanel">
+              <div class="panel-body" style="padding:15px 0px 0px 0px;">
+                <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+                  <button type="button" class="btn btn-floating btn-success btn-sm" style="float: right;"><i class="icon wb-plus" aria-hidden="true"></i></button>
+                  <thead>
+                    <tr>
+                      <th>Cedula</th>
+                      <th>Nombres</th>
+                      <th>Apellidos</th>
+                      <th>Email</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Cedula</th>
+                      <th>Nombres</th>
+                      <th>Apellidos</th>
+                      <th>Email</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    @foreach($usersHeadquarters as $uh)
+                    <tr>
+                      <td><a href="/administrator/users/{{date('Y').'-'.$ug->id.'-'.date('Hms')}}">{{$ug->identification}}</a></td>
+                      <td>{{$uh->name}}</td>
+                      <td>{{$uh->lastName}}</td>
+                      <td>{{$uh->email}}</td>
+                      <td>
+                        <button type="button" class="" data-target="#deleteUserForm" data-toggle="modal" onclick="loadIdDelete({{$uh->id}})">
+                        <i class="icon fa-trash" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="" data-target="#editUserForm" data-toggle="modal" onclick="loadIdEdit({{$uh->id}})">
+                          <i class="icon fa-edit" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            </div>
+            @endif
+            @if($user->level != 1)
             <div class="tab-content">
               <div class="tab-pane active animation-slide-left" id="mens" role="tabpanel">
                 <div class="panel-body" style="padding:15px 0px 0px 0px;">
@@ -208,8 +298,6 @@
                   </table>
                 </div>
               </div>
-
-              @if($user->level != 1)
               <div class="tab-pane animation-slide-left" id="womens" role="tabpanel">
                 <div class="panel-body" style="padding:15px 0px 0px 0px;">
                   <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
@@ -542,6 +630,114 @@
 {!! Form::close() !!}
 <!-- End Add User Form -->
 
+<!-- Add headquarter Form -->
+{!! Form::open(array('url' => 'administrator/users/add', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
+<div class="modal fade" id="addHeadquarterForm" aria-hidden="true" aria-labelledby="addHeadquarterForm"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-simple">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+        <h4 class="modal-title" style="width:100%;"><center>Agregar al Equipo de 12</center></h4>
+      </div>
+      <div class="modal-body">
+
+          <div class="form-group">
+            <input type="text" class="form-control" name="identificacion" placeholder="Identificacion" required/>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="name" placeholder="Nombres" required/>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="lastName" placeholder="Apellidos" required/>
+          </div>
+          <div class="form-group">
+            <select name="gender" required>
+              <option value="">Seleccione un Genero</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="email" placeholder="Email" />
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="phone" placeholder="Telefono / Celular" required/>
+          </div>
+
+          <div class="form-group">
+            <select name="location" required>
+              <option value="Antonio Nariño">Seleccione una Localidad</option>
+              <option value="Antonio Nariño">Antonio Nariño</option>
+              <option value="Barrios Unidos">Barrios Unidos</option>
+              <option value="Bosa">Bosa</option>
+              <option value="Chapinero">Chapinero</option>
+              <option value="Ciudad Bolivar">Ciudad Bolivar</option>
+              <option value="Engativa">Engativa</option>
+              <option value="Fontibon">Fontibon</option>
+              <option value="Kennedy">Kennedy</option>
+              <option value="La Candelaria">La Candelaria</option>
+              <option value="Los Martires">Los Martires</option>
+              <option value="Puente Aranda">Puente Aranda</option>
+              <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
+              <option value="San Cristobal">San Cristobal</option>
+              <option value="Santa Fe">Santa Fe</option>
+              <option value="Suba">Suba</option>
+              <option value="Sumapaz">Sumapaz</option>
+              <option value="Teusaquillo">Teusaquillo</option>
+              <option value="Tunjuelito">Tunjuelito</option>
+              <option value="Usaquen">Usaquen</option>
+              <option value="Usme">Usme</option>
+              <option value="Soacha">Municipio - Soacha</option>
+              <option value="Mosquera">Municipio - Mosquera</option>
+              <option value="Madrid">Municipio - Madrid</option>
+              <option value="Chia">Municipio - Chia</option>
+              <option value="Cajica">Municipio - Cajica</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="locationVote" required>
+              <option value="">Localidad donde Vota</option>
+              <option value="Antonio Nariño">Antonio Nariño</option>
+              <option value="Barrios Unidos">Barrios Unidos</option>
+              <option value="Bosa">Bosa</option>
+              <option value="Chapinero">Chapinero</option>
+              <option value="Ciudad Bolivar">Ciudad Bolivar</option>
+              <option value="Engativa">Engativa</option>
+              <option value="Fontibon">Fontibon</option>
+              <option value="Kennedy">Kennedy</option>
+              <option value="La Candelaria">La Candelaria</option>
+              <option value="Los Martires">Los Martires</option>
+              <option value="Puente Aranda">Puente Aranda</option>
+              <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
+              <option value="San Cristobal">San Cristobal</option>
+              <option value="Santa Fe">Santa Fe</option>
+              <option value="Suba">Suba</option>
+              <option value="Sumapaz">Sumapaz</option>
+              <option value="Teusaquillo">Teusaquillo</option>
+              <option value="Tunjuelito">Tunjuelito</option>
+              <option value="Usaquen">Usaquen</option>
+              <option value="Usme">Usme</option>
+              <option value="Soacha">Municipio - Soacha</option>
+              <option value="Mosquera">Municipio - Mosquera</option>
+              <option value="Madrid">Municipio - Madrid</option>
+              <option value="Chia">Municipio - Chia</option>
+              <option value="Cajica">Municipio - Cajica</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="neighborhood" placeholder="Barrio" required />
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{!! Form::close() !!}
+<!-- End Add User Form -->
 
 
 

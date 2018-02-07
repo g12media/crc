@@ -145,7 +145,7 @@
 <!-- End Page -->
 <!-- Footer -->
 <footer class="site-footer">
-    <div class="site-footer-legal">© 2017 <a href="">Alianza</a></div>
+    <div class="site-footer-legal">© 2018 <a href="">Crc</a></div>
     <div class="site-footer-right">
         <i class="red-600 wb wb-heart"></i> + <a href="">Politicas y Privacidad</a>
     </div>

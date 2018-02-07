@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         DB::table('users')->insert([
-            'userType' => 'super-admin',
+            'userType' => 'admin',
             'contactType' => 'ministerio',
             'name' => 'Cesar',
             'lastName' => 'Castellanos',
@@ -197,21 +197,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'fernando_clara@gmail.com',
             'username' => 'fernando_clara',
             'password' => bcrypt('4rs2u1'),
-            'level' => '12',
-            'leaderPrincipal' => '1',
-            'userId' => '1',
-        ]);
-
-        DB::table('users')->insert([
-            'userType' => 'admin',
-            'contactType' => 'ministerio',
-              'name' => 'Raul y Lina',
-            'lastName' => 'Ramos',
-            'city' => 'Bogota',
-            'phone' => '00000000',
-            'email' => 'raul_lina@gmail.com',
-            'username' => 'raul_lina',
-            'password' => bcrypt('vdh4ff'),
             'level' => '12',
             'leaderPrincipal' => '1',
             'userId' => '1',

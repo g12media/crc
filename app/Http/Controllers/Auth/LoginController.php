@@ -49,6 +49,8 @@ class LoginController extends Controller
           return redirect("/administrator");
       }else if($userType == "super-admin"){
           return redirect("/superadmin");
+      }else if($userType == "call-center"){
+          return redirect("/callCenter");
       }else if($userType == "user"){
           return redirect("/user");
       }else{
