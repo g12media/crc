@@ -129,6 +129,8 @@ class AdministratorController extends Controller
         $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->get();
         $usersGeneral = User::where('leaderPrincipal',$user->id)->where('level',12)->get();
 
+        $usersHeadquarters = User::where('contactType','sede')->get();
+
         $usersTotal = User::all()->count();
         $usersTotalCount = $usersTotal - 1;
 
@@ -313,6 +315,7 @@ class AdministratorController extends Controller
         ->with('usersWomen',$usersWomen)
         ->with('user',$user)
         ->with('usersGeneralCount',$usersGeneralCount)
+        ->with('usersHeadquarters',$usersHeadquarters)
         ->with('usersContactsCount',$usersContactsCount)
         ->with('usersTotalCount',$usersTotalCount)
         ->with('hBar',$hBar)
@@ -585,7 +588,7 @@ class AdministratorController extends Controller
       $User->username = $request->identification;
       $User->password = bcrypt($request->identification);
       $User->save();
-      return redirect('/formulario/'.$request->leader);
+      return redirect('/formulario/contacts/'.$request->leader);
     }
 
     public function saveFormRegister(Request $request){
