@@ -18,7 +18,7 @@
 
             <input type="hidden" name="leader" value="{{$userId}}" />
             <div class="form-group form-material floating" data-plugin="formMaterial">
-              <input type="text" class="form-control" name="identification" />
+              <input type="number" class="form-control" name="identification" />
               <label class="floating-label">Identificacion</label>
             </div>
             <div class="form-group form-material floating" data-plugin="formMaterial">

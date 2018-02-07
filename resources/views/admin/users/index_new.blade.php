@@ -394,7 +394,7 @@
           <center>  <h4 class="modal-title">Formulario Registro</h4></center>
           <br>
           <div class="form-group">
-            <input type="text" class="form-control" name="identificacion" id="identificacionEdit" placeholder="Identificacion" required/>
+            <input type="number" class="form-control" name="identificacion" id="identificacionEdit" placeholder="Identificacion" required/>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="name" id="nameEdit" placeholder="Nombres" required/>
@@ -534,7 +534,7 @@
       <div class="modal-body">
 
           <div class="form-group">
-            <input type="text" class="form-control" name="identificacion" placeholder="Identificacion" required/>
+            <input type="number" class="form-control" name="identificacion" placeholder="Identificacion" required/>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="name" placeholder="Nombres" required/>
@@ -642,7 +642,7 @@
       <div class="modal-body">
 
           <div class="form-group">
-            <input type="text" class="form-control" name="identificacion" placeholder="Identificacion" required/>
+            <input type="number" class="form-control" name="identificacion" placeholder="Identificacion" required>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="name" placeholder="Nombres" required/>
@@ -664,10 +664,10 @@
             <input type="text" class="form-control" name="phone" placeholder="Telefono / Celular" required/>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="city" placeholder="Ciudad de la sede" required />
+            <input type="text" class="form-control" name="department" placeholder="Departamento de la sede" required />
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="neighborhood" placeholder="Municipio de la sede" required />
+            <input type="text" class="form-control" name="city" placeholder="Ciudad/Municipio de la sede" required />
           </div>
       </div>
       <div class="modal-footer">

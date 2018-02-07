@@ -6,7 +6,7 @@
   <![endif]-->
   <!-- Page -->
 <style media="screen">
-  
+
   .font-size-18 {
     font-size: 30px !important;
     padding-top: 10px!important;
@@ -22,7 +22,7 @@
           </div>
           {!! Form::open(array('method' => 'POST','id' => 'formRegister' , 'enctype' => 'multipart/form-data')) !!}
             <div class="form-group form-material floating" data-plugin="formMaterial">
-              <input type="text" class="form-control" name="identification" />
+              <input type="number" class="form-control" name="identification" />
               <label class="floating-label">Numero de Identificacion</label>
             </div>
 

@@ -478,7 +478,7 @@ class AdministratorController extends Controller
         $User->phone = $request->phone;
         $User->email = $request->email;
         $User->city = $request->city;
-        $User->neighborhood = $request->neighborhood;
+        $User->department = $request->department;
         $User->leaderPrincipal = 1;
         $User->level = 12;
         $User->userId = 1;
