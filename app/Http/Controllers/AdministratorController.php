@@ -125,8 +125,8 @@ class AdministratorController extends Controller
 
     public function getUsers(){
         $user = Auth::user();
-        $usersMen = User::where('userId',$user->id)->where('gender','masculino')->get();
-        $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->get();
+        $usersMen = User::where('userId',$user->id)->where('gender','masculino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
+        $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
         $usersGeneral = User::where('leaderPrincipal',$user->id)->where('level',12)->get();
 
         $usersHeadquarters = User::where('contactType','sede')->get();
@@ -475,9 +475,18 @@ class AdministratorController extends Controller
            ],
        ]);
 
+
+       $contacts = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
+       //Valientes Generales
+       $valientes = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
+
+
+
       return view('admin.users.profile')
       ->with('usuarios',$usuarios)
       ->with('usuarios_contacto',$usuarios_contacto)
+      ->with('valientes',$valientes)
+      ->with('contacts',$contacts)
       ->with('users',$users)
       ->with('usersContact',$usersContact)
       ->with('hBar12',$hBar12)
