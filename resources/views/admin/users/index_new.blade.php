@@ -352,20 +352,7 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-6">
-        {!! $chartjs->render() !!}
-      </div>
-      @if($user->level == 1)
-        <div class="col-6">
-          {!! $hBar->render() !!}
-        </div>
-      @else
-        <div class="col-6">
-          {!! $hBar12->render() !!}
-        </div>
-      @endif
-    </div>
+  
   </div>
 
 </div>
