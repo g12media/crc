@@ -127,9 +127,9 @@
           @endif
             <div class="card card-block p-20 bg-blue-600">
               <div class="counter counter-lg counter-inverse">
-                <div class="counter-label text-uppercase font-size-16">Equipo</div>
+                <div class="counter-label text-uppercase font-size-16"># Valientes</div>
                 <div class="counter-number-group">
-                  <span class="counter-number">{{$usersGeneralCount}}</span>
+                  <span class="counter-number">{{$valientes}}</span>
                   <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
                 </div>
               </div>
@@ -137,9 +137,9 @@
 
             <div class="card card-block p-20 bg-blue-600">
               <div class="counter counter-lg counter-inverse">
-                <div class="counter-label text-uppercase font-size-16">Contactos</div>
+                <div class="counter-label text-uppercase font-size-16"># Contactos</div>
                 <div class="counter-number-group">
-                  <span class="counter-number">{{$usersContactsCount}}</span>
+                  <span class="counter-number">{{$contacts}}</span>
                   <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
                 </div>
 
@@ -394,7 +394,7 @@
           <center>  <h4 class="modal-title">Formulario Registro</h4></center>
           <br>
           <div class="form-group">
-            <input type="text" class="form-control" name="identificacion" id="identificacionEdit" placeholder="Identificacion" required/>
+            <input type="number" class="form-control" name="identificacion" id="identificacionEdit" placeholder="Identificacion" required/>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="name" id="nameEdit" placeholder="Nombres" required/>
@@ -534,7 +534,7 @@
       <div class="modal-body">
 
           <div class="form-group">
-            <input type="text" class="form-control" name="identificacion" placeholder="Identificacion" required/>
+            <input type="number" class="form-control" name="identificacion" placeholder="Identificacion" required/>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="name" placeholder="Nombres" required/>
@@ -642,7 +642,7 @@
       <div class="modal-body">
 
           <div class="form-group">
-            <input type="text" class="form-control" name="identificacion" placeholder="Identificacion" required/>
+            <input type="number" class="form-control" name="identificacion" placeholder="Identificacion" required>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="name" placeholder="Nombres" required/>
@@ -658,16 +658,22 @@
             </select>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="email" placeholder="Email" />
+            <input type="text" class="form-control" name="email" placeholder="Email" required/>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" name="phone" placeholder="Telefono / Celular" required/>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="city" placeholder="Ciudad de la sede" required />
+            <input type="text" class="form-control" name="department" placeholder="Departamento de la sede" required />
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="neighborhood" placeholder="Municipio de la sede" required />
+            <input type="text" class="form-control" name="city" placeholder="Ciudad/Municipio de la sede" required />
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Usuario" required />
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Contraseña" required />
           </div>
       </div>
       <div class="modal-footer">

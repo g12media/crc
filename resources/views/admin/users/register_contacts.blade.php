@@ -19,7 +19,7 @@
 
             <input type="hidden" name="leader" value="{{$userId}}" />
             <div class="form-group form-material floating" data-plugin="formMaterial">
-              <input type="text" class="form-control" name="identification" />
+              <input type="number" class="form-control" name="identification" />
               <label class="floating-label">Identificacion</label>
             </div>
             <div class="form-group form-material floating" data-plugin="formMaterial">
@@ -46,7 +46,29 @@
               <label class="floating-label">Telefono</label>
             </div>
             <div class="form-group form-material floating" data-plugin="formMaterial">
-              <select name="location" class="form-control">
+              <select name="city" class="form-control" id="city" onchange="selectCity()">
+                  <option value="Bogota">Bogota</option>
+                  <option value="Medellin">	Medellin</option>
+                  <option value="Cali">Cali</option>
+                  <option value="Barranquilla">Barranquilla</option>
+                  <option value="Cartagena de Indias">Cartagena de Indias</option>
+                  <option value="Soledad">Soledad</option>
+                  <option value="Cucuta">Cucuta</option>
+                  <option value="Ibague">Ibague</option>
+                  <option value="Santa Marta">Santa Marta</option>
+                  <option value="Villavicencio">Villavicencio</option>
+                  <option value="Bello">Bello</option>
+                  <option value="Valledupar">Valledupar</option>
+                  <option value="Pereira">Pereira</option>
+                  <option value="Buenaventura">Buenaventura</option>
+                  <option value="Pasto">Pasto</option>
+                  <option value="Manizales">Manizales</option>
+                  <option value="Neiva">Neiva</option>
+                  <option value="Bucaramanga">Bucaramanga</option>
+              </select>
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <select name="location" class="form-control" id="location">
                   <option value="">Localidad donde vive</option>
                   <option value="Antonio Nariño">Antonio Nariño</option>
                   <option value="Barrios Unidos">Barrios Unidos</option>
@@ -76,7 +98,7 @@
               </select>
             </div>
             <div class="form-group form-material floating" data-plugin="formMaterial">
-              <select name="locationVote" class="form-control">
+              <select name="locationVote" class="form-control" id="locationVote">
                   <option value="">Localidad de su votación</option>
                   <option value="Antonio Nariño">Antonio Nariño</option>
                   <option value="Barrios Unidos">Barrios Unidos</option>
@@ -165,6 +187,19 @@
 
 @section('script_validation')
 <script>
+
+function selectCity(){
+    var citySelect = document.getElementById("city").value;
+    if(citySelect == 'Bogota'){
+    $("#locationVote").fadeIn();
+    $("#location").fadeIn();
+  }else{
+    $("#locationVote").fadeOut();
+    $("#location").fadeOut();
+  }
+}
+
+
 (function () {
     $('#formRegister').formValidation({
       framework: "bootstrap4",

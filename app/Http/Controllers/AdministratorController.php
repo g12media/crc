@@ -309,6 +309,11 @@ class AdministratorController extends Controller
         ])
         ->options([]);
 
+        //Contactos Generales
+        $contacts = User::where('contactType','contacto')->count();
+        //Valientes Generales
+        $valientes = User::where('contactType','ministerio')->count();
+
         return view('admin.users.index_new')
         ->with('usersGeneral',$usersGeneral)
         ->with('usersMen',$usersMen)
@@ -321,7 +326,9 @@ class AdministratorController extends Controller
         ->with('hBar',$hBar)
         ->with('hBar12',$hBar12)
         ->with('gender_chart',$gender_chart)
-        ->with('chartjs',$chartjs);
+        ->with('chartjs',$chartjs)
+        ->with('contacts',$contacts)
+        ->with('valientes',$valientes);
 
     }
 
@@ -478,12 +485,12 @@ class AdministratorController extends Controller
         $User->phone = $request->phone;
         $User->email = $request->email;
         $User->city = $request->city;
-        $User->neighborhood = $request->neighborhood;
+        $User->department = $request->department;
         $User->leaderPrincipal = 1;
         $User->level = 12;
         $User->userId = 1;
-        $User->username = $request->identificacion;
-        $User->password = bcrypt($request->identificacion);
+        $User->username = $request->username;
+        $User->password = bcrypt($request->password);
         $User->save();
 
         return redirect('administrator/users/');
