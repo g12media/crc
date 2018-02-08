@@ -615,10 +615,15 @@ class AdministratorController extends Controller
 
     public function saveFormRegisterContacts(Request $request){
 
+      //2018-6927-190240
       $userIdExplode = $array = explode("-", $request->leader);
+      //Get Direct Leader
+      $userLeader = User::find($userIdExplode[1]);
 
-      $userLeader = $this->getLevelByLeader($request->leader);
       $user_principal = User::find($userLeader->leaderPrincipal);
+
+
+
       $User = new User;
       $User->userType = 'user';
       $User->contactType = 'contacto';
@@ -636,20 +641,15 @@ class AdministratorController extends Controller
         $User->locationVote = $request->locationVote;
       }
       $User->neighborhood = $request->neighborhood;
-      if($userLeader->level == 12){
-        $User->level = 144;
-      }else if($userLeader->level == 144){
-        $User->level = 1728;
-      }else if($userLeader->level == 1728){
-        $User->level = 20736;
-      }else if($userLeader->level == 20736){
-        $User->level = 248832;
-      }else if($userLeader->level == 248832){
-        $User->level = 2985984;
+      $User->level = 0;
+
+      if($user_principal->id == 1){
+        $User->leaderPrincipal = $userLeader->id;
       }else{
-        $User->level = 0;
+        $User->leaderPrincipal = $user_principal->id;
       }
-      $User->leaderPrincipal = $user_principal->id;
+
+
       $User->userId = $userIdExplode[1];
       $User->username = $request->identification;
       $User->password = bcrypt($request->identification);
@@ -763,6 +763,18 @@ class AdministratorController extends Controller
           }
 
         return redirect('/administrator/callcenter');
+    }
+
+
+    public function repairDatabase(){
+
+      $users = User::all()->get();
+      foreach($users as $user){
+
+          $userDirect = $user->userId;
+
+      }
+
     }
 
 }

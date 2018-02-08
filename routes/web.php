@@ -70,6 +70,8 @@ Route::post('/formulario/{id}', 'AdministratorController@saveFormRegister');
 Route::get('/formulario/contacts/{id}', 'AdministratorController@getFormRegisterContacts');
 Route::post('/formulario/contacts/{id}', 'AdministratorController@saveFormRegisterContacts');
 
+Route::post('/repair/database/', 'AdministratorController@repairDatabase');
+
 
 
 
