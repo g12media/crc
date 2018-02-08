@@ -53,6 +53,7 @@
       Breakpoints();
     </script>
     <style>
+
     .form-material.floating+.form-material.floating {
         margin-top: 23px;
     }
@@ -64,6 +65,9 @@
         color: white;
         font-size: 20px;
         font-family: Helvetica;
+        background: #003363a3;
+        padding: 10px;
+        line-height: 29px;
     }
     .page-content{
       width: 100%;

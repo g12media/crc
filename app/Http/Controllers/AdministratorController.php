@@ -196,8 +196,6 @@ class AdministratorController extends Controller
              ],
          ]);
 
-        $usersGeneralCount = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
-        $usersContactsCount = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
 
       /*   $l1 = User::where('location','Antonio Nariño')->count();
         $l2 = User::where('location','Barrios Unidos')->count();
@@ -308,22 +306,37 @@ class AdministratorController extends Controller
             ]
         ])
         ->options([]);*/
+        if($user->level == 1){
+          //Contactos Generales
+          $contacts = User::where('contactType','contacto')->count();
+          //Valientes Generales
+          $valientes = User::where('contactType','ministerio')->count();
+        }else{
+          if($user->contactType == 'ministerio'){
+            //Contactos Generales
+            $contacts = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
+            //Valientes Generales
+            $valientes = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
+          }else{
+            //Contactos Generales
+            $contacts = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
+            //Valientes Generales
+            $valientes = User::where('leaderPrincipal',$user->id)->where('contactType','sede')->where('id','!=',$user->id)->count();
+          }
 
-        //Contactos Generales
-        $contacts = User::where('contactType','contacto')->count();
-        //Valientes Generales
-        $valientes = User::where('contactType','ministerio')->count();
+        }
+
+
+
+
 
         return view('admin.users.index_new')
         ->with('usersGeneral',$usersGeneral)
         ->with('usersMen',$usersMen)
         ->with('usersWomen',$usersWomen)
         ->with('user',$user)
-        ->with('usersGeneralCount',$usersGeneralCount)
         ->with('usersHeadquarters',$usersHeadquarters)
-        ->with('usersContactsCount',$usersContactsCount)
         ->with('usersTotalCount',$usersTotalCount)
-
         ->with('contacts',$contacts)
         ->with('valientes',$valientes);
 
@@ -337,7 +350,12 @@ class AdministratorController extends Controller
 
       $userIdExplode = $array = explode("-", $userId);
       $user = User::find($userIdExplode[1]);
-      $users = User::where('userId',$user->id)->where('contactType','ministerio')->get();
+      if($user->contactType == 'sede'){
+        $users = User::where('userId',$user->id)->where('id','!=',$user->id)->where('contactType','sede')->get();
+      }else{
+        $users = User::where('userId',$user->id)->where('id','!=',$user->id)->where('contactType','ministerio')->get();
+      }
+
       $usersContact = User::where('userId',$user->id)->where('contactType','contacto')->get();
 
 
@@ -504,8 +522,15 @@ class AdministratorController extends Controller
         $User->gender = $request->gender;
         $User->phone = $request->phone;
         $User->email = $request->email;
-        $User->location = $request->location;
-        $User->locationVote = $request->locationVote;
+        if($request->type == 'sede'){
+          $User->contactType = 'sede';
+          $User->department = $request->department;
+          $User->city = $request->city;
+        }else{
+          $User->contactType = 'ministerio';
+          $User->location = $request->location;
+          $User->locationVote = $request->locationVote;
+        }
         $User->neighborhood = $request->neighborhood;
         $User->leaderPrincipal = $user_principal->id;
         $User->level = 144;
@@ -528,15 +553,22 @@ class AdministratorController extends Controller
 
         $User = new User;
         $User->userType = 'user';
-        $User->contactType = 'ministerio';
+
         $User->identification = $request->identificacion;
         $User->name = $request->name;
         $User->lastName = $request->lastName;
         $User->gender = $request->gender;
         $User->phone = $request->phone;
         $User->email = $request->email;
-        $User->location = $request->location;
-        $User->locationVote = $request->locationVote;
+        if($request->type == 'sede'){
+          $User->contactType = 'sede';
+          $User->department = $request->department;
+          $User->city = $request->city;
+        }else{
+          $User->contactType = 'ministerio';
+          $User->location = $request->location;
+          $User->locationVote = $request->locationVote;
+        }
         $User->neighborhood = $request->neighborhood;
         if($userLeader->level == 144){
           $User->level = 1728;
@@ -596,10 +628,17 @@ class AdministratorController extends Controller
       $User->gender = $request->gender;
       $User->phone = $request->phone;
       $User->email = $request->email;
-      $User->location = $request->location;
-      $User->locationVote = $request->locationVote;
+      if($request->type == 'sede'){
+        $User->department = $request->department;
+        $User->city = $request->city;
+      }else{
+        $User->location = $request->location;
+        $User->locationVote = $request->locationVote;
+      }
       $User->neighborhood = $request->neighborhood;
-      if($userLeader->level == 144){
+      if($userLeader->level == 12){
+        $User->level = 144;
+      }else if($userLeader->level == 144){
         $User->level = 1728;
       }else if($userLeader->level == 1728){
         $User->level = 20736;
@@ -626,17 +665,27 @@ class AdministratorController extends Controller
       $user_principal = User::find($userLeader->leaderPrincipal);
       $User = new User;
       $User->userType = 'user';
-      $User->contactType = 'ministerio';
+
       $User->identification = $request->identification;
       $User->name = $request->name;
       $User->lastName = $request->lastName;
       $User->gender = $request->gender;
       $User->phone = $request->phone;
       $User->email = $request->email;
-      $User->location = $request->location;
-      $User->locationVote = $request->locationVote;
+
+      if($request->type == 'sede'){
+        $User->contactType = 'sede';
+        $User->department = $request->department;
+        $User->city = $request->city;
+      }else{
+        $User->contactType = 'ministerio';
+        $User->location = $request->location;
+        $User->locationVote = $request->locationVote;
+      }
       $User->neighborhood = $request->neighborhood;
-      if($userLeader->level == 144){
+      if($userLeader->level == 12){
+        $User->level = 144;
+      }else if($userLeader->level == 144){
         $User->level = 1728;
       }else if($userLeader->level == 1728){
         $User->level = 20736;
