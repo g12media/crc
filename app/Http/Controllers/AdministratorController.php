@@ -199,7 +199,7 @@ class AdministratorController extends Controller
         $usersGeneralCount = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
         $usersContactsCount = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
 
-        $l1 = User::where('location','Antonio Nariño')->count();
+      /*   $l1 = User::where('location','Antonio Nariño')->count();
         $l2 = User::where('location','Barrios Unidos')->count();
         $l3 = User::where('location','Bosa')->count();
         $l4 = User::where('location','Chapinero')->count();
@@ -269,7 +269,7 @@ class AdministratorController extends Controller
             array_push($arrayUsersPrincipal,$up->name);
           }
 
-          $hBar =
+         $hBar =
            app()->chartjs
            ->name('barChartTest')
            ->type('horizontalBar')
@@ -307,7 +307,7 @@ class AdministratorController extends Controller
                 'data' => [69, 59]
             ]
         ])
-        ->options([]);
+        ->options([]);*/
 
         //Contactos Generales
         $contacts = User::where('contactType','contacto')->count();
@@ -323,10 +323,7 @@ class AdministratorController extends Controller
         ->with('usersHeadquarters',$usersHeadquarters)
         ->with('usersContactsCount',$usersContactsCount)
         ->with('usersTotalCount',$usersTotalCount)
-        ->with('hBar',$hBar)
-        ->with('hBar12',$hBar12)
-        ->with('gender_chart',$gender_chart)
-        ->with('chartjs',$chartjs)
+
         ->with('contacts',$contacts)
         ->with('valientes',$valientes);
 
