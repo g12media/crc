@@ -309,6 +309,11 @@ class AdministratorController extends Controller
         ])
         ->options([]);
 
+        //Contactos Generales
+        $contacts = User::where('contactType','contacto')->count();
+        //Valientes Generales
+        $valientes = User::where('contactType','ministerio')->count();
+
         return view('admin.users.index_new')
         ->with('usersGeneral',$usersGeneral)
         ->with('usersMen',$usersMen)
@@ -321,7 +326,9 @@ class AdministratorController extends Controller
         ->with('hBar',$hBar)
         ->with('hBar12',$hBar12)
         ->with('gender_chart',$gender_chart)
-        ->with('chartjs',$chartjs);
+        ->with('chartjs',$chartjs)
+        ->with('contacts',$contacts)
+        ->with('valientes',$valientes);
 
     }
 
