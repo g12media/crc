@@ -102,17 +102,7 @@
             <h4 class="profile-user">{{$user->name}}</h4>
 
           </div>
-          <div class="card-footer">
-            <div class="row no-space">
-              <div class="col-12">
-
-                    <strong class="profile-stat-count">{{$usersGeneralCount}}</strong>
-                    <span>Contactos</span>
-
-              </div>
-
-            </div>
-          </div>
+          
         </div>
         @if($user->level == 1)
           <div class="card card-block p-20 bg-blue-600">
@@ -352,7 +342,7 @@
       </div>
     </div>
 
-  
+
   </div>
 
 </div>
@@ -512,6 +502,7 @@
 {!! Form::open(array('url' => 'administrator/users/add', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
 <div class="modal fade" id="addUserForm" aria-hidden="true" aria-labelledby="addUserForm"
   role="dialog" tabindex="-1">
+  <input type="hidden" name="type" value="{{$user->contactType}}" />
   <div class="modal-dialog modal-simple">
     <div class="modal-content">
       <div class="modal-header">
@@ -543,6 +534,7 @@
             <input type="text" class="form-control" name="phone" placeholder="Telefono / Celular" required/>
           </div>
 
+          @if($user->contactType != 'sede')
           <div class="form-group">
             <select name="location" required>
               <option value="Antonio Nariño">Seleccione una Localidad</option>
@@ -603,6 +595,15 @@
               <option value="Cajica">Municipio - Cajica</option>
             </select>
           </div>
+          @else
+          <div class="form-group">
+            <input type="text" class="form-control" name="department" placeholder="Departamento"required/>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="city" placeholder="Ciudad / Municipio" required/>
+          </div>
+          @endif
+
           <div class="form-group">
             <input type="text" class="form-control" name="neighborhood" placeholder="Barrio" required />
           </div>

@@ -8,7 +8,7 @@
 
   <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">>
     <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
-      <h2 class="register-title">Grupo {{$user->name}} {{$user->lastName}}</h2>
+      <h2 class="register-title">Registro - VALIENTES <br>Grupo {{$user->name}} {{$user->lastName}}</h2>
       <div class="row">
       <div class="col-5" style="margin-top:10px;">
       <div class="panel">
@@ -17,6 +17,7 @@
           {!! Form::open(array('method' => 'POST','id' => 'formRegister' , 'enctype' => 'multipart/form-data')) !!}
 
             <input type="hidden" name="leader" value="{{$userId}}" />
+            <input type="hidden" name="type" value="{{$user->contactType}}" />
             <div class="form-group form-material floating" data-plugin="formMaterial">
               <input type="number" class="form-control" name="identification" />
               <label class="floating-label">Identificacion</label>
@@ -44,6 +45,7 @@
               <input type="text" class="form-control" name="phone" required/>
               <label class="floating-label">Telefono</label>
             </div>
+            @if($user->contactType != 'sede')
             <div class="form-group form-material floating" data-plugin="formMaterial">
               <select name="location" class="form-control">
                   <option value="">Localidad donde vive</option>
@@ -104,6 +106,16 @@
                   <option value="Cajica">Municipio - Cajica</option>
               </select>
             </div>
+            @else
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="text" class="form-control" name="department" required/>
+              <label class="floating-label">Departamento</label>
+            </div>
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="text" class="form-control" name="city" required/>
+              <label class="floating-label">Ciudad o Municipio</label>
+            </div>
+            @endif
             <div class="form-group form-material floating" data-plugin="formMaterial">
               <input type="text" class="form-control" name="neighborhood" required/>
               <label class="floating-label">Barrio</label>
@@ -126,7 +138,7 @@
                   <th>Cedula</th>
                   <th>Nombres</th>
                   <th>Apellidos</th>
-                  <th>Email</th>
+            
                   <th>Link</th>
                 </tr>
               </thead>
@@ -137,23 +149,13 @@
                   <td><a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}">{{$u->identification}}</a></td>
                   <td>{{$u->name}}</td>
                   <td>{{$u->lastName}}</td>
-                  <td>{{$u->email}}</td>
 
                   <td>
-                    @if($u->level == 1728)
-                    <a href="/formulario/contacts/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
-                      <button type="button" class="btn btn-primary">
-                        <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i> Contactos
-                      </button>
-                    </a>
-                    @else
                     <a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
                       <button type="button" class="btn btn-primary">
-                        <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i>
+                        <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i> Agregar Valientes
                       </button>
                     </a>
-                    @endif
-
                   </td>
 
                 </tr>

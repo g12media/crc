@@ -159,7 +159,7 @@
           <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
             <ul class="nav nav-tabs nav-tabs-line" role="tablist">
               <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#activities"
-                  aria-controls="activities" role="tab">Equipo</a></li>
+                  aria-controls="activities" role="tab">Valientes</a></li>
               <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#contactos"
                   aria-controls="activities" role="tab">Contactos</a></li>
 
@@ -396,6 +396,7 @@
 <div class="modal fade" id="addUserForm" aria-hidden="true" aria-labelledby="addUserForm"
   role="dialog" tabindex="-1">
   <input type="hidden" name="leader" value="{{date('Y').'-'.$user->id.'-'.date('Hms')}}" />
+  <input type="hidden" name="type" value="{{$user->contactType}}" />
   <div class="modal-dialog modal-simple">
     <div class="modal-content">
       <div class="modal-header">
@@ -427,10 +428,9 @@
           <div class="form-group">
             <input type="text" class="form-control" name="phone" placeholder="Telefono / Celular" required/>
           </div>
-
+          @if($user->contactType != 'sede')
           <div class="form-group">
             <select name="location" required>
-              <option value="">Localidad donde Vive</option>
               <option value="Antonio Nariño">Seleccione una Localidad</option>
               <option value="Antonio Nariño">Antonio Nariño</option>
               <option value="Barrios Unidos">Barrios Unidos</option>
@@ -462,7 +462,6 @@
           <div class="form-group">
             <select name="locationVote" required>
               <option value="">Localidad donde Vota</option>
-              <option value="Antonio Nariño">Seleccione una Localidad</option>
               <option value="Antonio Nariño">Antonio Nariño</option>
               <option value="Barrios Unidos">Barrios Unidos</option>
               <option value="Bosa">Bosa</option>
@@ -490,6 +489,14 @@
               <option value="Cajica">Municipio - Cajica</option>
             </select>
           </div>
+          @else
+          <div class="form-group">
+            <input type="text" class="form-control" name="department" placeholder="Departamento"required/>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="city" placeholder="Ciudad / Municipio" required/>
+          </div>
+          @endif
           <div class="form-group">
             <input type="text" class="form-control" name="neighborhood" placeholder="Barrio" required/>
           </div>
