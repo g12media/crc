@@ -476,9 +476,15 @@ class AdministratorController extends Controller
        ]);
 
 
-       $contacts = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
-       //Valientes Generales
-       $valientes = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
+
+    if($user->level == 12){
+      $contacts = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
+      //Valientes Generales
+      $valientes = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
+    }else{
+      $contacts = $usuarios_contacto;
+      $valientes = $usuarios;
+    }
 
 
 
