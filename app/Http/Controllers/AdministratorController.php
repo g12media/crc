@@ -359,6 +359,8 @@ class AdministratorController extends Controller
       $usersContact = User::where('userId',$user->id)->where('contactType','contacto')->get();
 
 
+
+      /* Count valientes en Linea*/
       $level1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->count();
       if($level1 != 0){
         $usuarios = $level1;
@@ -386,7 +388,7 @@ class AdministratorController extends Controller
         $usuarios = 0;
       }
 
-
+      /* Count contactos en linea */
       $level1 = User::where('userId','=',$user->id)->where('contactType','contacto')->count();
       if($level1 != 0){
         $usuarios_contacto = $level1;
@@ -412,6 +414,9 @@ class AdministratorController extends Controller
       }else {
         $usuarios_contacto = 0;
       }
+
+
+
 
       $users12 = User::where('userId',$user->id)->select('id','name')->get();
 
@@ -449,31 +454,6 @@ class AdministratorController extends Controller
         array_push($arrayUsersPrincipal,$u12->name);
       }
 
-      $hBar12 =
-       app()->chartjs
-       ->name('ChartTest')
-       ->type('horizontalBar')
-       ->size(['width' => 270, 'height' => 200])
-       ->labels($arrayUsersPrincipal)
-       ->datasets([
-           [
-               "label" => "Equipo",
-               'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#61C80D', '#7AD11A', '#93DA27', '#ACE334', '#C5EC41', '#DEF54E', '#F8FF5C'],
-               'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#61C80D', '#7AD11A', '#93DA27', '#ACE334', '#C5EC41', '#DEF54E', '#F8FF5C'],
-               'data' => $grupo12Array
-           ],
-           [
-               "label" => "Contactos",
-               'backgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#61C80D', '#7AD11A', '#93DA27', '#ACE334', '#C5EC41', '#DEF54E', '#F8FF5C'],
-               'hoverBackgroundColor' => ['#5B2EFF', '#372AFB', '#273AF7', '#2456F3', '#2172EF', '#1E8EEC', '#1BAAE8', '#18C6E4', '#15E0DF', '#12DDBD', '#10D99B', '#0DD579', '#0BD157', '#08CE36', '#06CA16', '#12C604', '#2DC202', '#48BF00', '#61C80D', '#7AD11A', '#93DA27', '#ACE334', '#C5EC41', '#DEF54E', '#F8FF5C'],
-               'data' => $contactos12Array
-           ],
-       ])
-       ->optionsRaw([
-           'legend' => [
-               'display' => false,
-           ],
-       ]);
 
 
 
@@ -495,7 +475,7 @@ class AdministratorController extends Controller
       ->with('contacts',$contacts)
       ->with('users',$users)
       ->with('usersContact',$usersContact)
-      ->with('hBar12',$hBar12)
+
       ->with('user',$user);
     }
 
