@@ -250,17 +250,7 @@
         <!-- End Panel -->
       </div>
     </div>
-    <div class="row">
-      <div class="col-3">
-
-      </div>
-      <div class="col-6">
-        {!! $hBar12->render() !!}
-      </div>
-      <div class="col-3">
-
-      </div>
-    </div>
+  
   </div>
   <!-- Panel Basic -->
 
