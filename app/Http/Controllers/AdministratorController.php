@@ -345,6 +345,31 @@ class AdministratorController extends Controller
     public function votantes(){
       return view('admin.users.votantes');
     }
+    public function contactos(){
+      return view('admin.users.votante_new');
+    }
+
+    public function contactosValidate(Request $request){
+      $User = new User;
+      $User->userType = 'user';
+      $User->contactType = 'contacto';
+      $User->identification = $request->identification;
+      $User->name = $request->name;
+      $User->lastName = $request->lastName;
+      $User->gender = $request->gender;
+      $User->phone = $request->phone;
+      $User->email = $request->email;
+      $User->department = $request->department;
+      $User->city = $request->city;
+      $User->neighborhood = $request->neighborhood;
+      $User->level = 0;
+      $User->leaderPrincipal = 1;
+      $User->userId = 1;
+      $User->username = $request->identification;
+      $User->password = bcrypt($request->identification);
+      $User->save();
+      return redirect('/contactos');
+    }
 
     public function getUsersByProfile($userId){
 
