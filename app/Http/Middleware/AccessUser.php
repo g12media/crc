@@ -18,7 +18,7 @@ class AccessUser
     {
       $userType = Auth::user()->userType;
       if($userType == "user"){
-          return $next($request);
+          return redirect("/logout");
       }else if($userType == "call-center"){
           return redirect("/callCenter");
       }else if($userType == "super-adminn"){

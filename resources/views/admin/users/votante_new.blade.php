@@ -8,16 +8,10 @@
 
   <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">>
     <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
-      <h2 class="register-title">Registro - VALIENTES <br>Grupo {{$user->name}} {{$user->lastName}}</h2>
-      <div class="row">
-      <div class="col-5" style="margin-top:10px;">
+      <h2 class="register-title">Registro</h2>
       <div class="panel">
-
         <div class="panel-body">
           {!! Form::open(array('method' => 'POST','id' => 'formRegister' , 'enctype' => 'multipart/form-data')) !!}
-
-            <input type="hidden" name="leader" value="{{$userId}}" />
-            <input type="hidden" name="type" value="{{$user->contactType}}" />
             <div class="form-group form-material floating" data-plugin="formMaterial">
               <input type="number" class="form-control" name="identification" />
               <label class="floating-label">Identificacion</label>
@@ -42,71 +36,32 @@
               <label class="floating-label">Email</label>
             </div>
             <div class="form-group form-material floating" data-plugin="formMaterial">
-              <input type="number" class="form-control" name="phone" required/>
+              <input type="text" class="form-control" name="phone" required/>
               <label class="floating-label">Telefono</label>
             </div>
-            @if($user->contactType != 'sede')
             <div class="form-group form-material floating" data-plugin="formMaterial">
-              <select name="location" class="form-control">
-                  <option value="">Localidad donde vive</option>
-                  <option value="Antonio Nariño">Antonio Nariño</option>
-                  <option value="Barrios Unidos">Barrios Unidos</option>
-                  <option value="Bosa">Bosa</option>
-                  <option value="Chapinero">Chapinero</option>
-                  <option value="Ciudad Bolivar">Ciudad Bolivar</option>
-                  <option value="Engativa">Engativa</option>
-                  <option value="Fontibon">Fontibon</option>
-                  <option value="Kennedy">Kennedy</option>
-                  <option value="La Candelaria">La Candelaria</option>
-                  <option value="Los Martires">Los Martires</option>
-                  <option value="Puente Aranda">Puente Aranda</option>
-                  <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
-                  <option value="San Cristobal">San Cristobal</option>
-                  <option value="Santa Fe">Santa Fe</option>
-                  <option value="Suba">Suba</option>
-                  <option value="Sumapaz">Sumapaz</option>
-                  <option value="Teusaquillo">Teusaquillo</option>
-                  <option value="Tunjuelito">Tunjuelito</option>
-                  <option value="Usaquen">Usaquen</option>
-                  <option value="Usme">Usme</option>
-                  <option value="Soacha">Municipio - Soacha</option>
-                  <option value="Mosquera">Municipio - Mosquera</option>
-                  <option value="Madrid">Municipio - Madrid</option>
-                  <option value="Chia">Municipio - Chia</option>
-                  <option value="Cajica">Municipio - Cajica</option>
+              <select name="city" class="form-control" id="city" onchange="selectCity()">
+                  <option value="">Seleccione una ciudad</option>
+                  <option value="Bogota">Bogota</option>
+                  <option value="Medellin">	Medellin</option>
+                  <option value="Cali">Cali</option>
+                  <option value="Barranquilla">Barranquilla</option>
+                  <option value="Cartagena de Indias">Cartagena de Indias</option>
+                  <option value="Soledad">Soledad</option>
+                  <option value="Cucuta">Cucuta</option>
+                  <option value="Ibague">Ibague</option>
+                  <option value="Santa Marta">Santa Marta</option>
+                  <option value="Villavicencio">Villavicencio</option>
+                  <option value="Bello">Bello</option>
+                  <option value="Valledupar">Valledupar</option>
+                  <option value="Pereira">Pereira</option>
+                  <option value="Buenaventura">Buenaventura</option>
+                  <option value="Pasto">Pasto</option>
+                  <option value="Manizales">Manizales</option>
+                  <option value="Neiva">Neiva</option>
+                  <option value="Bucaramanga">Bucaramanga</option>
               </select>
             </div>
-            <div class="form-group form-material floating" data-plugin="formMaterial">
-              <select name="locationVote" class="form-control">
-                  <option value="">Localidad de su votación</option>
-                  <option value="Antonio Nariño">Antonio Nariño</option>
-                  <option value="Barrios Unidos">Barrios Unidos</option>
-                  <option value="Bosa">Bosa</option>
-                  <option value="Chapinero">Chapinero</option>
-                  <option value="Ciudad Bolivar">Ciudad Bolivar</option>
-                  <option value="Engativa">Engativa</option>
-                  <option value="Fontibon">Fontibon</option>
-                  <option value="Kennedy">Kennedy</option>
-                  <option value="La Candelaria">La Candelaria</option>
-                  <option value="Los Martires">Los Martires</option>
-                  <option value="Puente Aranda">Puente Aranda</option>
-                  <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
-                  <option value="San Cristobal">San Cristobal</option>
-                  <option value="Santa Fe">Santa Fe</option>
-                  <option value="Suba">Suba</option>
-                  <option value="Sumapaz">Sumapaz</option>
-                  <option value="Teusaquillo">Teusaquillo</option>
-                  <option value="Tunjuelito">Tunjuelito</option>
-                  <option value="Usaquen">Usaquen</option>
-                  <option value="Usme">Usme</option>
-                  <option value="Soacha">Municipio - Soacha</option>
-                  <option value="Mosquera">Municipio - Mosquera</option>
-                  <option value="Madrid">Municipio - Madrid</option>
-                  <option value="Chia">Municipio - Chia</option>
-                  <option value="Cajica">Municipio - Cajica</option>
-              </select>
-            </div>
-            @else
             <div class="form-group form-material floating" data-plugin="formMaterial">
               <input type="text" class="form-control" name="department" required/>
               <label class="floating-label">Departamento</label>
@@ -115,7 +70,6 @@
               <input type="text" class="form-control" name="city" required/>
               <label class="floating-label">Ciudad o Municipio</label>
             </div>
-            @endif
             <div class="form-group form-material floating" data-plugin="formMaterial">
               <input type="text" class="form-control" name="neighborhood" required/>
               <label class="floating-label">Barrio</label>
@@ -125,52 +79,8 @@
 
         </div>
       </div>
-      </div>
-      <div class="col-7" style="margin-top:10px;">
-
-
-        <div class="panel">
-          <div class="panel-body">
-            <h4>Grupo</h4>
-            <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
-              <thead>
-                <tr>
-                  <th>Cedula</th>
-                  <th>Nombres</th>
-                  <th>Apellidos</th>
-
-                  <th>Link</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                @foreach($users as $u)
-                <tr>
-                  <td><a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}">{{$u->identification}}</a></td>
-                  <td>{{$u->name}}</td>
-                  <td>{{$u->lastName}}</td>
-
-                  <td>
-                    <a href="/formulario/{{date('Y').'-'.$u->id.'-'.date('Hms')}}" target="_blank">
-                      <button type="button" class="btn btn-primary">
-                        <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 15px;"></i> Agregar Valientes
-                      </button>
-                    </a>
-                  </td>
-
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
-    </div>
       <footer class="page-copyright page-copyright-inverse">
-
         <p>© 2018. politicas y privacidad.</p>
-
         </div>
       </footer>
     </div>
@@ -182,6 +92,19 @@
 
 @section('script_validation')
 <script>
+
+function selectCity(){
+    var citySelect = document.getElementById("city").value;
+    if(citySelect == 'Bogota'){
+    $("#locationVote").fadeIn();
+    $("#location").fadeIn();
+  }else{
+    $("#locationVote").fadeOut();
+    $("#location").fadeOut();
+  }
+}
+
+
 (function () {
     $('#formRegister').formValidation({
       framework: "bootstrap4",
