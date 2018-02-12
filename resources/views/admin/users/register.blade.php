@@ -42,7 +42,7 @@
               <label class="floating-label">Email</label>
             </div>
             <div class="form-group form-material floating" data-plugin="formMaterial">
-              <input type="text" class="form-control" name="phone" required/>
+              <input type="number" class="form-control" name="phone" required/>
               <label class="floating-label">Telefono</label>
             </div>
             @if($user->contactType != 'sede')
@@ -138,7 +138,7 @@
                   <th>Cedula</th>
                   <th>Nombres</th>
                   <th>Apellidos</th>
-            
+
                   <th>Link</th>
                 </tr>
               </thead>
