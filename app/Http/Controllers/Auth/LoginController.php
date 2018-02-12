@@ -52,7 +52,7 @@ class LoginController extends Controller
       }else if($userType == "call-center"){
           return redirect("/callCenter");
       }else if($userType == "user"){
-          return redirect("/user");
+          return redirect("/logout");
       }else{
           return redirect("/logout");
       }

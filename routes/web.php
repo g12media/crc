@@ -24,6 +24,9 @@ Route::get('/login', function () {
 Route::get('/votantes', 'AdministratorController@votantes');
 Route::post('/votantes', 'AdministratorController@votantesValidate');
 
+Route::get('/contactos', 'AdministratorController@contactos');
+Route::post('/contactos', 'AdministratorController@contactosValidate');
+
 Route::group(['prefix'=>'superadmin','middleware'=>['auth','AccessSuperAdmin']],function(){
   Route::get('/', 'SuperAdminController@dashboard');
 });
