@@ -291,9 +291,9 @@ class AdministratorController extends Controller
       $valientes = $usuarios;
     }
 
-    return $contacts;
 
-      /*return view('admin.users.profile')
+
+      return view('admin.users.profile')
       ->with('usuarios',$usuarios)
       ->with('usuarios_contacto',$usuarios_contacto)
       ->with('valientes',$valientes)
@@ -301,7 +301,7 @@ class AdministratorController extends Controller
       ->with('users',$users)
       ->with('usersContact',$usersContact)
 
-      ->with('user',$user);*/
+      ->with('user',$user);
 
 
     }
