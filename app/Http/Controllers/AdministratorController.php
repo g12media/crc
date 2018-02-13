@@ -136,23 +136,26 @@ class AdministratorController extends Controller
         $usersTotalCount = $usersTotal - 1;
 
 
-
+        //Informacion Pastor Cesar
         if($user->level == 1){
           //Contactos Generales
           $contacts = User::where('contactType','contacto')->count();
           //Valientes Generales
           $valientes = User::where('contactType','ministerio')->count();
 
+          //Equipo Principal
           $usersMen = User::where('userId',$user->id)->where('gender','masculino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
           $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
 
         }else{
+
+          //Informacion Lideres/ Valientes Principales
           if($user->contactType == 'ministerio'){
             //Contactos Generales
             $contacts = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
             //Valientes Generales
             $valientes = User::where('leaderPrincipal',$user->id)->where('contactType','ministerio')->where('id','!=',$user->id)->count();
-
+            //Equipo Principal de Valientes
             $usersMen = User::where('userId',$user->id)->where('gender','masculino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
             $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
 
@@ -161,7 +164,7 @@ class AdministratorController extends Controller
             $contacts = User::where('leaderPrincipal',$user->id)->where('contactType','contacto')->count();
             //Valientes Generales
             $valientes = User::where('leaderPrincipal',$user->id)->where('contactType','sede')->where('id','!=',$user->id)->count();
-
+            //Equipo Principal de Valientes (Sede)
             $usersMen = User::where('userId',$user->id)->where('gender','masculino')->where('id','!=',$user->id)->where('contactType','sede')->get();
             $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->where('id','!=',$user->id)->where('contactType','sede')->get();
 
@@ -260,24 +263,47 @@ class AdministratorController extends Controller
       $level1 = User::where('userId','=',$user->id)->where('contactType','contacto')->count();
 
       $usuarios_contacto = $level1;
-      $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','contacto')->get();
+      //Obtener usuarios valientes ara extraer sus contactos
+      if($user->contactType == 'ministerio'){
+        $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->get();
+      }else if($user->contactType == 'sede'){
+        $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','sede')->get();
+      }else{
+        $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->get();
+      }
+
       foreach($usuarioslevel1 as $ul1) {
-        $level2 = User::where('userId','=',$ul1->id)->where('contactType','contacto')->count();
-        if ($level2 != 0) {
-          $usuarios_contacto = $usuarios + $level2;
-          $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','contacto')->get();
+          $level2 = User::where('userId','=',$ul1->id)->where('contactType','contacto')->count();
+          $usuarios_contacto = $usuarios_contacto + $level2;
+
+          if($ul1->contactType == 'ministerio'){
+            $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->get();
+          }else if($ul1->contactType == 'sede'){
+            $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','sede')->get();
+          }else{
+            $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->get();
+          }
+
+
           foreach($usuarioslevel2 as $ul2){
             $level3 = User::where('userId','=',$ul2->id)->where('contactType','contacto')->count();
-            if ($level3 != 0) {
-              $usuarios_contacto = $usuarios + $level3;
-              $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','contacto')->get();
+              $usuarios_contacto = $usuarios_contacto + $level3;
+
+              if($ul2->contactType == 'ministerio'){
+                $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->get();
+              }else if($ul2->contactType == 'sede'){
+                $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','sede')->get();
+              }else{
+                $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->get();
+              }
+              
               foreach($usuarioslevel3 as $ul3){
                 $level4 = User::where('userId','=',$ul3->id)->where('contactType','contacto')->count();
-                $usuarios_contacto = $usuarios + $level4;
+                $usuarios_contacto = $usuarios_contacto + $level4;
               }
-            }
+
           }
-        }
+
       }
 
 
@@ -290,8 +316,6 @@ class AdministratorController extends Controller
       $contacts = $usuarios_contacto;
       $valientes = $usuarios;
     }
-
-
 
       return view('admin.users.profile')
       ->with('usuarios',$usuarios)
