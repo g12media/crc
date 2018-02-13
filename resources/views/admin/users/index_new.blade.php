@@ -102,7 +102,7 @@
             <h4 class="profile-user">{{$user->name}}</h4>
 
           </div>
-          
+
         </div>
         @if($user->level == 1)
           <div class="card card-block p-20 bg-blue-600">
@@ -232,7 +232,7 @@
                         <button type="button" class="" data-target="#deleteUserForm" data-toggle="modal" onclick="loadIdDelete({{$uh->id}})">
                         <i class="icon fa-trash" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="" data-target="#editUserForm" data-toggle="modal" onclick="loadIdEdit({{$uh->id}})">
+                        <button type="button" class="" data-target="#editHeadquarterForm" data-toggle="modal" onclick="loadIdEditHeadquarter({{$uh->id}})">
                           <i class="icon fa-edit" aria-hidden="true"></i>
                         </button>
                       </td>
@@ -354,8 +354,42 @@
     <i class="back-icon wb-close animation-scale-up" aria-hidden="true"></i>
   </button>
 </div>
-<!-- Edit Form -->
 
+<!-- Edit headquarter -->
+{!! Form::open(array('url' => 'administrator/users/edit/headquarter', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
+<div class="modal fade" id="editHeadquarterForm" aria-hidden="true" aria-labelledby="editHeadquarterForm"
+  role="dialog" tabindex="-1">
+  <input type="hidden" name="headquarterId" id="headquarterId" value=""/>
+  <div class="modal-dialog modal-simple">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+
+      </div>
+      <div class="modal-body">
+          <center><h4 class="modal-title">Editar Sede</h4></center>
+          <br>
+          <div class="form-group">
+            <input type="text" class="form-control" name="nameHeadquarter" id="nameHeadquarter" placeholder="Nombres"/>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="usernameHeadquarter" id="usernameHeadquarter" placeholder="Usuario"/>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="passwordHeadquarter" id="passwordHeadquarter" placeholder="Contraseña"/>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{!! Form::close() !!}
+<!-- Close Edit headquarter -->
+<!-- Edit Form -->
 {!! Form::open(array('url' => 'administrator/users/edit12', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
 <div class="modal fade" id="editUserForm" aria-hidden="true" aria-labelledby="editUserForm"
   role="dialog" tabindex="-1">
@@ -468,9 +502,7 @@
   </div>
 </div>
 {!! Form::close() !!}
-
 <!-- Edit Form -->
-
 <!-- End Site Action -->
 {!! Form::open(array('url' => 'administrator/users/delete12/', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
 <div class="modal fade" id="deleteUserForm" aria-hidden="true" aria-labelledby="deleteUserForm" role="dialog" tabindex="-1">
@@ -617,7 +649,6 @@
 </div>
 {!! Form::close() !!}
 <!-- End Add User Form -->
-
 <!-- Add headquarter Form -->
 {!! Form::open(array('url' => 'administrator/users/headquarter/add', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
 <div class="modal fade" id="addHeadquarterForm" aria-hidden="true" aria-labelledby="addHeadquarterForm"  role="dialog" tabindex="-1">
@@ -738,6 +769,14 @@ function loadIdEdit(Id){
       $("#locationVoteEdit").val(data.locationVote);
       $("#neighborhoodEdit").val(data.neighborhood);
 
+  });
+}
+
+function loadIdEditHeadquarter(Id){
+  $.get( "users/headquarter/"+Id).done(function(data) {
+      $('#headquarterId').val(Id);
+      $("#nameHeadquarter").val(data.name);
+      $("#usernameHeadquarter").val(data.username);
   });
 }
 

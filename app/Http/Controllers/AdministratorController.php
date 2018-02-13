@@ -172,10 +172,6 @@ class AdministratorController extends Controller
 
         }
 
-
-
-
-
         return view('admin.users.index_new')
         ->with('usersGeneral',$usersGeneral)
         ->with('usersMen',$usersMen)
@@ -296,7 +292,7 @@ class AdministratorController extends Controller
               }else{
                 $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->get();
               }
-              
+
               foreach($usuarioslevel3 as $ul3){
                 $level4 = User::where('userId','=',$ul3->id)->where('contactType','contacto')->count();
                 $usuarios_contacto = $usuarios_contacto + $level4;
@@ -468,8 +464,6 @@ class AdministratorController extends Controller
 
       $user_principal = User::find($userLeader->leaderPrincipal);
 
-
-
       $User = new User;
       $User->userType = 'user';
       $User->contactType = 'contacto';
@@ -551,10 +545,7 @@ class AdministratorController extends Controller
     }
     public function callCenter(){
       $users = User::where('userType','call-center')->get();
-
       $ministry = User::where('level','12')->get();
-
-
       $answeredcalls = DB::table('users as u')
         ->join('Calls as c', 'u.id', '=', 'c.userId')
         ->select('u.*','c.status','c.description','c.answer')
@@ -590,9 +581,6 @@ class AdministratorController extends Controller
     }
 
     public function saveAssignUser(Request $request){
-
-
-
         $userAssign = User::find($request->userIdAssign);
 
           //Ministerio
@@ -616,11 +604,24 @@ class AdministratorController extends Controller
 
       $users = User::all()->get();
       foreach($users as $user){
-
           $userDirect = $user->userId;
-
       }
 
+    }
+
+    public function getHeadquarter($id){
+      $headquarter = User::find($id);
+      return $headquarter;
+    }
+    public function updateHeadquarter(Request $request){
+      $headquarter = User::find($request->headquarterId);
+      $headquarter->name = $request->nameHeadquarter;
+      $headquarter->username = $request->usernameHeadquarter;
+      if($request->passwordHeadquarter!=""){
+        $headquarter->password = bcrypt($request->passwordHeadquarter);
+      }
+      $headquarter->save();
+      return redirect('/administrator/users');
     }
 
 }
