@@ -657,7 +657,7 @@ class AdministratorController extends Controller
                           $User->phone = $sheet->celular;
                           $User->email = $sheet->email;
                           $User->level = 0;
-                          $User->leaderPrincipal = $u->leaderPrincipal;
+                          $User->leaderPrincipal = 8;
                           $User->userId = $u->id;
                           $User->username = rand(10000,1000000000);
                           $User->password = bcrypt(rand(10,1000000));
