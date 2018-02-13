@@ -292,7 +292,7 @@ class AdministratorController extends Controller
               }else{
                 $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->get();
               }
-              
+
               foreach($usuarioslevel3 as $ul3){
                 $level4 = User::where('userId','=',$ul3->id)->where('contactType','contacto')->count();
                 $usuarios_contacto = $usuarios_contacto + $level4;
@@ -618,7 +618,7 @@ class AdministratorController extends Controller
       $headquarter->name = $request->nameHeadquarter;
       $headquarter->username = $request->usernameHeadquarter;
       if($request->passwordHeadquarter!=""){
-        $headquarter->password = $request->passwordHeadquarter;
+        $headquarter->password = bcrypt($request->passwordHeadquarter);
       }
       $headquarter->save();
       return redirect('/administrator/users');
