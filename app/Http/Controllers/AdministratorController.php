@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Auth,Crypt,Image,DB;
+use Auth,Crypt,Image,DB,Excel;
 use Illuminate\Support\Facades\Input;
 use App\User;
 use App\Properties;
@@ -21,6 +21,12 @@ use Illuminate\Http\Request;
 class AdministratorController extends Controller
 {
     //
+
+    private $data;
+    private $count;
+    private $count_exist;
+    private $number_export_exist;
+
     public function dashboard(){
       return redirect('administrator/users/');
     }
@@ -624,4 +630,57 @@ class AdministratorController extends Controller
       return redirect('/administrator/users');
     }
 
-}
+
+    public function loadMasiveFile(Request $request){
+          $this->data = array();
+
+          $this->count = 0;
+          $this->count_exist = 0;
+
+          if ($request->file('fileData')->isValid()) {
+              $file = $request->fileData;
+              Excel::load($file, function($reader) {
+                $this->i = 0;
+                 $reader->each(function($sheet) {
+                    //Verify User
+                    $user_exist = User::where('identification',$sheet->valiente)->count();
+                    if($user_exist > 0){
+                      $userData = User::where('identification',$sheet->valiente)->take(1)->get();
+                      foreach ($userData as $u) {
+                        $userCount = User::where('identification',$sheet->documento)->count();
+                        if($userCount == 0){
+                          $User = new User;
+                          $User->userType = 'user';
+                          $User->contactType = 'contacto';
+                          $User->identification = $sheet->documento;
+                          $User->name = $sheet->nombres;
+                          $User->phone = $sheet->celular;
+                          $User->email = $sheet->email;
+                          $User->level = 0;
+                          $User->leaderPrincipal = 8;
+                          $User->userId = $u->id;
+                          $User->username = rand(10000,1000000000);
+                          $User->password = bcrypt(rand(10,1000000));
+                          $User->save();
+                          $this->count++;
+                        }else{
+                          $this->count_exist++;
+                        }
+                      }
+
+                    }else{
+                      array_push($this->data,$sheet->valiente);
+                    }
+
+                });
+            });
+          }
+
+          array_push($this->data,"Cantidad Agregados:".$this->count);
+          array_push($this->data,"Cantidad Existentes:".$this->count_exist);
+          return $this->data;
+
+
+    }
+
+  }
