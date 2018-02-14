@@ -609,19 +609,5 @@ class AdministratorController extends Controller
 
     }
 
-    public function getHeadquarter($id){
-      $headquarter = User::find($id);
-      return $headquarter;
-    }
-    public function updateHeadquarter(Request $request){
-      $headquarter = User::find($request->headquarterId);
-      $headquarter->name = $request->nameHeadquarter;
-      $headquarter->username = $request->usernameHeadquarter;
-      if($request->passwordHeadquarter!=""){
-        $headquarter->password = bcrypt($request->passwordHeadquarter);
-      }
-      $headquarter->save();
-      return redirect('/administrator/users');
-    }
-
+    
 }

@@ -14,4 +14,10 @@ $userId = Auth::user()->id;
     <span class="site-menu-title">Call Center</span>
   </a>
 </li>
+<li class="site-menu-item">
+  <a class="animsition-link" href="/administrator/candidate">
+    <i class="site-menu-icon wb-users" aria-hidden="true"></i>
+    <span class="site-menu-title">Candidatos</span>
+  </a>
+</li>
 @endif

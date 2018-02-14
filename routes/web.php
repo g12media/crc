@@ -35,6 +35,7 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
 
   Route::get('/callcenter', 'AdministratorController@callCenter');
   Route::post('/callcenter', 'AdministratorController@saveUserCallcenter');
+  
   Route::get('/callcenter/assignUsers', 'AdministratorController@saveAssignUser');
   Route::post('/callcenter/assignUsers', 'AdministratorController@saveAssignUser');
 
