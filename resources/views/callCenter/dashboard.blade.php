@@ -19,7 +19,6 @@
 
 @section('nav_bar')
 <nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega" role="navigation">
-
       <div class="navbar-header">
         <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
           <img class="navbar-brand-logo" src="../assets/images/logo.png" title="Remark">
@@ -61,6 +60,7 @@
         <div class="panel">
           <header class="panel-heading">
           <div class="row">
+            @if($user->contactType == 'call-center')
             <div class="col-lg-4">
               <div class="card card-block p-20 bg-blue-600">
                 <div class="counter counter-lg counter-inverse">
@@ -94,8 +94,22 @@
                 </div>
               </div>
             </div>
+            @else
+            <div class="col-lg-12">
+              <div class="card card-block p-20 bg-blue-600">
+                <div class="counter counter-lg counter-inverse">
+                  <div class="counter-label text-uppercase font-size-16">Usuarios Asignados</div>
+                  <div class="counter-number-group">
+                    <span class="counter-number">{{$usersAssignTotal}}</span>
+                    <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endif
           </div>
           </header>
+          @if($user->contactType == 'call-center')
           <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
             <ul class="nav nav-tabs nav-tabs-line" role="tablist">
               <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#one"
@@ -214,8 +228,52 @@
               </div>
               </div>
             </div>
+          @else
+          <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">
+            <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+              <li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" href="#one"
+                    aria-controls="activities" role="tab">Usuarios Asignados</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active animation-slide-left" id="one" role="tabpanel">
+                <div class="panel-body" style="padding:15px 0px 0px 0px;">
+              <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
+                <thead>
+                  <tr>
+                    <th>Identificacion</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Telefono</th>
+                    <th>Correo Electronico</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Identificacion</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Telefono</th>
+                    <th>Correo Electronico</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  @foreach($users as $u)
+                  <tr>
+                    <td>{{$u->identification}}</td>
+                    <td>{{$u->name}}</td>
+                    <td>{{$u->lastName}}</td>
+                    <td>{{$u->phone}}</td>
+                    <td>{{$u->email}}</td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </div>
-
+        </div>
+      </div>
+      @endif
+      </div>
         </div>
       </div>
     </div>

@@ -46,6 +46,7 @@
               <input type="number" class="form-control" name="phone" required/>
               <label class="floating-label">Telefono</label>
             </div>
+            @if($user->contactType != 'sede')
             <div class="form-group form-material floating" data-plugin="formMaterial">
               <select name="city" class="form-control" id="city" onchange="selectCity()">
                   <option value="">Seleccione una ciudad</option>
@@ -69,6 +70,12 @@
                   <option value="Bucaramanga">Bucaramanga</option>
               </select>
             </div>
+            @else
+            <div class="form-group form-material floating" data-plugin="formMaterial">
+              <input type="text" class="form-control" name="city" required/>
+              <label class="floating-label">Ciudad</label>
+            </div>
+            @endif
             @if($user->contactType != 'sede')
             <div class="form-group form-material floating" data-plugin="formMaterial" id="location" style="display:none;">
               <select name="location" class="form-control">
