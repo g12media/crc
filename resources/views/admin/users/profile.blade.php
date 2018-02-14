@@ -124,6 +124,9 @@
                 <a href="/formulario/{{date('Y').'-'.$user->id.'-'.date('Hms')}}" target="_blank"><button type="button" class="btn btn-primary">
                   <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 20px;"></i> Formulario Valientes
                 </button></a>
+                <button type="button" class="" data-target="#masiveUploads" data-toggle="modal">
+                  <i class="icon fa-upload" aria-hidden="true"></i> Subir Formulario
+                </button>
               </div>
 
 
@@ -201,6 +204,8 @@
                           <button type="button" class="" data-target="#editUserForm" data-toggle="modal" onclick="loadIdEdit({{$um->id}})">
                             <i class="icon fa-edit" aria-hidden="true"></i>
                           </button>
+
+
                         </td>
                       </tr>
                       @endforeach
@@ -250,7 +255,7 @@
         <!-- End Panel -->
       </div>
     </div>
-  
+
   </div>
   <!-- Panel Basic -->
 
@@ -532,6 +537,37 @@
 </div>
 {!! Form::close() !!}
 <!-- End Add User Form -->
+
+
+
+
+{!! Form::open(array('url' => 'administrator/users/upload', 'method' => 'POST', 'class' => 'modal-content', 'enctype' => 'multipart/form-data')) !!}
+<div class="modal fade" id="masiveUploads" aria-hidden="true" aria-labelledby="masiveUploads" role="dialog" tabindex="-1">
+  <input type="hidden" name="userId" id="userId" value="" />
+  <input type="hidden" name="leader" id="leader" value="{{$user->id}}"/>
+  <div class="modal-dialog modal-simple">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" data-dismiss="modal">×</button>
+
+      </div>
+      <div class="modal-body">
+          <center>  <h4 class="modal-title">Formulario Registro Masivo</h4></center>
+          <br>
+          <div class="form-group">
+            <input type="file" class="form-control" name="fileData" id="fileData" placeholder="Archivos" required/>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a class="btn btn-sm btn-white" data-dismiss="modal" href="javascript:void(0)">Cancelar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{!! Form::close() !!}
+<!-- Edit User Form -->
+
 
 @stop
 

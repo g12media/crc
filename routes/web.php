@@ -53,6 +53,7 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
           Route::post('/add/{id}', 'AdministratorController@saveUserProfile');
           Route::get('/get/{id}', 'AdministratorController@getUser');
           Route::get('/headquarter/{id}', 'AdministratorController@getHeadquarter');
+          Route::post('/upload', 'AdministratorController@loadMasiveFile');
       });
 
 });
