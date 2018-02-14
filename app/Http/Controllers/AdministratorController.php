@@ -233,27 +233,78 @@ class AdministratorController extends Controller
 
 
       /* Count valientes en Linea*/
-      $level1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->count();
+      if($user->contactType == 'ministerio'){
+        $level1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->count();
+      }else if($user->contactType == 'sede'){
+        $level1 = User::where('userId','=',$user->id)->where('contactType','sede')->count();
+      }else{
+        $level1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->count();
+      }
+
+
       if($level1 != 0){
+
         $usuarios = $level1;
-        $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->get();
+        if($user->contactType == 'ministerio'){
+          $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->get();
+        }else if($user->contactType == 'sede'){
+          $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','sede')->get();
+        }else{
+          $usuarioslevel1 = User::where('userId','=',$user->id)->where('contactType','ministerio')->get();
+        }
+
         foreach($usuarioslevel1 as $ul1) {
-          $level2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->count();
-          if ($level2 != 0) {
+
+            if($user->contactType == 'ministerio'){
+              $level2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->count();
+            }else if($user->contactType == 'sede'){
+              $level2 = User::where('userId','=',$ul1->id)->where('contactType','sede')->count();
+            }else{
+              $level2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->count();
+            }
             $usuarios = $usuarios + $level2;
-            $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->get();
+
+            if($user->contactType == 'ministerio'){
+              $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->get();
+            }else if($user->contactType == 'sede'){
+              $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','sede')->get();
+            }else{
+              $usuarioslevel2 = User::where('userId','=',$ul1->id)->where('contactType','ministerio')->get();
+            }
+
+
             foreach($usuarioslevel2 as $ul2){
-              $level3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->count();
-              if ($level3 != 0) {
+                if($user->contactType == 'ministerio'){
+                  $level3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->count();
+                }else if($user->contactType == 'sede'){
+                  $level3 = User::where('userId','=',$ul2->id)->where('contactType','sede')->count();
+                }else{
+                  $level3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->count();
+                }
+
                 $usuarios = $usuarios + $level3;
-                $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->get();
+                if($user->contactType == 'ministerio'){
+                  $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->get();
+                }else if($user->contactType == 'sede'){
+                  $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','sede')->get();
+                }else{
+                  $usuarioslevel3 = User::where('userId','=',$ul2->id)->where('contactType','ministerio')->get();
+                }
+
                 foreach($usuarioslevel3 as $ul3){
-                  $level4 = User::where('userId','=',$ul3->id)->where('contactType','ministerio')->count();
+                  if($user->contactType == 'ministerio'){
+                    $level4 = User::where('userId','=',$ul3->id)->where('contactType','ministerio')->count();
+                  }else if($user->contactType == 'sede'){
+                    $level4 = User::where('userId','=',$ul3->id)->where('contactType','sede')->count();
+                  }else{
+                    $level4 = User::where('userId','=',$ul3->id)->where('contactType','ministerio')->count();
+                  }
+
                   $usuarios = $usuarios + $level4;
                 }
-              }
+
             }
-          }
+
 
         }
       }else {
