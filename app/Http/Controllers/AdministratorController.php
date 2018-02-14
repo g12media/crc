@@ -368,7 +368,7 @@ class AdministratorController extends Controller
       $contacts = $usuarios_contacto;
       $valientes = $usuarios;
     }
-
+      $userLogin = Auth::user();
       return view('admin.users.profile')
       ->with('usuarios',$usuarios)
       ->with('usuarios_contacto',$usuarios_contacto)
@@ -376,7 +376,7 @@ class AdministratorController extends Controller
       ->with('contacts',$contacts)
       ->with('users',$users)
       ->with('usersContact',$usersContact)
-
+      ->with('userLogin',$userLogin)
       ->with('user',$user);
 
 
@@ -691,6 +691,7 @@ class AdministratorController extends Controller
                           $User->contactType = 'contacto';
                           $User->identification = $sheet->documento;
                           $User->name = $sheet->nombres;
+                          $User->gender = $sheet->genero;
                           $User->phone = $sheet->celular;
                           $User->email = $sheet->email;
                           $User->level = 0;

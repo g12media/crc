@@ -124,7 +124,7 @@
                 <a href="/formulario/{{date('Y').'-'.$user->id.'-'.date('Hms')}}" target="_blank"><button type="button" class="btn btn-primary">
                   <i class="icon fa-id-card-o" aria-hidden="true" style="font-size: 20px;"></i> Formulario Valientes
                 </button></a>
-                @if($user->id == 1)
+                @if($userLogin->id == 1)
                 <button type="button" class="" data-target="#masiveUploads" data-toggle="modal">
                   <i class="icon fa-upload" aria-hidden="true"></i> Subir Formulario
                 </button>
