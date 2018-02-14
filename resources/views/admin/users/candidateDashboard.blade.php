@@ -110,8 +110,7 @@
                         <th>Cedula</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Opciones</th>
+                        <th>Telfono</th>
                       </tr>
                     </thead>
                     <tfoot>
@@ -119,25 +118,16 @@
                         <th>Cedula</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
-                        <th>Email</th>
-                        <th>Opciones</th>
+                        <th>Telfono</th>
                       </tr>
                     </tfoot>
                     <tbody>
                       @foreach($candidates as $c)
                       <tr>
-                        <td><a href="/administrator/users/{{date('Y').'-'.$um->id.'-'.date('Hms')}}">{{$c->identification}}</a></td>
+                        <td>{{$c->identification}}</td>
                         <td>{{$c->name}}</td>
                         <td>{{$c->lastName}}</td>
-                        <td>{{$c->email}}</td>
-                        <td>
-                          <button type="button" class="" data-target="#deleteUserForm" data-toggle="modal" onclick="loadIdDelete({{$c->id}})">
-                          <i class="icon fa-trash" aria-hidden="true"></i>
-                          </button>
-                          <button type="button" class="" data-target="#editUserForm" data-toggle="modal" onclick="loadIdEdit({{$c->id}})">
-                            <i class="icon fa-edit" aria-hidden="true"></i>
-                          </button>
-                        </td>
+                        <td>{{$c->phone}}</td>
                       </tr>
                       @endforeach
                     </tbody>

@@ -208,7 +208,7 @@
                       <th>Cedula</th>
                       <th>Nombres</th>
                       <th>Apellidos</th>
-                      <th>Email</th>
+                      <th>Sede</th>
                       <th>Opciones</th>
                     </tr>
                   </thead>
@@ -217,7 +217,7 @@
                       <th>Cedula</th>
                       <th>Nombres</th>
                       <th>Apellidos</th>
-                      <th>Email</th>
+                      <th>Sede</th>
                       <th>Opciones</th>
                     </tr>
                   </tfoot>
@@ -227,7 +227,7 @@
                       <td><a href="/administrator/users/{{date('Y').'-'.$uh->id.'-'.date('Hms')}}">{{$uh->identification}}</a></td>
                       <td>{{$uh->name}}</td>
                       <td>{{$uh->lastName}}</td>
-                      <td>{{$uh->email}}</td>
+                      <td>{{$uh->city}}</td>
                       <td>
                         <button type="button" class="" data-target="#deleteUserForm" data-toggle="modal" onclick="loadIdDelete({{$uh->id}})">
                         <i class="icon fa-trash" aria-hidden="true"></i>
@@ -424,7 +424,7 @@
             <input type="text" class="form-control" name="email" id="emailEdit" placeholder="Email" />
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" name="phone" id="phoneEdit" placeholder="Telefono / Celular" required/>
+            <input type="text" class="form-control" name="phone" id="phoneEdit" placeholder="Telefono/ Celular" required/>
           </div>
 
           <div class="form-group">

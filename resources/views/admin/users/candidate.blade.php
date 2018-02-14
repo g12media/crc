@@ -113,13 +113,13 @@
                         <div class="col-xxl-6 col-lg-6">
                           <div class="form-group">
                             <label class="form-control-label" for="inputUserNameOne">identificacion</label>
-                            <input type="text" class="form-control" id="identification" name="identification" required="required">
+                            <input type="number" class="form-control" id="identification" name="identification" required="required">
                           </div>
                         </div>
                         <div class="col-xxl-6 col-lg-6">
                           <div class="form-group">
                             <label class="form-control-label" for="inputUserNameOne">Nombres</label>
-                            <input type="text" class="form-control" id="inputPasswordOne" name="name" required="required">
+                            <input type="text" class="form-control" id="name" name="name" required="required">
                           </div>
                         </div>
                       </div>
@@ -127,12 +127,13 @@
                         <div class="col-xxl-6 col-lg-6">
                           <div class="form-group">
                             <label class="form-control-label" for="inputUserNameOne">Apellidos</label>
-                            <input type="text" class="form-control" id="inputPasswordOne" name="lastname" required="required">
+                            <input type="text" class="form-control" id="lastname" name="lastname" required="required">
                           </div>
                         </div>
                         <div class="col-xxl-6 col-lg-6">
-                          <div class="form-group">
-                            <select name="gender" id="genderEdit" required>
+                          <label class="form-control-label" for="inputUserNameOne">Genero</label>
+                          <div class="form-group floating" data-plugin="formMaterial" style="margin-top: 10px;">
+                            <select name="gender" class="form-control" id="gender">
                               <option value="">Seleccione un Genero</option>
                               <option value="masculino">Masculino</option>
                               <option value="femenino">Femenino</option>
@@ -143,14 +144,14 @@
                       <div class="row">
                         <div class="col-xxl-6 col-lg-6">
                           <div class="form-group">
-                            <label class="form-control-label" for="inputUserNameOne">Correo Electronico</label>
-                            <input type="text" class="form-control" id="email" name="email" required="required">
+                            <label class="form-control-label" for="inputUserNameOne">Telefono / Celular</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required="required">
                           </div>
                         </div>
                         <div class="col-xxl-6 col-lg-6">
                           <div class="form-group">
-                            <label class="form-control-label" for="inputUserNameOne">Telefono / Celular</label>
-                            <input type="text" class="form-control" id="phone" name="phone" required="required">
+                            <label class="form-control-label" for="inputUserNameOne">Usuario</label>
+                            <input type="text" class="form-control" id="username" name="username" required="required">
                           </div>
                         </div>
                       </div>
@@ -171,7 +172,13 @@
                     </div>
                     <div class="wizard-pane" id="exampleBillingTwo" role="tabpanel">
                       <div class="text-center my-20">
-                        <h4>Please confrim your order.</h4>
+                        <h4>Seleccione las sedes</h4>
+                        @foreach($headquarter as $h)
+                        <div class="checkbox-custom checkbox-primary">
+                          <input type="checkbox" id="headquarter" name="headquarter[]" value="{{$h->id}}">
+                          <label for="inputUnchecked">{{$h->city}} ({{$h->name}} {{$h->lastName}})</label>
+                        </div>
+                        @endforeach
                         <input type="submit" name="sendForm" id="sendForm" value="Enviar" style="display:none;"/>
                       </div>
                     </div>

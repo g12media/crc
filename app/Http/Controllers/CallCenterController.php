@@ -5,74 +5,100 @@ use Auth,Crypt,Image,DB;
 use Illuminate\Http\Request;
 use App\User;
 use App\Calls;
+use App\candidateHeadquarter;
 
 class CallCenterController extends Controller{
     //
     public function dashboard(){
       $user = Auth::user();
+      if($user->contactType == 'candidate'){
+        $array = array();
+        $headquarters = DB::table('users as u')
+          ->join('candidateHeadquarter as ch', 'u.id', '=', 'ch.headquarterId')
+          ->select('u.*')
+          ->where('ch.candidateId','=',$user->id)
+          ->get();
+        foreach ($headquarters as $h) {
+          array_push($array,$h->id);
+       }
+       $users = DB::table('users as u')
+         ->select('u.*')
+         ->whereIn('u.leaderPrincipal',$array)
+         ->get();
 
-      $usersAssign = DB::table('users as u')
-        ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
-        ->select('u.*')
-        ->where('ccu.callCenterId','=',$user->id)
-        ->where('u.call_user','=',0)
-        ->get();
+       $usersAssignTotal = DB::table('users as u')
+         ->select('u.*')
+         ->whereIn('u.leaderPrincipal',$array)
+         ->count();
 
-      $usersAssignTotal = DB::table('users as u')
-        ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
-        ->select('u.*')
-        ->where('ccu.callCenterId','=',$user->id)
-        ->count();
+         return view('callCenter.dashboard')->with('user',$user)->with('users',$users)->with('usersAssignTotal',$usersAssignTotal);
 
-      $answeredcalls = DB::table('users as u')
-        ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
-        ->join('Calls as c', 'u.id', '=', 'c.userId')
-        ->select('u.*','c.status','c.description','c.answer')
-        ->where('ccu.callCenterId','=',$user->id)
-        ->where('c.status','=',1)
-        ->get();
+      }elseif($user->contactType == 'call-center'){
+        $user = Auth::user();
+        $usersAssign = DB::table('users as u')
+          ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
+          ->select('u.*')
+          ->where('ccu.callCenterId','=',$user->id)
+          ->where('u.call_user','=',0)
+          ->get();
 
-      $answeredcallsTotal = DB::table('users as u')
-        ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
-        ->join('Calls as c', 'u.id', '=', 'c.userId')
-        ->select('u.*','c.status','c.description','c.answer')
-        ->where('ccu.callCenterId','=',$user->id)
-        ->where('c.status','=',1)
-        ->count();
+        $usersAssignTotal = DB::table('users as u')
+          ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
+          ->select('u.*')
+          ->where('ccu.callCenterId','=',$user->id)
+          ->count();
 
-      $unansweredcalls = DB::table('users as u')
-        ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
-        ->join('Calls as c', 'u.id', '=', 'c.userId')
-        ->select('u.*','c.status','c.description','c.answer','c.id as callId')
-        ->where('ccu.callCenterId','=',$user->id)
-        ->where('c.status','=',0)
-        ->get();
+        $answeredcalls = DB::table('users as u')
+          ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
+          ->join('Calls as c', 'u.id', '=', 'c.userId')
+          ->select('u.*','c.status','c.description','c.answer')
+          ->where('ccu.callCenterId','=',$user->id)
+          ->where('c.status','=',1)
+          ->get();
 
-      $unansweredcallsTotal = DB::table('users as u')
-        ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
-        ->join('Calls as c', 'u.id', '=', 'c.userId')
-        ->select('u.*','c.status','c.description','c.answer','c.id as callId')
-        ->where('ccu.callCenterId','=',$user->id)
-        ->where('c.status','=',0)
-        ->count();
+        $answeredcallsTotal = DB::table('users as u')
+          ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
+          ->join('Calls as c', 'u.id', '=', 'c.userId')
+          ->select('u.*','c.status','c.description','c.answer')
+          ->where('ccu.callCenterId','=',$user->id)
+          ->where('c.status','=',1)
+          ->count();
 
-      $users = DB::table('users as u')
-        ->join('Calls as c', 'u.id', '=', 'c.userId')
-        ->select('u.*','c.status','c.description','c.answer')
-        ->where('u.userType','=','user')
-        ->get();
+        $unansweredcalls = DB::table('users as u')
+          ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
+          ->join('Calls as c', 'u.id', '=', 'c.userId')
+          ->select('u.*','c.status','c.description','c.answer','c.id as callId')
+          ->where('ccu.callCenterId','=',$user->id)
+          ->where('c.status','=',0)
+          ->get();
 
-      $principalUsers = DB::table('users as u')->where('u.level','=','12')->where('u.leaderPrincipal','=','1')->get();
+        $unansweredcallsTotal = DB::table('users as u')
+          ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
+          ->join('Calls as c', 'u.id', '=', 'c.userId')
+          ->select('u.*','c.status','c.description','c.answer','c.id as callId')
+          ->where('ccu.callCenterId','=',$user->id)
+          ->where('c.status','=',0)
+          ->count();
 
-      return view('callCenter.dashboard')
-      ->with('users',$users)
-      ->with('usersAssign',$usersAssign)
-      ->with('answeredcalls',$answeredcalls)
-      ->with('unansweredcalls',$unansweredcalls)
-      ->with('usersAssignTotal',$usersAssignTotal)
-      ->with('answeredcallsTotal',$answeredcallsTotal)
-      ->with('principalUsers',$principalUsers)
-      ->with('unansweredcallsTotal',$unansweredcallsTotal);
+        $users = DB::table('users as u')
+          ->join('Calls as c', 'u.id', '=', 'c.userId')
+          ->select('u.*','c.status','c.description','c.answer')
+          ->where('u.userType','=','user')
+          ->get();
+
+        $principalUsers = DB::table('users as u')->where('u.level','=','12')->where('u.leaderPrincipal','=','1')->get();
+
+        return view('callCenter.dashboard')
+          ->with('users',$users)
+          ->with('user',$user)
+          ->with('usersAssign',$usersAssign)
+          ->with('answeredcalls',$answeredcalls)
+          ->with('unansweredcalls',$unansweredcalls)
+          ->with('usersAssignTotal',$usersAssignTotal)
+          ->with('answeredcallsTotal',$answeredcallsTotal)
+          ->with('principalUsers',$principalUsers)
+          ->with('unansweredcallsTotal',$unansweredcallsTotal);
+      }
     }/*
     public function callUser($id){
       $userId = Crypt::decrypt($id);

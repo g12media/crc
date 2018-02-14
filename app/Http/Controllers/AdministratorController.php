@@ -15,6 +15,7 @@ use App\Bussines;
 use App\Calls;
 use App\Payments;
 use App\callcenterUsers;
+use App\candidateHeadquarter;
 use Illuminate\Http\Request;
 
 
@@ -132,11 +133,9 @@ class AdministratorController extends Controller
     public function getUsers(){
         $user = Auth::user();
 
+        $usersGeneral = User::where('leaderPrincipal',$user->id)->where('level',12)->where('contactType','ministerio')->get();
 
-
-        $usersGeneral = User::where('leaderPrincipal',$user->id)->where('level',12)->get();
-
-        $usersHeadquarters = User::where('contactType','sede')->get();
+        $usersHeadquarters = User::where('contactType','sede')->where('userType','admin')->get();
 
         $usersTotal = User::all()->count();
         $usersTotalCount = $usersTotal - 1;
@@ -450,7 +449,11 @@ class AdministratorController extends Controller
     public function getFormRegister($userId){
       $userIdExplode = $array = explode("-", $userId);
       $user = User::find($userIdExplode[1]);
-      $users = User::where('userId',$userIdExplode[1])->get();
+      if($user->contactType == 'sede'){
+        $users = User::where('userId',$userIdExplode[1])->where('contactType','sede')->get();
+      }else{
+        $users = User::where('userId',$userIdExplode[1])->where('contactType','ministerio')->get();
+      }
       return view('admin.users.register')->with('userId',$userId)->with('user',$user)->with('users',$users);
     }
 
@@ -604,33 +607,16 @@ class AdministratorController extends Controller
 
         return redirect('/administrator/callcenter');
     }
-
-
     public function repairDatabase(){
-
       $users = User::all()->get();
       foreach($users as $user){
           $userDirect = $user->userId;
       }
-
     }
-
     public function getHeadquarter($id){
       $headquarter = User::find($id);
       return $headquarter;
     }
-    public function updateHeadquarter(Request $request){
-      $headquarter = User::find($request->headquarterId);
-      $headquarter->name = $request->nameHeadquarter;
-      $headquarter->username = $request->usernameHeadquarter;
-      if($request->passwordHeadquarter!=""){
-        $headquarter->password = bcrypt($request->passwordHeadquarter);
-      }
-      $headquarter->save();
-      return redirect('/administrator/users');
-    }
-
-
     public function loadMasiveFile(Request $request){
           $this->data = array();
 
@@ -681,6 +667,47 @@ class AdministratorController extends Controller
           return $this->data;
 
 
+    }
+    public function updateHeadquarter(Request $request){
+      $headquarter = User::find($request->headquarterId);
+      $headquarter->name = $request->nameHeadquarter;
+      $headquarter->username = $request->usernameHeadquarter;
+      if($request->passwordHeadquarter!=""){
+        $headquarter->password = bcrypt($request->passwordHeadquarter);
+      }
+      $headquarter->save();
+      return redirect('/administrator/users');
+    }
+    public function candidate(){
+      $candidates = User::where('contactType','candidate')->get();
+      return view('admin.users.candidateDashboard')->with('candidates',$candidates);
+    }
+    public function addCandidate(){
+      $headquarter = User::where('contactType','sede')->where('userType','admin')->get();
+      return view('admin.users.candidate')->with('headquarter',$headquarter);
+    }
+    public function saveUserCandidate(Request $request){
+      $User = new User;
+      $User->userType = 'call-center';
+      $User->contactType = 'candidate';
+      $User->identification = $request->identification;
+      $User->name = $request->name;
+      $User->lastName = $request->lastname;
+      $User->gender = $request->gender;
+      $User->phone = $request->phone;
+      $User->username = $request->username;
+      $User->password = bcrypt($request->password);
+      $User->save();
+
+      $headquarter = $request->get('headquarter');
+
+      for ($i = 0; $i < count($headquarter); $i++) {
+        $candidateHeadquarter = new candidateHeadquarter;
+        $candidateHeadquarter->candidateId = $User->id;
+        $candidateHeadquarter->headquarterId = $headquarter[$i];
+        $candidateHeadquarter->save();
+      }
+      return redirect('/administrator');
     }
 
   }
