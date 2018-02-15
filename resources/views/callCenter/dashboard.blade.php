@@ -125,6 +125,7 @@
                   <table class="table table-hover dataTable table-striped w-full" data-plugin="dataTable">
                     <thead>
                       <tr>
+                        <th>Identificacion</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Telefono</th>
@@ -134,6 +135,7 @@
                     </thead>
                     <tfoot>
                       <tr>
+                        <th>Identificacion</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Telefono</th>
@@ -144,6 +146,7 @@
                     <tbody>
                       @foreach($usersAssign as $ua)
                       <tr>
+                        <td>{{$ua->identification}}</td>
                         <td>{{$ua->name}}</td>
                         <td>{{$ua->lastName}}</td>
                         <td>{{$ua->phone}}</td>

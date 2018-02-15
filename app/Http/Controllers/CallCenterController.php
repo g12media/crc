@@ -35,10 +35,10 @@ class CallCenterController extends Controller{
 
       }elseif($user->contactType == 'call-center'){
         $user = Auth::user();
+
         $usersAssign = DB::table('users as u')
-          ->join('callcenterUsers as ccu', 'u.id', '=', 'ccu.userId')
           ->select('u.*')
-          ->where('ccu.callCenterId','=',$user->id)
+          ->where('u.leaderPrincipal','=',$user->leaderPrincipal)
           ->where('u.call_user','=',0)
           ->get();
 
