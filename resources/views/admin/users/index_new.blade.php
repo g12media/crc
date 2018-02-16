@@ -205,29 +205,33 @@
                   <button type="button" class="btn btn-floating btn-success btn-sm" data-target="#addHeadquarterForm" data-toggle="modal" style="float: right;"><i class="icon wb-plus" aria-hidden="true"></i></button>
                   <thead>
                     <tr>
+                      <th>Departamento</th>
+                      <th>Sede</th>
                       <th>Cedula</th>
                       <th>Nombres</th>
                       <th>Apellidos</th>
-                      <th>Sede</th>
                       <th>Opciones</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>Departamento</th>
+                      <th>Sede</th>
                       <th>Cedula</th>
                       <th>Nombres</th>
                       <th>Apellidos</th>
-                      <th>Sede</th>
                       <th>Opciones</th>
                     </tr>
                   </tfoot>
                   <tbody>
                     @foreach($usersHeadquarters as $uh)
                     <tr>
+                      <td>{{$uh->department}}</td>
+                      <td>{{$uh->city}}</td>
                       <td><a href="/administrator/users/{{date('Y').'-'.$uh->id.'-'.date('Hms')}}">{{$uh->identification}}</a></td>
                       <td>{{$uh->name}}</td>
                       <td>{{$uh->lastName}}</td>
-                      <td>{{$uh->city}}</td>
+
                       <td>
                         <button type="button" class="" data-target="#deleteUserForm" data-toggle="modal" onclick="loadIdDelete({{$uh->id}})">
                         <i class="icon fa-trash" aria-hidden="true"></i>
