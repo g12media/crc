@@ -140,6 +140,7 @@ class AdministratorController extends Controller
         $usersTotal = User::all()->count();
         $usersTotalCount = $usersTotal - 1;
 
+        $usersTotalHeadquarterCount = User::where('contactType','sede')->count();
 
         //Informacion Pastor Cesar
         if($user->level == 1){
@@ -147,7 +148,6 @@ class AdministratorController extends Controller
           $contacts = User::where('contactType','contacto')->count();
           //Valientes Generales
           $valientes = User::where('contactType','ministerio')->count();
-
           //Equipo Principal
           $usersMen = User::where('userId',$user->id)->where('gender','masculino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
           $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
@@ -175,8 +175,7 @@ class AdministratorController extends Controller
 
           }
 
-        }
-
+        }        
         return view('admin.users.index_new')
         ->with('usersGeneral',$usersGeneral)
         ->with('usersMen',$usersMen)
@@ -185,7 +184,8 @@ class AdministratorController extends Controller
         ->with('usersHeadquarters',$usersHeadquarters)
         ->with('usersTotalCount',$usersTotalCount)
         ->with('contacts',$contacts)
-        ->with('valientes',$valientes);
+        ->with('valientes',$valientes)
+        ->with('usersTotalHeadquarterCount',$usersTotalHeadquarterCount);
 
     }
 
