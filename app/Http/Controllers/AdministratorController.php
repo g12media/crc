@@ -142,7 +142,14 @@ class AdministratorController extends Controller
         $usersTotal = User::all()->count();
         $usersTotalCount = $usersTotal - 1;
 
-        $usersTotalHeadquarterCount = User::where('contactType','sede')->count();
+        $countGralHeadquarter = 0;
+        //Consultar Cantidad de usuarios sede
+        foreach($usersHeadquarters as $uch){
+          $countGralHeadquarter = $countGralHeadquarter + User::where('leaderPrincipal',$uch->id)->count();
+        }
+
+
+
 
         //Informacion Pastor Cesar
         if($user->level == 1){
@@ -177,7 +184,7 @@ class AdministratorController extends Controller
 
           }
 
-        }        
+        }
         return view('admin.users.index_new')
         ->with('usersGeneral',$usersGeneral)
         ->with('usersMen',$usersMen)
@@ -187,7 +194,7 @@ class AdministratorController extends Controller
         ->with('usersTotalCount',$usersTotalCount)
         ->with('contacts',$contacts)
         ->with('valientes',$valientes)
-        ->with('usersTotalHeadquarterCount',$usersTotalHeadquarterCount);
+        ->with('countGralHeadquarter',$countGralHeadquarter);
 
     }
 

@@ -118,7 +118,7 @@
             <div class="counter counter-lg counter-inverse">
               <div class="counter-label text-uppercase font-size-16">Total Usuarios sedes</div>
               <div class="counter-number-group">
-                <span class="counter-number">{{$usersTotalHeadquarterCount}}</span>
+                <span class="counter-number">{{$countGralHeadquarter}}</span>
                 <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
               </div>
 
@@ -139,7 +139,7 @@
               <div class="counter counter-lg counter-inverse">
                 <div class="counter-label text-uppercase font-size-16"># Contactos</div>
                 <div class="counter-number-group">
-                  <span class="counter-number">{{$contacts}}</span>
+                  <span class="counter-number">{{$usersTotalCount - ($countGralHeadquarter + $valientes) }}</span>
                   <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
                 </div>
 
