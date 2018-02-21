@@ -154,9 +154,13 @@ class AdministratorController extends Controller
         //Informacion Pastor Cesar
         if($user->level == 1){
           //Contactos Generales
-          $contacts = User::where('contactType','contacto')->count();
+
+
           //Valientes Generales
           $valientes = User::where('contactType','ministerio')->count();
+
+          $contacts = $usersTotalCount - ($countGralHeadquarter + $valientes);
+
           //Equipo Principal
           $usersMen = User::where('userId',$user->id)->where('gender','masculino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
           $usersWomen = User::where('userId',$user->id)->where('gender','femenino')->where('id','!=',$user->id)->where('contactType','ministerio')->get();
