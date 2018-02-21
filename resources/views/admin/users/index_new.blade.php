@@ -114,6 +114,16 @@
               </div>
             </div>
           </div>
+          <div class="card card-block p-20 bg-blue-600">
+            <div class="counter counter-lg counter-inverse">
+              <div class="counter-label text-uppercase font-size-16">Total Usuarios sedes</div>
+              <div class="counter-number-group">
+                <span class="counter-number">{{$usersTotalHeadquarterCount}}</span>
+                <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
+              </div>
+
+            </div>
+          </div>
           @endif
             <div class="card card-block p-20 bg-blue-600">
               <div class="counter counter-lg counter-inverse">

@@ -228,9 +228,6 @@ function selectCity(){
                     delay: 2000
    // Send Ajax request every 2 seconds
             },
-            notEmpty: {
-              message: 'Digite su Identificacion'
-            }
           }
         },
         name: {
