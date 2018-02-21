@@ -159,6 +159,16 @@
       </div>
 
       <div class="col-lg-9">
+        @if(Session::has('flash_message'))
+
+        <div class="alert alert-info alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  Información : {{Session::get('flash_message')}}
+                </div>
+
+              @endif
         <!-- Panel -->
         <div class="panel">
           <div class="panel-body nav-tabs-animate nav-tabs-horizontal" data-plugin="tabs">

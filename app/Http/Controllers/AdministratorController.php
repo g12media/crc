@@ -27,6 +27,8 @@ class AdministratorController extends Controller
     private $count;
     private $count_exist;
     private $number_export_exist;
+    private $userType;
+    private $leaderId;
 
     public function dashboard(){
       return redirect('administrator/users/');
@@ -674,6 +676,11 @@ class AdministratorController extends Controller
       return $headquarter;
     }
     public function loadMasiveFile(Request $request){
+
+
+          $this->leaderId = $request->leader;
+          $usuario = User::find($this->leaderId);
+          $this->userType = $usuario->contactType;
           $this->data = array();
 
           $this->count = 0;
@@ -684,44 +691,82 @@ class AdministratorController extends Controller
               Excel::load($file, function($reader) {
                 $this->i = 0;
                  $reader->each(function($sheet) {
-                    //Verify User
-                    $user_exist = User::where('identification',$sheet->valiente)->count();
-                    if($user_exist > 0){
-                      $userData = User::where('identification',$sheet->valiente)->take(1)->get();
-                      foreach ($userData as $u) {
-                        $userCount = User::where('identification',$sheet->documento)->count();
-                        if($userCount == 0){
-                          $User = new User;
-                          $User->userType = 'user';
-                          $User->contactType = 'contacto';
-                          $User->identification = $sheet->documento;
-                          $User->name = $sheet->nombres;
-                          $User->gender = $sheet->genero;
-                          $User->phone = $sheet->celular;
-                          $User->email = $sheet->email;
-                          $User->level = 0;
-                          $User->leaderPrincipal = 8;
-                          $User->userId = $u->id;
-                          $User->username = rand(10000,1000000000);
-                          $User->password = bcrypt(rand(10,1000000));
-                          $User->save();
-                          $this->count++;
-                        }else{
-                          $this->count_exist++;
-                        }
-                      }
+                    //Add sede
+                    if($this->userType == "sede"){
 
+                      $userCount = User::where('identification',$sheet->documento)->count();
+                      //Verifica que el usuario no exista en la base de datos
+                      if($sheet->documento == "" || $userCount == 0){
+                        $User = new User;
+                        $User->userType = 'user';
+                        $User->contactType = 'contacto';
+                        $User->identification = $sheet->documento;
+                        $User->name = $sheet->nombres;
+                        $User->lastName = $sheet->apellidos;
+                        $User->gender = $sheet->genero;
+                        $User->phone = $sheet->celular;
+                        $User->email = $sheet->email;
+                        $User->level = 0;
+                        $User->leaderPrincipal = $this->leaderId;
+                        $User->userId = $this->leaderId;
+                        $User->department = $sheet->departamento;
+                        $User->city = $sheet->ciudad;
+                        $User->neighborhood = $sheet->barrio;
+                        $User->username = rand(10000,1000000000);
+                        $User->password = bcrypt(rand(10,1000000));
+                        $User->save();
+                        $this->count++;
+                      }else{
+                        $this->count_exist++;
+                      }
                     }else{
-                      array_push($this->data,$sheet->valiente);
+                      $user_exist = User::where('identification',$sheet->valiente)->count();
+                      if($user_exist > 0){
+                        $userData = User::where('identification',$sheet->valiente)->take(1)->get();
+                        foreach ($userData as $u) {
+                          $userCount = User::where('identification',$sheet->documento)->count();
+                          //Verifica que el usuario no exista en la base de datos
+                          if($userCount == 0){
+                            $User = new User;
+                            $User->userType = 'user';
+                            $User->contactType = 'contacto';
+                            $User->identification = $sheet->documento;
+                            $User->name = $sheet->nombres;
+                            $User->lastName = $sheet->apellidos;
+                            $User->gender = $sheet->genero;
+                            $User->phone = $sheet->celular;
+                            $User->email = $sheet->email;
+                            $User->level = 0;
+                            $User->leaderPrincipal = $leaderId;
+                            $User->userId = $u->id;
+                            $User->location = $sheet->localidad_vive;
+                            $User->locationVote = $sheet->localidad_vota;
+                            $User->neighborhood = $sheet->barrio;
+                            $User->username = rand(10000,1000000000);
+                            $User->password = bcrypt(rand(10,1000000));
+                            $User->save();
+                            $this->count++;
+                          }else{
+                            $this->count_exist++;
+                          }
+                        }
+
+                      }else{
+                        array_push($this->data,$sheet->valiente);
+                      }
                     }
+
 
                 });
             });
+          }else{
+            return "Archivo Invalido";
           }
 
           array_push($this->data,"Cantidad Agregados:".$this->count);
           array_push($this->data,"Cantidad Existentes:".$this->count_exist);
-          return $this->data;
+          \Session::flash('flash_message','Usuarios Nuevos: '.$this->count.' - Usuarios Existentes: '.$this->count_exist);
+          return redirect('/administrator/users/2018-'.$request->leader.'-'.rand(10000,100000));
 
 
     }
