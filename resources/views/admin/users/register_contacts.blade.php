@@ -257,23 +257,7 @@ function selectCity(){
               message: 'Digite su Barrio'
             }
           }
-        },
-        location: {
-          validators: {
-            notEmpty: {
-              message: 'Seleccione la localidad donde vive'
-            }
-          }
-        },
-        locationVote: {
-          validators: {
-            notEmpty: {
-              message: 'Seleccione la localidad donde vota'
-            }
-          }
-        },
-
-        email: {
+        },email: {
           validators: {
             emailAddress: {
               message: 'El email que ha ingresado es invalido'
