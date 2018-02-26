@@ -779,7 +779,7 @@ class AdministratorController extends Controller
                             $User->phone = $sheet->celular;
                             $User->email = $sheet->email;
                             $User->level = 0;
-                            $User->leaderPrincipal = $leaderId;
+                            $User->leaderPrincipal = $this->leaderId;
                             $User->userId = $u->id;
                             $User->location = $sheet->localidad_vive;
                             $User->locationVote = $sheet->localidad_vota;
