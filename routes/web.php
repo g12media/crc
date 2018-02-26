@@ -31,6 +31,7 @@ Route::group(['prefix'=>'superadmin','middleware'=>['auth','AccessSuperAdmin']],
   Route::get('/', 'SuperAdminController@dashboard');
 });
 Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],function(){
+
   Route::get('/', 'AdministratorController@dashboard');
 
   Route::get('/callcenter', 'AdministratorController@callCenter');
@@ -44,6 +45,8 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
 
   Route::group(['prefix'=>'users'],function(){
           Route::get('/', 'AdministratorController@getUsers');
+          Route::get('/ministerio', 'AdministratorController@getAllMinistry');
+          Route::get('/contactos', 'AdministratorController@getAllContacts');
           Route::get('/{id}', 'AdministratorController@getUsersByProfile');
           Route::post('/add', 'AdministratorController@saveUsers');
           Route::post('/headquarter/add', 'AdministratorController@saveHeadquarter');
@@ -57,6 +60,10 @@ Route::group(['prefix'=>'administrator','middleware'=>['auth','AccessAdmin']],fu
           Route::get('/get/{id}', 'AdministratorController@getUser');
           Route::get('/headquarter/{id}', 'AdministratorController@getHeadquarter');
           Route::post('/upload', 'AdministratorController@loadMasiveFile');
+
+
+
+
       });
 
 });

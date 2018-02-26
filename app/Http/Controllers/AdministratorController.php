@@ -202,6 +202,37 @@ class AdministratorController extends Controller
 
     }
 
+    public function getAllContacts(){
+      $user = Auth::user();
+      $contacts = User::select('identification as Identificacion','name as Nombres','lastName as Apellidos','gender as Genero','department as Departamento','city as Ciudad/Municipio','neighborhood as Barrio','email as Email','phone as Telefono')->where('leaderPrincipal',$user->id)->where('contactType','contacto')->get();
+
+      return Excel::create('datos_contactos', function($excel) use ($contacts) {
+			$excel->sheet('mySheet', function($sheet) use ($contacts)
+	        {
+				$sheet->fromArray($contacts);
+	        });
+		})->download('xls');
+
+
+
+
+    }
+    public function getAllMinistry(){
+      $user = Auth::user();
+      if($user->contactType == 'sede'){
+        $ministry = User::select('identification as Identificacion','name as Nombres','lastName as Apellidos','gender as Genero','department as Departamento','city as Ciudad/Municipio','neighborhood as Barrio','email as Email','phone as Telefono')->where('leaderPrincipal',$user->id)->where('contactType','sede')->get();
+      }else{
+        $ministry = User::select('identification as Identificacion','name as Nombres','lastName as Apellidos','gender as Genero','department as Departamento','city as Ciudad/Municipio','neighborhood as Barrio','email as Email','phone as Telefono')->where('leaderPrincipal',$user->id)->where('contactType','ministerio')->get();
+      }
+
+      return Excel::create('datos_ministerio', function($excel) use ($ministry) {
+      $excel->sheet('mySheet', function($sheet) use ($ministry)
+          {
+        $sheet->fromArray($ministry);
+          });
+      })->download('xls');
+    }
+
     public function votantes(){
       return view('admin.users.votantes');
     }

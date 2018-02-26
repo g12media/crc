@@ -127,7 +127,7 @@
           @endif
             <div class="card card-block p-20 bg-blue-600">
               <div class="counter counter-lg counter-inverse">
-                <div class="counter-label text-uppercase font-size-16"># Valientes</div>
+                <div class="counter-label text-uppercase font-size-16"><a href="/administrator/users/ministerio" class="link-data"># Valientes</a></div>
                 <div class="counter-number-group">
                   <span class="counter-number">{{$valientes}}</span>
                   <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
@@ -137,7 +137,7 @@
 
             <div class="card card-block p-20 bg-blue-600">
               <div class="counter counter-lg counter-inverse">
-                <div class="counter-label text-uppercase font-size-16"># Contactos</div>
+                <div class="counter-label text-uppercase font-size-16"><a href="/administrator/users/contactos" class="link-data"># Contactos</a></div>
                 <div class="counter-number-group">
                   <span class="counter-number">{{$contacts}}</span>
                   <span class="counter-icon ml-10"><i class="icon wb-users" aria-hidden="true"></i></span>
